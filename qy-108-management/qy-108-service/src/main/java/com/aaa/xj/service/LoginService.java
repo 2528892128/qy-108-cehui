@@ -50,7 +50,8 @@ public class LoginService extends BaseService<User> {
                     // 需要给token设置一个失效时间(因为以后每一个方法都需要去查询token，也就是说必须要查询数据库)
                     // 就会大量影响效率(所以说直接存缓存)
                     String setResult = redisService.set(String.valueOf(u.getId()), token, XX, EX, 1800);
-                    if("OK".equals(setResult.toUpperCase()) || "1".equals(setResult)) {
+                    System.out.println(setResult);
+                    if("OK".equals(setResult.toUpperCase())) {
                         // TODO OK一定会返回，但是受影响的行数你们自己测试一下，我忘记了！
                         return tokenVo.setIfSuccess(true).setToken(token).setRedisKey(String.valueOf(u.getId()));
                     }

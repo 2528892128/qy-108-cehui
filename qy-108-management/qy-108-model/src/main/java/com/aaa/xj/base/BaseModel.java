@@ -20,7 +20,7 @@ public class BaseModel implements Serializable {
 
     @Id
     @NotNull
-    private long id;
+    private Long id;
 
     @Column(name = "create_time")
     @Max(value = 100, message = "时间长度最长不能超过100")

@@ -1,12 +1,12 @@
 package com.aaa.xj.service;
 
-import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.User;
 import com.aaa.xj.vo.TokenVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 /**
  * @Company AAA软件教育
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *         相同的注解，而且provider和api的方法必须要一模一样(copy是最方便的)
  *
  **/
-@FeignClient(value = "system-interface")
+@FeignClient(value ="system-interface")
 public interface IQYService {
 
     /**

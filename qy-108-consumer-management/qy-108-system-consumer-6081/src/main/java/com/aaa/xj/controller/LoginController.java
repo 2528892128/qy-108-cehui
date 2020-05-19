@@ -18,6 +18,15 @@ public class LoginController extends BaseController {
     @Autowired
     private IQYService iqyService;
 
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *          执行登录操作
+     * @Data: 2020/5/16 12:29
+     * @param user
+     * @Return:com.aaa.xj.base.ResultData
+     */
     @PostMapping("/doLogin")
     @ApiOperation(value = "登录功能", notes = "用户执行登录功能")
     public ResultData doLogin(User user) {

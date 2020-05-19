@@ -54,7 +54,9 @@ public class RedisService<T> {
     public String set(String key, T value, String nxxx, String expx, Integer seconds) {
         if(null != seconds && 0 < seconds && (NX.equals(nxxx) || XX.equals(nxxx)) && (EX.equals(expx) || PX.equals(expx))) {
             // 说明需要设置失效时间
-            return jedisCluster.set(key, JSONUtil.toJsonString(value), nxxx, expx, seconds);
+
+           return jedisCluster.set(key, JSONUtil.toJsonString(value), nxxx, expx, seconds);
+
         } else {
             // 说明不需要设置失效时间
             // 就算不需要失效时间，但是我也得知道最终你所传递的是nx还是xx，所以需要再次判断
