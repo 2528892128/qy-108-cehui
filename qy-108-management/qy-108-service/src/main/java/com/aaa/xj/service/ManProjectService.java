@@ -23,7 +23,6 @@ public class ManProjectService extends BaseService<ManProject> {
 
     @Autowired
     private ManProjectMapper manProjectMapper;
-    private int i;
 
     /**
      * @Summary:

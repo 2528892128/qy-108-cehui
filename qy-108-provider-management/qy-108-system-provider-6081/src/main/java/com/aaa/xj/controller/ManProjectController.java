@@ -36,6 +36,15 @@ public class ManProjectController {
         }
         return null;
     }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      通过id查询项目
+     * @Data: 2020/5/21
+     * @param id
+     * @Return:com.aaa.xj.model.ManProject
+     */
     @GetMapping("selectById")
     public ManProject selectById(@RequestParam("id") Long id){
         try {

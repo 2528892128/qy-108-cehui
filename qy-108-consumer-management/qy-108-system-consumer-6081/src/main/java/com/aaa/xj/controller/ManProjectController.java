@@ -74,20 +74,20 @@ public class ManProjectController extends BaseController {
         return super.updateFalse();
     }
 
-    /**
-     * @Summary:
-     * @Author:  xj
-     * @description
-     *      根据项目类型查询
-     * @Data: 2020/5/22 10:48
-     * @param type
-     * @Return:com.aaa.xj.base.ResultData
-     */
-    @PostMapping("/selectByType")
-    public ResultData selectByType(String projectType,User user){
-        ResultData resultData = iqyService.selectByType(projectType, user);
-        return resultData;
-    }
+//    /**
+//     * @Summary:
+//     * @Author:  xj
+//     * @description
+//     *      根据项目类型查询
+//     * @Data: 2020/5/22 10:48
+//     * @param type
+//     * @Return:com.aaa.xj.base.ResultData
+//     */
+//    @PostMapping("/selectByType")
+//    public ResultData selectByType(String projectType,User user){
+//        ResultData resultData = iqyService.selectByType(projectType, user);
+//        return resultData;
+//    }
 
 
 }
