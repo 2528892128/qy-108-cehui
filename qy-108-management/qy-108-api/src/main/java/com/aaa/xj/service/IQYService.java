@@ -128,7 +128,7 @@ public interface IQYService {
      * @Date: 2020/5/20 16:13
      */
     @PostMapping("/qureyPrincipal")
-    ResultData qureyOne(Long id);
+    List<Principal> qureyOne(Long id);
 
     /**
      * @Description: 修改负责人信息
@@ -148,7 +148,7 @@ public interface IQYService {
      * @Date: 2020/5/22 10:30
      */
     @PostMapping("/qureyTechnicist")
-    ResultData qureyTechnicist(Long UserId);
+    List<Technicist> qureyTechnicist(Long UserId);
 
     /**
      * @Description: 修改技术人员信息
