@@ -146,15 +146,16 @@ public class BaseController {
     }
     /**
        * @Author xj
-       * @Description 查询成功
+       * @Description 查询成功，使用系统消息，自定义返回值
        * @Date 10:37 2020/5/13
        * @Param * @param
        * @return com.aaa.lee.base.ResultData
      */
-    protected ResultData getSuccess() {
+    protected ResultData getSuccess(Object data) {
         ResultData resultData = new ResultData();
         resultData.setCode(QUERY_SUCCESS.getCode());
         resultData.setMsg(QUERY_SUCCESS.getMsg());
+        resultData.setData(data);
         return resultData;
     }
     /**
