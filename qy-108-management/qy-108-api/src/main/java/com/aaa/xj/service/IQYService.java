@@ -119,6 +119,57 @@ public interface IQYService {
      */
     @PostMapping("/updateById")
     Integer updateById(@RequestBody ManProject manProject);
+
+    /**
+     * @Description: 获取负责人信息
+     * @Param: [principal]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/5/20 16:13
+     */
+    @PostMapping("/qureyPrincipal")
+    ResultData qureyOne(Long id);
+
+    /**
+     * @Description: 修改负责人信息
+     * @Param: [principal]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/5/21 19:38
+     */
+    @PostMapping("/updateList")
+    Boolean updateList(@RequestBody Principal principal);
+
+    /**
+     * @Description: 获取技术人员信息
+     * @Param: [userId]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/5/22 10:30
+     */
+    @PostMapping("/qureyTechnicist")
+    ResultData qureyTechnicist(Long UserId);
+
+    /**
+     * @Description: 修改技术人员信息
+     * @Param: [technicist]
+     * @return: java.lang.Boolean
+     * @Author: ygy
+     * @Date: 2020/5/22 16:37
+     */
+    @PostMapping("/updateTechnicist")
+    Boolean updateTechnicist(Technicist technicist);
+
+    /**
+     * @Description: 获取单位信息
+     * @Param: [userId]
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/5/22 20:25
+     */
+    @PostMapping("/qureyMapping_unit")
+    List<Mapping_unit> qureyMapping_unit(Long userId);
+
 }
 
 
