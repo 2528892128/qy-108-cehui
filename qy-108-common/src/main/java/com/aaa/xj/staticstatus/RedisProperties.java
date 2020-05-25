@@ -13,5 +13,6 @@ public class RedisProperties {
     public static final String XX = "xx";
     public static final String EX = "ex";
     public static final String NO = "no";
+    public static final String KEY = "81";
 
 }

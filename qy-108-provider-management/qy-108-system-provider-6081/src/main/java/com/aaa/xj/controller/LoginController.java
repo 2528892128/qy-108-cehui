@@ -1,5 +1,6 @@
 package com.aaa.xj.controller;
 
+import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.User;
 import com.aaa.xj.service.LoginLogsService;
 import com.aaa.xj.service.LoginService;
@@ -25,7 +26,7 @@ public class LoginController {
 
 
     /**
-     * @author Seven Lee
+     * @author
      * @description
      *      执行登录操作
      * @param [user]
@@ -47,4 +48,10 @@ public class LoginController {
         }
         return tokenVo;
     }
+//
+//    @PostMapping("/isLogin")
+//    public ResultData isLogin(){
+//        return loginService.isLogin(redisService);
+//    }
+
 }

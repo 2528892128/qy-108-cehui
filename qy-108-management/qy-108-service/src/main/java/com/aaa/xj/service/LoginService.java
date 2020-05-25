@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
 import static com.aaa.xj.staticstatus.RedisProperties.*;
 import static com.aaa.xj.staticstatus.RedisProperties.XX;
 
@@ -60,4 +61,38 @@ public class LoginService extends BaseService<User> {
         }
         return tokenVo;
     }
+
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      判断用户是否登录
+     * @Data: 2020/5/20 15:11
+     * @param
+     * @Return:com.aaa.xj.base.ResultData
+     */
+//    public ResultData isLogin(RedisService redisService){
+//        TokenVo tokenVo = new TokenVo();
+//
+//        ResultData resultData = new ResultData();
+//        //根据key获取value  token值
+//        String tokenByRedis = redisService.getTokenByRedis(KEY);
+//        //将token存入tokenvo
+//        tokenVo.setToken(tokenByRedis);
+//        //判断token是否存在
+//        if (!"".equals(tokenByRedis)){
+//            TokenVo tokenVo1 = userMapper.selectByToken(tokenVo);
+//            String token = tokenVo1.getToken();
+//            //判断token值是否相同
+//            if (token.equals(tokenByRedis)){
+//               //相同说明用户已经登录
+//                resultData.setCode(LOGIN_SUCCESS.getCode());
+//            }
+//                resultData.setCode(LOGIN_FAILED.getCode());
+//        }else {
+//            resultData.setCode(LOGIN_FAILED.getCode());
+//        }
+//        return resultData;
+//    }
 }

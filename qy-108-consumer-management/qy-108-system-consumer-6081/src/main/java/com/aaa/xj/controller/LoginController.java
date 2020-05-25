@@ -36,4 +36,10 @@ public class LoginController extends BaseController {
         }
         return super.loginFailed();
     }
+//
+//    @PostMapping("/isLogin")
+//    public ResultData isLogin(){
+//        ResultData login = iqyService.isLogin();
+//        return login;
+//    }
 }

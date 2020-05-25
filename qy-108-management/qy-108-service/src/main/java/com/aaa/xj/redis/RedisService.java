@@ -2,6 +2,8 @@ package com.aaa.xj.redis;
 
 import com.aaa.xj.utils.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisCluster;
 
@@ -68,6 +70,22 @@ public class RedisService<T> {
         }
         return NO;
     }
-
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *          获取redis中的token值
+     * @Data: 2020/5/20 16:22
+     * @param
+     * @param key
+     * @Return:java.util.HashMap<java.lang.String,java.lang.Object>
+     */
+//    public String getTokenByRedis(String key){
+//
+//        //通过key来获取value token值
+//        Object value = redisTemplate.opsForValue().get(key);
+//
+//       return jedisCluster.set(KEY,JSONUtil.toJsonString(value));
+//    }
 
 }

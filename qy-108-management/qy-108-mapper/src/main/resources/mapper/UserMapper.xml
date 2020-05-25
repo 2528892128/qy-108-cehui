@@ -21,4 +21,6 @@
     <result column="type" property="type" jdbcType="CHAR" />
     <result column="token" property="token" jdbcType="VARCHAR" />
   </resultMap>
+
+
 </mapper>

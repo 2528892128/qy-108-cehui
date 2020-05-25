@@ -1,5 +1,7 @@
 package com.aaa.xj.base;
 
+import static com.aaa.xj.status.CrudStatus.ADD_FAILED;
+import static com.aaa.xj.status.CrudStatus.ADD_SUCCESS;
 import static com.aaa.xj.status.LoginStatus.*;
 
 /**
@@ -81,7 +83,7 @@ public class BaseController {
      * @author Seven Lee
      * @description
      *      登录失败，使用系统消息
-     * @param []
+     * @param
      * @date 2020/5/12
      * @return com.aaa.lee.base.ResultData
      * @throws
@@ -169,6 +171,37 @@ public class BaseController {
         ResultData resultData = new ResultData();
         resultData.setCode(QUERY_FALSE.getCode());
         resultData.setMsg(QUERY_FALSE.getMsg());
+        return resultData;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *       新增成功
+     * @Data: 2020/5/13
+     * @param
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    protected ResultData addSuccess(){
+        ResultData resultData = new ResultData();
+        resultData.setCode(ADD_SUCCESS.getCode());
+        resultData.setMsg(ADD_SUCCESS.getMsg());
+        return resultData;
+    }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      新增失败
+     * @Data: 2020/5/13
+     * @param
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    protected ResultData addFalse(){
+        ResultData resultData = new ResultData();
+        resultData.setCode(ADD_FAILED.getCode());
+        resultData.setMsg(ADD_FAILED.getMsg());
         return resultData;
     }
 

@@ -157,7 +157,7 @@ public abstract class CommonController<T> extends BaseController {
    * @Description
    *   查询一条数据
    * @Date 9:43 2020/5/13
-   * @Param * @param map
+   * @Param  map
    * @return com.aaa.lee.base.ResultData
  */
     public ResultData getOne(Map map){
@@ -165,7 +165,7 @@ public abstract class CommonController<T> extends BaseController {
         try {
             T t = getBaseService().queryOne(instance);
             if (null !=t && "".equals(t)){
-                return getSuccess();
+                return getSuccess(map);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -185,7 +185,7 @@ public abstract class CommonController<T> extends BaseController {
         try {
             List<T> list = getBaseService().queryList(instance);
             if (list.size() > 0){
-                return getSuccess();
+                return getSuccess(map);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -198,7 +198,7 @@ public abstract class CommonController<T> extends BaseController {
    *   不带条件的分页查询
    * @Date 9:43 2020/5/13
    * @Param * @param map
-   * @return com.aaa.lee.base.ResultData
+   * @return com.aaa.xj.base.ResultData
  */
     public ResultData getListByPage(Map map){
         Integer pageNo = (Integer) map.get("pageNo");
@@ -207,7 +207,7 @@ public abstract class CommonController<T> extends BaseController {
         try {
             PageInfo<T> info = getBaseService().queryListByPage(instance, pageNo, pageSize);
             if (null !=info && "".equals(info)){
-                return getSuccess();
+                return getSuccess(map);
             }
         }catch (Exception e){
             e.printStackTrace();
