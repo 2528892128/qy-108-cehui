@@ -34,9 +34,9 @@ public class PrincipalService extends BaseService<Principal> {
      * @Author: ygy
      * @Date: 2020/5/20 14:50
      */
-    public Principal qureyOne(Long id){
+    public List<Principal> qureyOne(Long id){
         //获取信息
-        Principal principal = principalMapper.qureyOne(id);
+        List<Principal> principal = principalMapper.qureyOne(id);
         //判断负责人的信息是否为空
         if (null != principal){
             //不为空就返回信息
