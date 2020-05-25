@@ -32,12 +32,12 @@ public class PrincipalController extends BaseController {
      * @Date: 2020/5/20 16:11
      */
     @PostMapping("/qureyPrincipal")
-    public ResultData qureyOne(Long id){
-        Principal principals = principalService.qureyOne(id);
+    public List<Principal> qureyOne(Long id){
+        List<Principal> principals = principalService.qureyOne(id);
         if (null != principals){
-            return getSuccess(principals);
+            return principals;
         }
-        return getFalse();
+        return null;
     }
 
     /**
