@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.AuditMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.Audit" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTime" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="ref_id" property="refId" jdbcType="BIGINT" />
+  </resultMap>
+  <select id="selectAuditByRefId" resultMap="BaseResultMap" parameterType="com.aaa.xj.model.Audit" >
+    select id, name, status, memo, submit_time, audit_time,
+      create_time,
+      type, user_id, ref_id
+    from t_audit
+    where ref_id=#{refId, jdbcType=BIGINT}
+  </select>
+</mapper>

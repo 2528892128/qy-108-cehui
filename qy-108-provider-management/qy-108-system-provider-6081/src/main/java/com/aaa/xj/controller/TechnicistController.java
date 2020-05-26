@@ -1,7 +1,6 @@
 package com.aaa.xj.controller;
 
 import com.aaa.xj.base.BaseController;
-import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.Technicist;
 import com.aaa.xj.service.TechnicistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.List;
  * @create: 2020-05-22-2020/5/22 10:25
  */
 @RestController
-public class TechnicistController extends BaseController {
+public class TechnicistController{
 
     @Autowired
     private TechnicistService technicistService;

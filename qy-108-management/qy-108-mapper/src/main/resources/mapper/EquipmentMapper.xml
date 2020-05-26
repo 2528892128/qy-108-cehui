@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.EquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.Equipment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="production_id" property="productionId" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="check_date" property="checkDate" jdbcType="VARCHAR" />
+    <result column="effective_date" property="effectiveDate" jdbcType="VARCHAR" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="check_department" property="checkDepartment" jdbcType="VARCHAR" />
+    <result column="check_certificate_id" property="checkCertificateId" jdbcType="VARCHAR" />
+    <result column="identified" property="identified" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectEquipment" parameterType="Equipment" resultType="Equipment">
+    select id, name, brand, production_id, number, check_date, effective_date, invoice_code,
+    check_department, check_certificate_id, identified
+    from t_equipment
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+</mapper>
