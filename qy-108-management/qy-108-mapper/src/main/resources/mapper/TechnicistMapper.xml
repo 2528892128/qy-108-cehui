@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.TechnicistMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.Technicist" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="major_type" property="majorType" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="work_year" property="workYear" jdbcType="INTEGER" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="graduation_date" property="graduationDate" jdbcType="DATE" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="education_background" property="educationBackground" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="title_major" property="titleMajor" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="title_time" property="titleTime" jdbcType="DATE" />
+    <result column="start_contract" property="startContract" jdbcType="DATE" />
+    <result column="end_contract" property="endContract" jdbcType="DATE" />
+    <result column="post" property="post" jdbcType="VARCHAR" />
+    <result column="mapping_year" property="mappingYear" jdbcType="INTEGER" />
+    <result column="special_post" property="specialPost" jdbcType="VARCHAR" />
+    <result column="affirm" property="affirm" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="modify_time" property="modifyTime" jdbcType="DATE" />
+  </resultMap>
+
+  <select id="qureyTechnicist" parameterType="Technicist" resultType="Technicist">
+    select id,name,id_number,major_type,sex,age,major,duty from t_technicist where user_id=#{userId}
+  </select>
+
+  <update id="updataTechnicist" parameterType="Technicist">
+    update t_technicist
+    set name = #{name,jdbcType=VARCHAR},
+      major_type = #{majorType,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      duty = #{duty,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      title_major = #{titleMajor,jdbcType=VARCHAR},
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
