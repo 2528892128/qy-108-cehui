@@ -46,12 +46,18 @@ public class MappingProjectController {
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
     @GetMapping ("/selectAllByType")
-    public List<MappingProject> selectAllByType(String projectType) {
-        // 调用 mappingProjectService 中的 getAllByProjectType 方法获取数据
+    public List<MappingProject> selectAllByType(@RequestParam("projectType") String projectType) {
+        // 调用 mappingProjectService 中的 getAllByProjectType 方法，得到结果
         List<MappingProject> allByType = mappingProjectService.selectAllByProjectType(projectType);
 
-        // 返回查询的结果
-        return allByType;
+        // 判断 结果是否为空
+        if (allByType == null){
+            // 结果为空，返回null
+            return null;
+        }else {
+            // 返回结果
+            return allByType;
+        }
     }
 
     /**

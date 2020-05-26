@@ -1,8 +1,8 @@
 package com.aaa.xj.service;
 
-import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
+import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +68,7 @@ public interface IQYService {
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
     @GetMapping("/selectAllByType")
-    List<MappingProject> selectAllByType(String projectType);
+    List<MappingProject> selectAllByType(@RequestParam("projectType") String projectType);
 
     /**
      * @author ligen
@@ -80,7 +80,7 @@ public interface IQYService {
      * @return com.github.pagehelper.PageInfo
      */
      @PostMapping("/selectALLByPage")
-     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
