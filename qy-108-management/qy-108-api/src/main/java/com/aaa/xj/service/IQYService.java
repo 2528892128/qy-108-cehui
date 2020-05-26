@@ -1,8 +1,7 @@
 package com.aaa.xj.service;
 
-import com.aaa.xj.model.ManProject;
-import com.aaa.xj.model.MappingProject;
-import com.aaa.xj.model.User;
+import com.aaa.xj.base.ResultData;
+import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -169,6 +168,18 @@ public interface IQYService {
      */
     @PostMapping("/qureyMapping_unit")
     List<Mapping_unit> qureyMapping_unit(Long userId);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      查询所有用户信息
+     * @Data: 2020/5/26
+     * @param
+     * @Return:java.util.List<com.aaa.xj.model.User>
+     */
+    @GetMapping("/selectAll")
+    List<User> selectAllUser();
 
 }
 
