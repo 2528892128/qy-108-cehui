@@ -1,13 +1,10 @@
 package com.aaa.xj.controller;
 
-import com.aaa.xj.base.BaseController;
-import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.Principal;
 import com.aaa.xj.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,7 +16,7 @@ import java.util.List;
  * @create: 2020-05-20-2020/5/20 15:42
  */
 @RestController
-public class PrincipalController extends BaseController {
+public class PrincipalController {
 
     @Autowired
     private PrincipalService principalService;
