@@ -3,7 +3,6 @@ package com.aaa.xj.service;
 import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
-import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -200,6 +199,19 @@ public interface IQYService {
      */
     @PostMapping("/qureySpecialPost")
     List<SpecialPost> selectSpecialPost(Long userId);
+
+    /**
+     * @author ligen
+     * @description
+     *  根据 业务编号 ref_id，查询该业务的审核日志
+     * @date 2020/5/25
+     * @param [refId]
+     * @return java.util.List<com.aaa.xj.model.Audit>
+     */
+    @GetMapping("/selectAuditByRefId")
+    List<Audit> selectAuditByRefId(@RequestParam("refId") Long refId);
+
+
 
 }
 
