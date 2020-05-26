@@ -30,12 +30,12 @@ public class TechnicistController extends BaseController {
      * @Date: 2020/5/22 10:29
      */
     @PostMapping("/qureyTechnicist")
-    public ResultData qureyTechnicist(Long UserId){
+    public List<Technicist> qureyTechnicist(Long UserId){
         List<Technicist> technicist = technicistService.qureyTechnicist(UserId);
         if (null != technicist){
-            return getSuccess(technicist);
+            return technicist;
         }
-        return getFalse();
+        return null;
     }
 
     /**
