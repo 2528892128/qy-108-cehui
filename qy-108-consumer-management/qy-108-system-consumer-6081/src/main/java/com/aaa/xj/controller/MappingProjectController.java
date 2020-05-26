@@ -16,7 +16,7 @@ import java.util.List;
  * @author ligen
  * @program qy-108-cehui
  * @description
- *  项目汇交接口
+ *  项目汇交
  * @create 2020-05-22 15:32
  */
 @RestController

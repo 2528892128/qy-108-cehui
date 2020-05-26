@@ -1,6 +1,5 @@
 package com.aaa.xj.controller;
 
-import com.aaa.xj.mapper.AuditMapper;
 import com.aaa.xj.model.Audit;
 import com.aaa.xj.service.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
