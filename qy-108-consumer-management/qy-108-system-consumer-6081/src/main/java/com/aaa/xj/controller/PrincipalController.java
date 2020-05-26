@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @program: qy-108-cehui
  * @description:
@@ -33,9 +35,9 @@ public class PrincipalController extends BaseController {
     @PostMapping("/qureyPrincipal")
     public ResultData QureyList(Long id) {
 
-        ResultData qureyOne = qyService.qureyOne(id);
-        if (null != qureyOne) {
-            return getSuccess(qureyOne);
+        List<Principal> principals = qyService.qureyOne(id);
+        if (null != principals) {
+            return getSuccess(principals);
         }
         return getFalse();
     }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @program: qy-108-cehui
  * @description:
@@ -31,7 +33,7 @@ public class TechnicistController extends BaseController {
     @PostMapping("/qureyTechnicist")
     public ResultData qureyTechnicist(Long UserId){
         //根据userID获取技术人员信息
-        ResultData technicists = qyService.qureyTechnicist(UserId);
+        List<Technicist> technicists = qyService.qureyTechnicist(UserId);
         //判断技术人员信息是否为空
         if (null != technicists){
             //不为空就返回带数据的信息
