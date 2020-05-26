@@ -2,6 +2,7 @@ package com.aaa.xj.controller;
 
 import com.aaa.xj.base.BaseController;
 import com.aaa.xj.base.ResultData;
+import com.aaa.xj.model.Equipment;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
