@@ -1,6 +1,5 @@
 package com.aaa.xj.controller;
 
-import com.aaa.xj.model.Equipment;
 import com.aaa.xj.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
