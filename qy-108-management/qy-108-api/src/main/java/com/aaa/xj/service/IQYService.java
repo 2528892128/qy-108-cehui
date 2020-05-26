@@ -1,5 +1,6 @@
 package com.aaa.xj.service;
 
+import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
@@ -79,8 +80,8 @@ public interface IQYService {
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    @GetMapping("/selectALLByPage")
-    PageInfo selectALLByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize);
+     @PostMapping("/selectALLByPage")
+     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
@@ -167,6 +168,18 @@ public interface IQYService {
      */
     @PostMapping("/qureyMapping_unit")
     List<Mapping_unit> qureyMapping_unit(Long userId);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      查询所有用户信息
+     * @Data: 2020/5/26
+     * @param
+     * @Return:java.util.List<com.aaa.xj.model.User>
+     */
+    @GetMapping("/selectAllUser")
+    List<User> selectAllUser();
 
     /**
      * @Description: 根据userID获取仪器设别信息

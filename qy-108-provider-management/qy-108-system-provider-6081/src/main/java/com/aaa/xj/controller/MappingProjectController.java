@@ -4,8 +4,7 @@ import com.aaa.xj.model.MappingProject;
 import com.aaa.xj.service.MappingProjectService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,8 +63,8 @@ public class MappingProjectController {
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    @GetMapping("/selectALLByPage")
-    public PageInfo selectALLByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
+    @PostMapping("/selectALLByPage")
+    public PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize) {
         // 调用 mappingProjectService 中的 getAllByProjectType 方法，查询
         PageInfo pageInfo = mappingProjectService.selectALLByPage(mappingProject, pageNo, pageSize);
         return pageInfo;

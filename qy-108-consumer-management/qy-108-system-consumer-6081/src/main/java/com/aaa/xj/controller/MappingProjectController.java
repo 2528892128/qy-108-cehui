@@ -4,10 +4,12 @@ import com.aaa.xj.base.BaseController;
 import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.MappingProject;
 import com.aaa.xj.service.IQYService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -76,5 +78,11 @@ public class MappingProjectController extends BaseController {
             // 返回提出查询失败，使用系统消息
             return getFalse();
         }
+    }
+
+
+    @PostMapping("/selectALLByPage")
+    public PageInfo selectALLByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize){
+        return iqyService.selectALLByPage(mappingProject,pageNo,pageSize);
     }
 }
