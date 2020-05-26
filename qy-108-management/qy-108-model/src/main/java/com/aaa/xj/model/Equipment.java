@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_equipment")
-public class Equipment implements Serializable {
+public class Equipment {
     /**
      * 编号
      */
