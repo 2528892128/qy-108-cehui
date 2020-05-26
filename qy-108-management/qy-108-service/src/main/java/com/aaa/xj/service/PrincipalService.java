@@ -3,17 +3,15 @@ package com.aaa.xj.service;
 import com.aaa.xj.base.BaseService;
 import com.aaa.xj.mapper.PrincipalMapper;
 import com.aaa.xj.model.Principal;
-import com.aaa.xj.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import javax.xml.crypto.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-import static com.aaa.xj.staticstatus.RedisProperties.*;
 
 /**
  * @program: qy-108-cehui
