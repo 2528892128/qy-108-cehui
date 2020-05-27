@@ -5,6 +5,7 @@ import com.aaa.xj.mapper.SpecialPostMapper;
 import com.aaa.xj.model.SpecialPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class SpecialPostService extends BaseService<SpecialPost> {
      * @Author: ygy
      * @Date: 2020/5/25 21:57
      */
-    public List<SpecialPost> selectSpecialPost(Long userId){
+    public List<SpecialPost> selectSpecialPost(@RequestParam("userId") Long userId){
 
         try{
             //判断userID是否为空
