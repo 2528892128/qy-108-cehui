@@ -6,6 +6,8 @@ import com.aaa.xj.model.Technicist;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class TechnicistController extends BaseController {
      * @Date: 2020/5/22 10:51
      */
     @PostMapping("/qureyTechnicist")
-    public ResultData qureyTechnicist(Long UserId){
+    public ResultData qureyTechnicist(@RequestParam("userId") Long UserId){
         //根据userID获取技术人员信息
         List<Technicist> technicists = qyService.qureyTechnicist(UserId);
         //判断技术人员信息是否为空
@@ -49,7 +51,8 @@ public class TechnicistController extends BaseController {
      * @Author: ygy
      * @Date: 2020/5/22 16:43
      */
-    public ResultData updateTechnicist(Technicist technicist){
+    @PostMapping("/updateTechnicist")
+    public ResultData updateTechnicist(@RequestBody Technicist technicist){
         //判断返回的Boolean类型
         if (qyService.updateTechnicist(technicist)){
             //如果为true就返回修改成功信息
