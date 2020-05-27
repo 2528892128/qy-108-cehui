@@ -1,5 +1,6 @@
 package com.aaa.xj.model;
 
+import com.aaa.xj.base.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,22 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_mapping_unit")
-public class Mapping_unit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    /**
-     * 创建时间
-     */
-    @Column(name = "create_time")
-    private String createTime;
-
-    /**
-     * 修改时间
-     */
-    @Column(name = "modify_time")
-    private String modifyTime;
+public class Mapping_unit extends BaseModel {
 
     /**
      * 备注
