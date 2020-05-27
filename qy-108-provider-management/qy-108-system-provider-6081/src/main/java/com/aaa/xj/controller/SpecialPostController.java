@@ -4,6 +4,7 @@ import com.aaa.xj.model.SpecialPost;
 import com.aaa.xj.service.SpecialPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,14 +22,14 @@ public class SpecialPostController {
     private SpecialPostService specialPostService;
 
     /**
-     * @Description: 根据userId获取特殊人员信息
+     * @Description: 根据userId获取特殊岗位人员信息
      * @Param: [userId]
      * @return: java.util.List<com.aaa.xj.model.SpecialPost>
      * @Author: ygy
      * @Date: 2020/5/25 22:04
      */
     @PostMapping("/qureySpecialPost")
-    public List<SpecialPost> selectSpecialPost(Long userId){
+    public List<SpecialPost> selectSpecialPost(@RequestParam("userId") Long userId){
         try {
             //根据userID查询信息
             List<SpecialPost> specialPosts = specialPostService.selectSpecialPost(userId);
