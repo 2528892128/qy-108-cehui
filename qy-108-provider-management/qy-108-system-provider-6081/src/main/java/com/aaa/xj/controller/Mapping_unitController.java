@@ -5,6 +5,7 @@ import com.aaa.xj.service.Mapping_unitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class Mapping_unitController {
      * @Date: 2020/5/22 20:23
      */
     @PostMapping("/qureyMapping_unit")
-    public List<Mapping_unit> qureyMapping_unit(Long userId){
+    public List<Mapping_unit> qureyMapping_unit(@RequestParam("userId") Long userId){
         //根据userID查询单位信息
         List<Mapping_unit> mapping_units = mappingUnitService.qureyMapping_unit(userId);
         //判断查询结果是否为空
