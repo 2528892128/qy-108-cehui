@@ -6,6 +6,7 @@ import com.aaa.xj.model.Equipment;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class EquipmentController extends BaseController {
      * @Date: 2020/5/25 21:03
      */
     @PostMapping("/qureyEquipment")
-    public ResultData selectEquipment(Long userId){
+    public ResultData selectEquipment(@RequestParam("userId") Long userId){
         List<Equipment> equipment = iqyService.selectEquipment(userId);
         if (null != equipment && !"".equals(equipment)){
             return getSuccess(equipment);
