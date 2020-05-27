@@ -6,6 +6,7 @@ import com.aaa.xj.model.Mapping_unit;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class Mapping_unitController extends BaseController {
      * @Date: 2020/5/22 20:28
      */
     @PostMapping("/qureyMapping_unit")
-    public ResultData qureyMapping_unit(Long userId){
+    public ResultData qureyMapping_unit(@RequestParam("userId") Long userId){
         //根据userID查询单位信息
         List<Mapping_unit> mapping_units = iqyService.qureyMapping_unit(userId);
         //判断查询结果是否为空
@@ -40,6 +41,22 @@ public class Mapping_unitController extends BaseController {
         }
         //为空就返回查询失败信息
         return getFalse();
+    }
+
+    @PostMapping("/fuzzyUnitName")
+    public ResultData<Mapping_unit> getUnitName(Mapping_unit mapping_unit) {
+        // 调用 iqyService 中的 fuzzyUnitName 方法，得到查询结果
+        List<Mapping_unit> mappingUnits = iqyService.fuzzyUnitName(mapping_unit);
+
+        // 判断 结果是否为空
+        if (mappingUnits != null) {
+            // 说明结果不为空，查询成功，使用系统消息 自定义返回值
+            return getSuccess(mappingUnits);
+        }else {
+            // 查询失败
+            return getFalse();
+        }
+
     }
 
 }

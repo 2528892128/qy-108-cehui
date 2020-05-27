@@ -166,7 +166,7 @@ public interface IQYService {
      * @Date: 2020/5/22 20:25
      */
     @PostMapping("/qureyMapping_unit")
-    List<Mapping_unit> qureyMapping_unit(Long userId);
+    List<Mapping_unit> qureyMapping_unit(@RequestParam("userId") Long userId);
 
     /**
      * @Summary:
@@ -211,6 +211,16 @@ public interface IQYService {
     @GetMapping("/selectAuditByRefId")
     List<Audit> selectAuditByRefId(@RequestParam("refId") Long refId);
 
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询 查询测绘单位名称
+     * @date 2020/5/27
+     * @param [mappingUnit]
+     * @return java.util.List<com.aaa.xj.model.Mapping_unit>
+     */
+    @PostMapping("/fuzzyUnitName")
+    List<Mapping_unit> fuzzyUnitName(@RequestBody Mapping_unit mappingUnit);
 
 
 }
