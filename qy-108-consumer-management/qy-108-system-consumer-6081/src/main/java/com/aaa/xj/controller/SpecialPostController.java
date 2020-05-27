@@ -6,6 +6,7 @@ import com.aaa.xj.model.SpecialPost;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class SpecialPostController extends BaseController {
      * @Date: 2020/5/25 22:11
      */
     @PostMapping("/qureySpecialPost")
-    public ResultData selectSpecialPost(Long userId){
+    public ResultData selectSpecialPost(@RequestParam("userId") Long userId){
         try {
             //根据userID查询信息
             List<SpecialPost> specialPosts = iqyService.selectSpecialPost(userId);
