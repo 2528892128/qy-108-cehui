@@ -4,6 +4,7 @@ import com.aaa.xj.model.Equipment;
 import com.aaa.xj.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class EquipmentController {
      * @Date: 2020/5/25 20:51
      */
     @PostMapping("/qureyEquipment")
-    public List<Equipment> selectEquipment(Long userId){
+    public List<Equipment> selectEquipment(@RequestParam("userId") Long userId){
         try{
             //根据userID查询仪器设备
             List<Equipment> equipment = equipmentService.selectEquipment(userId);
