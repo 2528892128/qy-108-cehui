@@ -126,7 +126,7 @@ public interface IQYService {
      * @Date: 2020/5/20 16:13
      */
     @PostMapping("/qureyPrincipal")
-    List<Principal> qureyOne(Long id);
+    List<Principal> qureyOne(@RequestParam("id") Long id);
 
     /**
      * @Description: 修改负责人信息
@@ -146,7 +146,7 @@ public interface IQYService {
      * @Date: 2020/5/22 10:30
      */
     @PostMapping("/qureyTechnicist")
-    List<Technicist> qureyTechnicist(Long UserId);
+    List<Technicist> qureyTechnicist(@RequestParam("userId") Long userId);
 
     /**
      * @Description: 修改技术人员信息
@@ -156,7 +156,7 @@ public interface IQYService {
      * @Date: 2020/5/22 16:37
      */
     @PostMapping("/updateTechnicist")
-    Boolean updateTechnicist(Technicist technicist);
+    Boolean updateTechnicist(@RequestBody Technicist technicist);
 
     /**
      * @Description: 获取单位信息
@@ -188,7 +188,7 @@ public interface IQYService {
      * @Date: 2020/5/25 22:06
      */
     @PostMapping("/qureyEquipment")
-    List<Equipment> selectEquipment(Long userId);
+    List<Equipment> selectEquipment(@RequestParam("userId") Long userId);
 
     /**
      * @Description: 根据userId获取特殊人员信息
@@ -198,7 +198,7 @@ public interface IQYService {
      * @Date: 2020/5/25 22:07
      */
     @PostMapping("/qureySpecialPost")
-    List<SpecialPost> selectSpecialPost(Long userId);
+    List<SpecialPost> selectSpecialPost(@RequestParam("userId") Long userId);
 
     /**
      * @author ligen
@@ -222,7 +222,36 @@ public interface IQYService {
     @PostMapping("/fuzzyUnitName")
     List<Mapping_unit> fuzzyUnitName(@RequestBody Mapping_unit mappingUnit);
 
+    /**
+     * @Description:获取字典信息
+     * @Param: []
+     * @return: java.util.List<com.aaa.xj.model.Dict>
+     * @Author: ygy
+     * @Date: 2020/5/27 13:55
+     */
+    @PostMapping("/queryDict")
+    List<Dict> selectDict();
 
+    /**
+     * @Description: 字典信息分页查询
+     * @Param: [dict, pageNo, pageSize]
+     * @return: com.github.pagehelper.PageInfo<com.aaa.xj.model.Dict>
+     * @Author: ygy
+     * @Date: 2020/5/27 13:56
+     */
+    @PostMapping("/queryDictAllPage")
+    PageInfo<Dict> selectAllDictByPage(@RequestBody Dict dict, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+
+
+    /**
+     * @Description: 字典信息条件查询
+     * @Param: [dict]
+     * @return: java.util.List<com.aaa.xj.model.Dict>
+     * @Author: ygy
+     * @Date: 2020/5/27 13:57
+     */
+    @PostMapping("/queryDictList")
+    List<Dict> selectDictList(@RequestBody Dict dict);
 }
 
 
