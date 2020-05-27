@@ -5,6 +5,8 @@ import com.aaa.xj.model.Technicist;
 import com.aaa.xj.service.TechnicistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class TechnicistController{
      * @Date: 2020/5/22 10:29
      */
     @PostMapping("/qureyTechnicist")
-    public List<Technicist> qureyTechnicist(Long UserId){
-        List<Technicist> technicist = technicistService.qureyTechnicist(UserId);
+    public List<Technicist> qureyTechnicist(@RequestParam("userId") Long userId){
+        List<Technicist> technicist = technicistService.qureyTechnicist(userId);
         if (null != technicist){
             return technicist;
         }
@@ -45,7 +47,7 @@ public class TechnicistController{
      * @Date: 2020/5/22 16:36
      */
     @PostMapping("/updateTechnicist")
-    public Boolean updateTechnicist(Technicist technicist){
+    public Boolean updateTechnicist(@RequestBody Technicist technicist){
         return technicistService.updataTechnicist(technicist);
     }
 
