@@ -63,7 +63,7 @@ public class TechnicistService extends BaseService<Technicist> {
                 .setMajor(technicist.getMajor())
                 .setDuty(technicist.getDuty())
                 .setTitleMajor(technicist.getTitleMajor())
-                .setModifyTime(technicist.getModifyTime());
+                .setModifyTime(format);
         //判断技术人员信息是否为空
         if (null != technicist1){
             //不为空就去修改
