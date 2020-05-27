@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class PrincipalController extends BaseController {
      * @Date: 2020/5/21 19:39
      */
     @PostMapping("/qureyPrincipal")
-    public ResultData QureyList(Long id) {
+    public ResultData QureyList(@RequestParam("userId") Long id) {
 
         List<Principal> principals = qyService.qureyOne(id);
         if (null != principals) {
