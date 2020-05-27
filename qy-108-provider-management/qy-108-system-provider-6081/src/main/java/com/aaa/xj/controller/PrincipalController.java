@@ -5,6 +5,7 @@ import com.aaa.xj.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class PrincipalController {
      * @Date: 2020/5/20 16:11
      */
     @PostMapping("/qureyPrincipal")
-    public List<Principal> qureyOne(Long id){
+    public List<Principal> qureyOne(@RequestParam("id") Long id){
         List<Principal> principals = principalService.qureyOne(id);
         if (null != principals){
             return principals;
