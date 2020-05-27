@@ -1,6 +1,5 @@
 package com.aaa.xj.model;
 
-import com.aaa.xj.base.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,13 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_principal")
-public class Principal extends BaseModel {
+public class Principal implements Serializable {
+    /**
+     * 编号
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * 负责人类别
@@ -82,5 +87,16 @@ public class Principal extends BaseModel {
     @Column(name = "user_id")
     private Long userId;
 
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private String createTime;
+
+    /**
+     * 修改时间
+     */
+    @Column(name = "modify_time")
+    private String modifyTime;
 
 }
