@@ -47,9 +47,9 @@ public class Mapping_unitService extends BaseService<Mapping_unit> {
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.MappingUnit>
      */
-    public List<Mapping_unit> fuzzyUnitName(Mapping_unit mappingUnit) {
+    public List<Mapping_unit> fuzzyUnitName(String unitName, String ownedDistrict, String qualificationLevel) {
         // 调用 mappingProjectMapper 中的 selectAllByProjectType 方法，得到结果
-        List<Mapping_unit> mappingUnitList = mappingUnitMapper.fuzzyUnitName(mappingUnit);
+        List<Mapping_unit> mappingUnitList = mappingUnitMapper.fuzzyUnitName(unitName, ownedDistrict, qualificationLevel);
 
         // 判断 结果是否为空
         if (mappingUnitList != null && mappingUnitList.size() > 0) {

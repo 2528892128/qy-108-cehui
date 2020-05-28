@@ -293,8 +293,10 @@ public interface IQYService {
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.Mapping_unit>
      */
-    @PostMapping("/fuzzyUnitName")
-    List<Mapping_unit> fuzzyUnitName(@RequestBody Mapping_unit mappingUnit);
+    @GetMapping("/fuzzyUnitName")
+    List<Mapping_unit> fuzzyUnitName(@RequestParam("unitName") String unitName,
+                                     @RequestParam("ownedDistrict") String ownedDistrict,
+                                     @RequestParam("qualificationLevel") String qualificationLevel);
 
     /**
      * @Description:获取字典信息

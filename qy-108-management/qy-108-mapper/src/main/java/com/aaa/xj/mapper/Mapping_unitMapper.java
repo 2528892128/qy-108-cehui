@@ -1,6 +1,7 @@
 package com.aaa.xj.mapper;
 
 import com.aaa.xj.model.Mapping_unit;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -17,5 +18,17 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.MappingUnit>
      */
-    List<Mapping_unit> fuzzyUnitName(Mapping_unit mappingUnit);
+    List<Mapping_unit> fuzzyUnitName(@Param("unitName") String unitName,
+                                     @Param("ownedDistrict") String ownedDistrict,
+                                     @Param("qualificationLevel") String qualificationLevel);
+
+
+
+
+
+
+
+
+
+
 }
