@@ -37,16 +37,16 @@ public class LoginController {
 
     @PostMapping("/doLogin")
     public TokenVo doLogin(@RequestBody User user){
-        TokenVo tokenVo = loginService.doLogin(user, redisService);
         try {
-            if ("true".equals(tokenVo.getIfSuccess().toString())){
-                loginLogsService.doLoginLogs(user.getUsername());
+            TokenVo tokenVo = loginService.doLogin(user, redisService);
+            if (tokenVo.getIfSuccess()){
+                return tokenVo;
             }
-        }catch (UnknownHostException u){
-            u.printStackTrace();
-            System.out.println("系统正在维护，请稍后再试");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return tokenVo;
+        return null;
+
     }
 //
 //    @PostMapping("/isLogin")

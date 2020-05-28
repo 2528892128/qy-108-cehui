@@ -1,16 +1,19 @@
 package com.aaa.xj.controller;
 
+import com.aaa.xj.base.BaseService;
+import com.aaa.xj.base.CommonController;
 import com.aaa.xj.model.User;
 import com.aaa.xj.service.UserService;
 import com.github.pagehelper.PageInfo;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
-public class UserController {
+public class UserController extends CommonController<User> {
 
     @Autowired
     private UserService userService;
@@ -24,15 +27,88 @@ public class UserController {
      * @param null
      * @Return:
      */
-//    @GetMapping("/selectAll")
-//    public List<User> selectAllUser(){
-//       return userService.selectAllUser();
-//    }
-
-
-    @GetMapping("/selectAllUser")
-    public PageInfo<User> queryListByPage(User user, Integer pageNo, Integer pageSize){
-         return  userService.queryListByPage(user,5,10);
+    @PostMapping("/selectAllUser")
+    public PageInfo selectAllUser(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
+       return userService.selectAllUser(user,pageNo,pageSize);
     }
 
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      新增用户
+     * @Data: 2020/5/28
+     * @param [user]
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("/addUser")
+    public Boolean addUser(@RequestBody User user){
+       return userService.addUser(user);
+    }
+
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      通过主键删除用户
+     * @Data: 2020/5/27
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/deleteUser")
+    public Integer deleteUser(@RequestBody User user){
+        try {
+            Integer delete = userService.delete(user);
+            return delete;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id批量删除用户
+     * @Data: 2020/5/26
+     * @param [ids]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/delectMoreUser")
+    public Integer deleteMoreUser(@RequestBody List<Object> ids){
+        return userService.deleteMoreUser(ids);
+    }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id查询用户信息
+     * @Data: 2020/5/26
+     * @param [id]
+     * @Return:com.aaa.xj.model.User
+     */
+    @GetMapping("/selectUserById")
+    public User selectUserById(@RequestParam("id") Long id){
+        return userService.selectUserById(id);
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id修改用户信息
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/updateUserById")
+    public Integer updateUserById(@RequestBody User user){
+        return userService.updateUser(user);
+    }
+
+    @Override
+    public BaseService<User> getBaseService() {
+        return userService;
+    }
 }

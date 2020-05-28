@@ -9,5 +9,7 @@
     <result column="LOGIN_TIME" property="loginTime" jdbcType="VARCHAR" />
     <result column="LOCATION" property="location" jdbcType="VARCHAR" />
     <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="VARCHAR" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
   </resultMap>
 </mapper>

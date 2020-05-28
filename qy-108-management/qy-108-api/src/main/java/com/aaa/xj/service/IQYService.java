@@ -1,5 +1,6 @@
 package com.aaa.xj.service;
 
+import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,6 +48,18 @@ public interface IQYService {
     **/
     @PostMapping("/doLogin")
     TokenVo doLogin(@RequestBody User user);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *     实现登陆日志
+     * @Data: 2020/5/27
+     * @param [map]
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @PostMapping("/addLoginLog")
+    ResultData addLoginLog(@RequestBody Map map);
 
     /**
      * @author ligen
@@ -177,8 +191,68 @@ public interface IQYService {
      * @param
      * @Return:java.util.List<com.aaa.xj.model.User>
      */
-    @GetMapping("/selectAllUser")
-    List<User> selectAllUser();
+    @PostMapping("/selectAllUser")
+    PageInfo selectAllUser(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      用户新增
+     * @Data: 2020/5/26
+     * @param user
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("/addUser")
+    Boolean addUser(@RequestBody User user);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据主键删除用户
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/deleteUser")
+    Integer deleteUser(@RequestBody User user);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id批量删除用户
+     * @Data: 2020/5/26
+     * @param [ids]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/delectMoreUser")
+    Integer deleteMoreUser(@RequestBody List<Object> ids);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id查询user信息
+     * @Data: 2020/5/26
+     * @param [id]
+     * @Return:com.aaa.xj.model.User
+     */
+    @GetMapping("/selectUserById")
+    User selectUserById(@RequestParam("id") Long id);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据id修改用户信息
+     * @Data: 2020/5/28
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/updateUserById")
+    Integer updateUserById(@RequestBody User user);
 
     /**
      * @Description: 根据userID获取仪器设别信息
