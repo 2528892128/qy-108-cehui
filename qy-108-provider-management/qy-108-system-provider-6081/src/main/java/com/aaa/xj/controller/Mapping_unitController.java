@@ -3,10 +3,7 @@ package com.aaa.xj.controller;
 import com.aaa.xj.model.Mapping_unit;
 import com.aaa.xj.service.Mapping_unitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,10 +47,12 @@ public class Mapping_unitController {
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.MappingUnit>
      */
-    @PostMapping("/fuzzyUnitName")
-    public List<Mapping_unit> fuzzyUnitName(@RequestBody Mapping_unit mappingUnit) {
+    @GetMapping("/fuzzyUnitName")
+    public List<Mapping_unit> fuzzyUnitName(@RequestParam("unitName") String unitName,
+                                            @RequestParam("ownedDistrict") String ownedDistrict,
+                                            @RequestParam("qualificationLevel") String qualificationLevel) {
         // 调用 mappingUnitService 中的 fuzzyUnitName 方法，得到查询结果
-        List<Mapping_unit> mappingUnits = mappingUnitService.fuzzyUnitName(mappingUnit);
+        List<Mapping_unit> mappingUnits = mappingUnitService.fuzzyUnitName(unitName, ownedDistrict, qualificationLevel);
 
         // 判断 结果是否为空
         if (mappingUnits != null) {

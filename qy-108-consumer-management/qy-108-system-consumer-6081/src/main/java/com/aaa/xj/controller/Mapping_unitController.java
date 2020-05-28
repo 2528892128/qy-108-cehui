@@ -5,6 +5,7 @@ import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.Mapping_unit;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,10 +44,18 @@ public class Mapping_unitController extends BaseController {
         return getFalse();
     }
 
-    @PostMapping("/fuzzyUnitName")
-    public ResultData<Mapping_unit> getUnitName(Mapping_unit mapping_unit) {
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询 查询测绘单位名称
+     * @date 2020/5/28
+     * @param [unitName, ownedDistrict, qualificationLevel]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Mapping_unit>
+     */
+    @GetMapping("/fuzzyUnitName")
+    public ResultData<Mapping_unit> getUnitName(String unitName, String ownedDistrict, String qualificationLevel) {
         // 调用 iqyService 中的 fuzzyUnitName 方法，得到查询结果
-        List<Mapping_unit> mappingUnits = iqyService.fuzzyUnitName(mapping_unit);
+        List<Mapping_unit> mappingUnits = iqyService.fuzzyUnitName(unitName, ownedDistrict, qualificationLevel);
 
         // 判断 结果是否为空
         if (mappingUnits != null) {

@@ -63,20 +63,22 @@
   <select id="qureyMapping_unit" parameterType="Mapping_unit" resultType="Mapping_unit">
     select * from t_mapping_unit where user_id=#{userId}
   </select>
-  <select id="fuzzyUnitName" resultMap="BaseResultMap" parameterType="com.aaa.xj.model.Mapping_unit" >
-    SELECT id, unit_name, owned_district, qualification_level, register_address, corporation, phone, email
+  <select id="fuzzyUnitName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT id, unit_name, owned_district, qualification_level, register_address
     FROM t_mapping_unit
-    WHERE 1=1
-    <if test="unitName != null and unitName != '' ">
-      AND unit_name LIKE '%${unitName}%'
-    </if>
-    <if test="ownedDistrict != null and ownedDistrict != '' ">
-      AND owned_district=#{ownedDistrict, jdbcType=VARCHAR}
-    </if>
-    <if test="qualificationLevel != null and qualificationLevel != '' ">
-      AND qualification_level=#{qualificationLevel, jdbcType=VARCHAR}
-    </if>
-    ORDER BY id DESC
+    <where>
+      1=1
+      <if test="unitName != null and unitName != '' " >
+        AND unit_name like CONCAT('%', CONCAT(#{unitName, jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="ownedDistrict != null and ownedDistrict != '' ">
+        AND owned_district=#{ownedDistrict, jdbcType=VARCHAR}
+      </if>
+      <if test="qualificationLevel != null and qualificationLevel != '' ">
+        AND qualification_level=#{qualificationLevel, jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY id ASC
   </select>
 
 </mapper>
