@@ -142,7 +142,47 @@ public interface IQYService {
      * @Date: 2020/5/20 16:13
      */
     @PostMapping("/qureyPrincipal")
-    List<Principal> qureyOne(@RequestParam("id") Long id);
+    List<Principal> qureyOne(@RequestParam("userId") Long userId);
+
+    /**
+     * @Description: 新增字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 17:41
+     */
+    @PostMapping("/addDict")
+    Integer addDict(@RequestBody Dict dict);
+
+    /**
+     * @Description: 删除字典信息
+     * @Param: [dictIds]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 21:14
+     */
+    @PostMapping("/deleteDict")
+    Integer deleteDict(@RequestParam("dictIds") List<Object> dictIds);
+
+    /**
+     * @Description: 查询出要修改的数据
+     * @Param: [dict]
+     * @return: com.aaa.xj.model.Dict
+     * @Author: ygy
+     * @Date: 2020/5/28 22:16
+     */
+    @PostMapping("/queryUpdateDict")
+    Dict selectUpdateDict(@RequestParam("id") Long id);
+
+    /**
+     * @Description: 修改字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 23:16
+     */
+    @PostMapping("/updateDict")
+    Integer updateDict(@RequestBody Dict dict);
 
     /**
      * @Description: 修改负责人信息
