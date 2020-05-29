@@ -34,9 +34,9 @@ public class PrincipalController extends BaseController {
      * @Date: 2020/5/21 19:39
      */
     @PostMapping("/qureyPrincipal")
-    public ResultData QureyList(@RequestParam("userId") Long id) {
+    public ResultData QureyList(@RequestParam("userId") Long userId) {
 
-        List<Principal> principals = qyService.qureyOne(id);
+        List<Principal> principals = qyService.qureyOne(userId);
         if (null != principals) {
             return getSuccess(principals);
         }
