@@ -6,6 +6,8 @@ import com.aaa.xj.model.User;
 import com.aaa.xj.service.IQYService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -127,4 +129,55 @@ public class UserController extends BaseController {
        return super.updateFalse();
    }
 
+   /**
+    * @Summary:
+    * @Author:  xj
+    * @description
+    *       根据用户性别查询用户信息
+    * @Data: 2020/5/26
+    * @param [ssex, pageNo, pageSize]
+    * @Return:com.aaa.xj.base.ResultData
+    */
+   @GetMapping("/selectUserBySsex")
+    public ResultData selectUserBySsex(String ssex, Integer pageNo, Integer pageSize){
+       PageInfo pageInfo = iqyService.selectUserBySsex(ssex, pageNo, pageSize);
+       if (!"".equals(pageInfo) && null !=pageInfo){
+           return super.getSuccess(pageInfo);
+       }
+       return super.getFalse();
+   }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     * 根据状态性别查询用户信息
+     * @Data: 2020/5/26
+     * @param [status, pageNo, pageSize]
+     * @Return:com.aaa.xj.base.ResultData
+     */
+   @GetMapping("/selectUserBySta")
+    public ResultData selectUserBySta(String status,Integer pageNo,Integer pageSize){
+       PageInfo pageInfo = iqyService.selectUserBySta(status, pageNo, pageSize);
+       if (!"".equals(pageInfo) && null !=pageInfo){
+           return super.getSuccess(pageInfo);
+       }
+       return super.getFalse();
+   }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      重置密码
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/resetUserPwd")
+    public ResultData ResetUserPwd(User user){
+        Integer integer = iqyService.ResetUserPwd(user);
+        if (integer>0){
+            return super.updateSuccess();
+        }
+        return super.updateFalse();
+    }
 }

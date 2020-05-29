@@ -22,5 +22,16 @@
     <result column="token" property="token" jdbcType="VARCHAR" />
   </resultMap>
 
+  <select id="selectUserBySsex" resultMap="BaseResultMap">
+    select id,username,ssex,email,dept_id,mobile,status,create_time
+    from t_user
+    where ssex= #{ssex,jdbcType=CHAR}
+  </select>
+
+  <select id="selectUserBySta" resultMap="BaseResultMap">
+     select id,username,ssex,email,dept_id,mobile,status,create_time
+    from t_user
+    where status= #{status,jdbcType=CHAR}
+  </select>
 
 </mapper>

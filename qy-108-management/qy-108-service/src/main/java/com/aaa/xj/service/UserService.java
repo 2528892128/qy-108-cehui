@@ -14,6 +14,10 @@ import javax.jws.soap.SOAPBinding;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static com.aaa.xj.staticstatus.TimeProperties.TIME_TYPE;
+import static com.aaa.xj.staticstatus.UserPassword.USER_PASSWORD;
+
 @Service
 public class UserService extends BaseService<User> {
 
@@ -202,7 +206,7 @@ public class UserService extends BaseService<User> {
     public Integer updateUser(User user){
         if (!"".equals(user) && null !=user){
             //获取当前时间作为修改时间
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_TYPE);
             String format = simpleDateFormat.format(new Date());
             //把时间存到实体中
             user.setModifyTime(format);
@@ -210,6 +214,112 @@ public class UserService extends BaseService<User> {
                 //通过父类方法修改用户信息
                 Integer update = super.update(user);
                 //判断受影响的行数
+                if (update>0){
+                    return update;
+                }
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *          根据用户性别查询
+     * @Data: 2020/5/26
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    public PageInfo selectUserBySsex(String ssex,Integer pageNo,Integer pageSize){
+
+        //判断前端传值是否成功
+        if (!"".equals(ssex) && !"".equals(pageNo) && !"".equals(pageSize)){
+            // 当前页数和一页数量
+            PageHelper.startPage(pageNo,pageSize);
+            //定义users
+            List<User> users = null;
+            try {
+                //查询用户信息
+                users = userMapper.selectUserBySsex(ssex);
+                //判断查询结果是否为空
+                if (!"".equals(users) && null !=users){
+                    //不是空 将结果放入
+                    PageInfo<User> userPageInfo = new PageInfo<>(users);
+                    //返回userPageInfo
+                    return userPageInfo;
+                }
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据状态查询用户信息
+     * @Data: 2020/5/26
+     * @param [status, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    public PageInfo selectUserBySta(String status,Integer pageNo,Integer pageSize){
+        //判断前端传值是否成功
+
+        if (!"".equals(status) && !"".equals(pageNo) && !"".equals(pageSize)){
+            // 当前页数和一页数量
+            PageHelper.startPage(pageNo,pageSize);
+            //定义users
+            List<User> users = null;
+            try {
+                //查询用户信息
+                users = userMapper.selectUserBySta(status);
+                //判断查询结果是否为空
+                if (!"".equals(users) && null !=users){
+                    //不是空 将结果放入
+                    PageInfo<User> userPageInfo = new PageInfo<>(users);
+                    //返回userPageInfo
+                    return userPageInfo;
+                }
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      密码重置成初始密码
+     * @Data: 2020/5/29
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    public Integer ResetUserPwd(User user){
+
+        //将初始密码set到实体
+        user.setPassword(USER_PASSWORD);
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_TYPE);
+        String format = simpleDateFormat.format(new Date());
+        //把时间存到实体中
+        user.setModifyTime(format);
+        //判断前端是否传值成功
+        if (!"".equals(user)  && null !=user){
+
+            try {
+                //调用父类的方法
+                Integer update = super.update(user);
                 if (update>0){
                     return update;
                 }

@@ -297,6 +297,42 @@ public interface IQYService {
     Integer updateUserById(@RequestBody User user);
 
     /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据用户性别查询用户信息
+     * @Data: 2020/5/25
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySsex")
+    PageInfo selectUserBySsex(@RequestParam("ssex") String ssex,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据用户状态查询用户信息
+     * @Data: 2020/5/25
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySta")
+    PageInfo selectUserBySta(@RequestParam("status") String status,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      重置密码
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/resetUserPwd")
+    Integer ResetUserPwd(@RequestBody User user);
+
+    /**
      * @Description: 根据userID获取仪器设别信息
      * @Param: [userId]
      * @return: java.util.List<com.aaa.xj.model.Equipment>
