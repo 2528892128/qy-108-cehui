@@ -172,7 +172,7 @@ public interface IQYService {
      * @Date: 2020/5/28 22:16
      */
     @PostMapping("/queryUpdateDict")
-    Dict selectUpdateDict(@RequestParam("id") Long id);
+    Dict selectUpdateDict(@RequestParam("dictId") Long dictId);
 
     /**
      * @Description: 修改字典信息
