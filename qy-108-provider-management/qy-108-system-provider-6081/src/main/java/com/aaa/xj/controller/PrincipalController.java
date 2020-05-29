@@ -30,8 +30,8 @@ public class PrincipalController {
      * @Date: 2020/5/20 16:11
      */
     @PostMapping("/qureyPrincipal")
-    public List<Principal> qureyOne(@RequestParam("id") Long id){
-        List<Principal> principals = principalService.qureyOne(id);
+    public List<Principal> qureyOne(@RequestParam("userId") Long userId){
+        List<Principal> principals = principalService.qureyOne(userId);
         if (null != principals){
             return principals;
         }
