@@ -6,15 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_audit")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Audit extends BaseModel {
+public class Audit implements Serializable {
+
+    /**
+     * 编号
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * 审核项
@@ -42,6 +49,12 @@ public class Audit extends BaseModel {
      */
     @Column(name = "audit_time")
     private String auditTime;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private String createTime;
 
     /**
      * 审核类别 1:单位信息审核 2:项目登记审核 3:项目上交审核 4:成果汇交审核

@@ -390,6 +390,19 @@ public interface IQYService {
     /**
      * @author ligen
      * @description
+     *  查询分页--查询所有的审核日志
+     * @date 2020/5/29
+     * @param [audit, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
+     */
+    @PostMapping("/queryAllAudit")
+    PageInfo<Audit> queryAllAudit(@RequestBody Audit audit,
+                                  @RequestParam("pageNo") Integer pageNo,
+                                  @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description
      *  模糊查询-动态sql 查询测绘单位名称
      * @date 2020/5/27
      * @param [mappingUnit]
