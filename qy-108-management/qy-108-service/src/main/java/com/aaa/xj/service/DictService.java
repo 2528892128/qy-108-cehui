@@ -106,12 +106,12 @@ public class DictService extends BaseService<Dict> {
      * @Author: ygy
      * @Date: 2020/5/28 21:58
      */
-    public Dict selectUpdateDict(Long id){
+    public Dict selectUpdateDict(Long dictId){
         //判断参数dict是否为空
-        if (!"".equals(id)){
+        if (!"".equals(dictId)){
             try {
                 //不为空调用父类方发进行查询一条数据操作
-                Dict dict = dictMapper.selectUpdateDict(id);
+                Dict dict = dictMapper.selectUpdateDict(dictId);
                 //判断查询结果是否为空
                 if (null != dict && !"".equals(dict)){
                     //不为空返回查询结果
