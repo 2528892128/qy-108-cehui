@@ -94,7 +94,9 @@ public interface IQYService {
      * @return com.github.pagehelper.PageInfo
      */
      @PostMapping("/selectALLByPage")
-     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject,
+                              @RequestParam("pageNo") Integer pageNo,
+                              @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
@@ -288,7 +290,7 @@ public interface IQYService {
     /**
      * @author ligen
      * @description
-     *  模糊查询 查询测绘单位名称
+     *  模糊查询-动态sql 查询测绘单位名称
      * @date 2020/5/27
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.Mapping_unit>
@@ -297,6 +299,43 @@ public interface IQYService {
     List<Mapping_unit> fuzzyUnitName(@RequestParam("unitName") String unitName,
                                      @RequestParam("ownedDistrict") String ownedDistrict,
                                      @RequestParam("qualificationLevel") String qualificationLevel);
+
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘项目名称
+     * @date 2020/5/27
+     * @param [projectName, projectType, startDate]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectName")
+    List<MappingProject> fuzzyProjectName(@RequestParam("projectName") String projectName,
+                                          @RequestParam("projectType") String projectType,
+                                          @RequestParam("startDate") String startDate);
+
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘成果名称
+     * @date 2020/5/27
+     * @param [name, projectType, resultDate]
+     * @return java.util.List<com.aaa.xj.model.ResultCommit>
+     */
+    @GetMapping("/fuzzyResultName")
+    List<ResultCommit> fuzzyResultName(@RequestParam("name") String name,
+                                       @RequestParam("projectType") String projectType,
+                                       @RequestParam("resultDate") String resultDate);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询测绘成果详情，根据成果主键id
+     * @date 2020/5/27
+     * @param [id]
+     * @return com.aaa.xj.model.ResultCommit
+     */
+    @GetMapping("/selectResultDetails")
+    ResultCommit selectResultDetails(@RequestParam("id") Long id);
 
     /**
      * @Description:获取字典信息

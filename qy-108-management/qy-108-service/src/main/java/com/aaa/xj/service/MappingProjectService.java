@@ -141,6 +141,28 @@ public class MappingProjectService extends BaseService<MappingProject> {
         }
     }
 
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘项目名称
+     * @date 2020/5/27
+     * @param [mappingProject]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    public List<MappingProject> fuzzyProjectName(String projectName, String projectType, String startDate) {
+        // 调用 mappingProjectMapper 中的 fuzzyProjectName 方法，得到结果
+        List<MappingProject> mappingProjects = mappingProjectMapper.fuzzyProjectName(projectName, projectType, startDate);
+
+        // 判断 结果是否为空
+        if (mappingProjects != null && mappingProjects.size() > 0){
+            // 说明结果不为空，返回结果
+            return mappingProjects;
+        }else {
+            // 返回null
+            return null;
+        }
+    }
+
 
 
 }

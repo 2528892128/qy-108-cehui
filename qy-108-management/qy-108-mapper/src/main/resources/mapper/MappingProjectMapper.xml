@@ -70,4 +70,21 @@
     where results_status=0
         and project_type=#{projectType, jdbcType=VARCHAR}
   </select>
+  <select id="fuzzyProjectName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT id, project_name, start_date
+    FROM t_mapping_project
+    <where>
+      1=1
+      <if test="projectName != null and projectName != '' ">
+        AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="projectType != null and projectType != '' ">
+        AND project_type=#{projectType, jdbcType=VARCHAR}
+      </if>
+      <if test="startDate != null and startDate != '' ">
+        AND start_date=#{startDate, jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY id ASC
+  </select>
 </mapper>

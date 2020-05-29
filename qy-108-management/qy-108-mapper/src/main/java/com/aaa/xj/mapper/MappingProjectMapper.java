@@ -1,6 +1,7 @@
 package com.aaa.xj.mapper;
 
 import com.aaa.xj.model.MappingProject;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -34,5 +35,20 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
     List<MappingProject> selectAllByProjectType(String projectType);
+
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘项目名称
+     * @date 2020/5/27
+     * @param [mappingProject]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    List<MappingProject> fuzzyProjectName(@Param("projectName") String projectName,
+                                          @Param("projectType") String projectType,
+                                          @Param("startDate") String startDate);
+
+
+
 
 }

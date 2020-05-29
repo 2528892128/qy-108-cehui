@@ -80,9 +80,42 @@ public class MappingProjectController extends BaseController {
         }
     }
 
-
+    /**
+     * @author ligen
+     * @description
+     *  分页查询方法
+     *  重写父类 BaseService 中的 queryListByPage 方法
+     *      使用自定义的 sql 语句，查询所有的 已提交的项目信息，将查询的结果进行分页
+     * @date 2020/5/29
+     * @param [mappingProject, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo
+     */
     @PostMapping("/selectALLByPage")
     public PageInfo selectALLByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize){
         return iqyService.selectALLByPage(mappingProject,pageNo,pageSize);
     }
+
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘项目名称
+     * @date 2020/5/27
+     * @param [mappingProject]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectName")
+    public ResultData<MappingProject> fuzzyProjectName(String projectName, String projectType, String startDate) {
+        // 调用 iqyService 中的 fuzzyProjectName 方法，得到结果
+        List<MappingProject> fuzzyProjectName = iqyService.fuzzyProjectName(projectName, projectType, startDate);
+
+        // 判断 结果是否为空
+        if (fuzzyProjectName != null) {
+            // 说明结果不为空，返回结果数据
+            return getSuccess(fuzzyProjectName);
+        }else {
+            // 返回null
+            return getFalse();
+        }
+    }
+
 }

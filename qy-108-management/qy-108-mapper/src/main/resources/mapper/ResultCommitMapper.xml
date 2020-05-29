@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.ResultCommitMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.ResultCommit" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="medium_type" property="mediumType" jdbcType="VARCHAR" />
+    <result column="result_date" property="resultDate" jdbcType="VARCHAR" />
+    <result column="ref_id" property="refId" jdbcType="BIGINT" />
+    <result column="plotting_scale" property="plottingScale" jdbcType="VARCHAR" />
+    <result column="new_figure" property="newFigure" jdbcType="VARCHAR" />
+    <result column="old_figure" property="oldFigure" jdbcType="VARCHAR" />
+    <result column="figure" property="figure" jdbcType="VARCHAR" />
+    <result column="data_format" property="dataFormat" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="VARCHAR" />
+    <result column="height_datum" property="heightDatum" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="meridian" property="meridian" jdbcType="VARCHAR" />
+    <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="resultResultMap" type="com.aaa.xj.model.ResultCommit" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="medium_type" property="mediumType" jdbcType="VARCHAR" />
+    <result column="result_date" property="resultDate" jdbcType="VARCHAR" />
+    <result column="ref_id" property="refId" jdbcType="BIGINT" />
+    <result column="plotting_scale" property="plottingScale" jdbcType="VARCHAR" />
+    <result column="new_figure" property="newFigure" jdbcType="VARCHAR" />
+    <result column="old_figure" property="oldFigure" jdbcType="VARCHAR" />
+    <result column="figure" property="figure" jdbcType="VARCHAR" />
+    <result column="data_format" property="dataFormat" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="VARCHAR" />
+    <result column="height_datum" property="heightDatum" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="meridian" property="meridian" jdbcType="VARCHAR" />
+    <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
+    <association property="mappingProject" javaType="com.aaa.xj.model.MappingProject">
+      <id property="id" column="id"/>
+      <result property="projectType" column="project_type"/>
+      <result property="projectName" column="project_name"/>
+      <result property="projectAmount" column="project_amount"/>
+      <result property="projectLeader" column="project_leader"/>
+      <result property="startDate" column="start_date"/>
+      <result property="endDate" column="end_date"/>
+      <result property="acceptanceDepartment" column="acceptance_department"/>
+      <result property="acceptanceReport" column="acceptance_report"/>
+      <result property="taskSource" column="task_source"/>
+      <result property="projectArea" column="project_area"/>
+      <result property="scale" column="scale"/>
+      <result property="sheetNumber" column="sheet_number"/>
+      <result property="awardsDepartment" column="awards_department"/>
+      <result property="prizeLevel" column="prize_level"/>
+      <result property="projectQualityApproval" column="project_quality_approval"/>
+      <result property="winningTime" column="winning_time"/>
+      <result property="acceptanceTime" column="acceptance_time"/>
+      <result property="basicContent" column="basic_content"/>
+      <result property="address" column="address"/>
+      <result property="creditStatus" column="credit_status"/>
+      <result property="submitStatus" column="submit_status"/>
+      <result property="userId" column="user_id"/>
+      <result property="memo" column="memo"/>
+    </association>
+  </resultMap>
+  <select id="fuzzyResultName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT a.id, a.name, b.project_type, a.result_date
+    FROM t_result_commit a
+    JOIN t_mapping_project b
+    on a.ref_id=b.id
+    <where>
+      1=1
+      <if test="name != null and name != '' ">
+        AND a.name LIKE CONCAT('%', CONCAT(#{name, jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="projectType != null and projectType != '' ">
+        AND b.project_type=#{projectType, jdbcType=VARCHAR}
+      </if>
+      <if test="resultDate != null and resultDate != '' ">
+        AND a.result_date=#{resultDate, jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY a.id ASC
+  </select>
+  <select id="selectResultDetails" resultMap="resultResultMap" parameterType="java.lang.Long" >
+    SELECT a.id, a.project_type, a.project_name, a.project_amount, a.project_leader, a.start_date, a.end_date,
+    a.complete_time, a.acceptance_department, a.acceptance_report, a.task_source, a.project_area, a.scale, a.sheet_number,
+    a.awards_department, a.prize_level, a.project_quality_approval, a.winning_time, acceptance_time, a.basic_content,
+    a.address, a.credit_status, a.submit_status, a.user_id, a.memo, b.plotting_scale, b.coordinate, b.new_figure,
+    b.old_figure, b.figure, b.medium_type, b.result_date, b.data_format, b.name, b.create_date, b.height_datum, b.meridian,
+    b.memo AS resultMemo
+    FROM t_mapping_project a
+    JOIN t_result_commit b
+    on a.id=b.ref_id
+    WHERE b.id=#{id, jdbcType=BIGINT}
+  </select>
+</mapper>

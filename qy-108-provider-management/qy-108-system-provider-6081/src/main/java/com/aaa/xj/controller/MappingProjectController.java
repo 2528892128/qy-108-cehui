@@ -70,10 +70,37 @@ public class MappingProjectController {
      * @return com.github.pagehelper.PageInfo
      */
     @PostMapping("/selectALLByPage")
-    public PageInfo selectALLByPage(@RequestBody MappingProject mappingProject, @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize) {
+    public PageInfo selectALLByPage(@RequestBody MappingProject mappingProject,
+                                    @RequestParam("pageNo") Integer pageNo,
+                                    @RequestParam("pageSize") Integer pageSize) {
         // 调用 mappingProjectService 中的 getAllByProjectType 方法，查询
         PageInfo pageInfo = mappingProjectService.selectALLByPage(mappingProject, pageNo, pageSize);
         return pageInfo;
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  模糊查询-动态sql 查询测绘项目名称
+     * @date 2020/5/27
+     * @param [mappingProject]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectName")
+    public List<MappingProject> fuzzyProjectName(@RequestParam("projectName") String projectName,
+                                                 @RequestParam("projectType") String projectType,
+                                                 @RequestParam("startDate") String startDate) {
+        // 调用 mappingProjectService 中的 fuzzyProjectName 方法，得到结果
+        List<MappingProject> mappingProjects = mappingProjectService.fuzzyProjectName(projectName, projectType, startDate);
+
+        // 判断 结果是否为空
+        if (mappingProjects != null) {
+            // 说明结果不为空，返回结果数据
+            return mappingProjects;
+        }else {
+            // 返回null
+            return null;
+        }
     }
 
 }
