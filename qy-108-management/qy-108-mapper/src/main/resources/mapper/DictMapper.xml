@@ -11,4 +11,18 @@
     <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
     <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="selectUpdateDict" parameterType="Dict" resultType="Dict">
+  select DICT_ID,KEYY,VALUEE,FIELD_NAME,TABLE_NAME from t_dict where DICT_ID = #{id}
+ </select>
+
+  <update id="updateDict" parameterType="Dict">
+  update t_dict
+  set KEYY = #{keyy},
+      VALUEE = #{valuee},
+      FIELD_NAME = #{fieldName},
+      TABLE_NAME = #{tableName}
+      where DICT_ID = #{id}
+ </update>
+
 </mapper>

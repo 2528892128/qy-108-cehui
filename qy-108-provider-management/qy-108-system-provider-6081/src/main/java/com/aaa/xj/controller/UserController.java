@@ -107,6 +107,47 @@ public class UserController extends CommonController<User> {
         return userService.updateUser(user);
     }
 
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据性别查询用户信息
+     * @Data: 2020/5/26
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySsex")
+    public PageInfo selectUserBySsex(@RequestParam("ssex") String ssex,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+        return userService.selectUserBySsex(ssex,pageNo,pageSize);
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据用户状态查询用户信息
+     * @Data: 2020/5/28
+     * @param [status, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySta")
+    public PageInfo selectUserBySta(@RequestParam("status") String status,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+        return userService.selectUserBySta(status,pageNo,pageSize);
+    }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      重置密码
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/resetUserPwd")
+    public Integer ResetUserPwd(@RequestBody User user){
+        return userService.ResetUserPwd(user);
+    }
+
     @Override
     public BaseService<User> getBaseService() {
         return userService;

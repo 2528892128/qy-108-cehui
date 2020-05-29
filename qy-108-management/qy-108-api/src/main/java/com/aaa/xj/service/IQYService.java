@@ -166,7 +166,47 @@ public interface IQYService {
      * @Date: 2020/5/20 16:13
      */
     @PostMapping("/qureyPrincipal")
-    List<Principal> qureyOne(@RequestParam("id") Long id);
+    List<Principal> qureyOne(@RequestParam("userId") Long userId);
+
+    /**
+     * @Description: 新增字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 17:41
+     */
+    @PostMapping("/addDict")
+    Integer addDict(@RequestBody Dict dict);
+
+    /**
+     * @Description: 删除字典信息
+     * @Param: [dictIds]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 21:14
+     */
+    @PostMapping("/deleteDict")
+    Integer deleteDict(@RequestParam("dictIds") List<Object> dictIds);
+
+    /**
+     * @Description: 查询出要修改的数据
+     * @Param: [dict]
+     * @return: com.aaa.xj.model.Dict
+     * @Author: ygy
+     * @Date: 2020/5/28 22:16
+     */
+    @PostMapping("/queryUpdateDict")
+    Dict selectUpdateDict(@RequestParam("dictId") Long dictId);
+
+    /**
+     * @Description: 修改字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 23:16
+     */
+    @PostMapping("/updateDict")
+    Integer updateDict(@RequestBody Dict dict);
 
     /**
      * @Description: 修改负责人信息
@@ -279,6 +319,42 @@ public interface IQYService {
      */
     @PostMapping("/updateUserById")
     Integer updateUserById(@RequestBody User user);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据用户性别查询用户信息
+     * @Data: 2020/5/25
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySsex")
+    PageInfo selectUserBySsex(@RequestParam("ssex") String ssex,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据用户状态查询用户信息
+     * @Data: 2020/5/25
+     * @param [ssex, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectUserBySta")
+    PageInfo selectUserBySta(@RequestParam("status") String status,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      重置密码
+     * @Data: 2020/5/26
+     * @param [user]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("/resetUserPwd")
+    Integer ResetUserPwd(@RequestBody User user);
 
     /**
      * @Description: 根据userID获取仪器设别信息

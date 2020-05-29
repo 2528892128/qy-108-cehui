@@ -20,7 +20,7 @@ public class Dict implements Serializable {
     @Id
     @Column(name = "DICT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dictId;
+    private Long id;
 
     /**
      * 键
@@ -45,5 +45,6 @@ public class Dict implements Serializable {
      */
     @Column(name = "TABLE_NAME")
     private String tableName;
+
 
 }
