@@ -5,7 +5,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface DictMapper extends Mapper<Dict> {
 
-    Dict selectUpdateDict(Long id);
+    Dict selectUpdateDict(Long dictId);
 
     Integer updateDict(Dict dict);
 
