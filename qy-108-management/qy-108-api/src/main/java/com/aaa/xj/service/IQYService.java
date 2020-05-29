@@ -69,8 +69,19 @@ public interface IQYService {
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAll")
+    @GetMapping("/selectAllProject")
     List<MappingProject> selectAllProject();
+
+    /**
+     * @author ligen
+     * @description
+     *  查询测绘项目的详情信息
+     * @date 2020/5/29
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectAllProjectDetailById")
+    MappingProject selectAllProjectDetailById(@RequestParam("id") Long id);
 
     /**
      * @author ligen
@@ -81,8 +92,8 @@ public interface IQYService {
      * @param projectType
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAllByType")
-    List<MappingProject> selectAllByType(@RequestParam("projectType") String projectType);
+    @GetMapping ("/selectAllProjectByType")
+    List<MappingProject> selectAllProjectByType(@RequestParam("projectType") String projectType);
 
     /**
      * @author ligen
@@ -93,10 +104,23 @@ public interface IQYService {
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-     @PostMapping("/selectALLByPage")
-     PageInfo selectALLByPage(@RequestBody MappingProject mappingProject,
-                              @RequestParam("pageNo") Integer pageNo,
-                              @RequestParam("pageSize") Integer pageSize);
+    @PostMapping("/queryALLProjectByPage")
+    PageInfo queryALLProjectByPage(@RequestBody MappingProject mappingProject,
+                                   @RequestParam("pageNo") Integer pageNo,
+                                   @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询分页，将 根据项目类型查询的结果进行分页
+     * @date 2020/5/29
+     * @param [projectType, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectByPage")
+    PageInfo<MappingProject> queryListByPage(@RequestParam("projectType") String projectType,
+                                             @RequestParam("pageNo") Integer pageNo,
+                                             @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:

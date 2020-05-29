@@ -14,7 +14,7 @@ import java.util.List;
  * @author ligen
  * @program qy-108-cehui
  * @description
- *  项目汇交
+ *  测绘项目信息
  * @create 2020-05-22 13:50
  */
 @Service
@@ -30,19 +30,46 @@ public class MappingProjectService extends BaseService<MappingProject> {
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    public List<MappingProject> selectAllMappingProject() {
+    public List<MappingProject> selectAllProject() {
         List<MappingProject> projectList = null;
+
         try {
-            // 调用 mappingProjectMapper 中的 selectAllMappingProject 方法，返回查询的结果
-            projectList = mappingProjectMapper.selectAllMappingProject();
+            // 调用 mappingProjectMapper 中的 selectAllProject 方法获取数据
+            projectList = mappingProjectMapper.selectAllProject();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
         if (null != projectList && projectList.size() > 0) {
             // 说明查询到了结果，返回查询的数据
             return projectList;
+        }else {
+            // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  查询测绘项目的详情信息
+     * @date 2020/5/29
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    public MappingProject selectAllProjectDetailById(Long id) {
+        MappingProject projectDetailById = null;
+
+        try {
+            // 调用 mappingProjectMapper 中的 selectAllProjectDetailById 方法，返回查询的结果
+            projectDetailById = mappingProjectMapper.selectAllProjectDetailById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
+        if (null != projectDetailById && !"".equals(projectDetailById)) {
+            // 说明查询到了结果，返回查询的数据
+            return projectDetailById;
         }else {
             // 返回null
             return null;
@@ -59,16 +86,16 @@ public class MappingProjectService extends BaseService<MappingProject> {
      * @param [projectType]
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    public List<MappingProject> selectAllByProjectType(String projectType) {
+    public List<MappingProject> selectAllProjectByType(String projectType) {
         List<MappingProject> allByProjectType = null;
 
         try {
             // 调用 mappingProjectMapper 中的 selectAllByProjectType 方法获取数据
-            allByProjectType = mappingProjectMapper.selectAllByProjectType(projectType);
-        } catch (Exception e) {
+            allByProjectType = mappingProjectMapper.selectAllProjectByType(projectType);
+        } catch (IllegalArgumentException e) {
+            // 非法参数异常
             e.printStackTrace();
         }
-
         // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
         if (null != allByProjectType && allByProjectType.size() > 0) {
             // 说明结果不为空，返回查询的数据
@@ -88,21 +115,22 @@ public class MappingProjectService extends BaseService<MappingProject> {
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    public PageInfo selectALLByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
+    public PageInfo selectALLProjectByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
         PageInfo<MappingProject> projectPageInfo = null;
+
         try {
             // 调用重写的分页查询方法，得到分页结果
             projectPageInfo = queryListByPage(mappingProject, pageNo, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        if (null == projectPageInfo && "".equals(projectPageInfo)) {
-            // 说明查询的结果是空，没有数据，返回null
-            return null;
-        }else {
-            // 返回结果
+        // 判断 结果是否为空
+        if (null != projectPageInfo && !"".equals(projectPageInfo)) {
+            // 说明查询的结果不是空，返回结果
             return projectPageInfo;
+        }else {
+            // 返回null
+            return null;
         }
     }
 
@@ -120,14 +148,14 @@ public class MappingProjectService extends BaseService<MappingProject> {
     public PageInfo<MappingProject> queryListByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
         List<MappingProject> select = null;
         PageInfo<MappingProject> pageInfo = null;
+
         try {
             // 设置分页，pageNO 当前页数，pageSize 每页数据个数
             PageHelper.startPage(pageNo, pageSize);
             // 使用自定义的sql语句，返回查询结果
-            select = mappingProjectMapper.selectAllMappingProject();
+            select = mappingProjectMapper.selectAllProject();
             // 将查询的结果 进行分页
             pageInfo = new PageInfo<MappingProject>(select);
-
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -138,6 +166,39 @@ public class MappingProjectService extends BaseService<MappingProject> {
         }else {
             // 返回 分页结果
             return pageInfo;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  重载queryListByPage方法
+     *  查询分页，将 根据项目类型查询的结果进行分页
+     * @date 2020/5/29
+     * @param [projectType, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    public PageInfo<MappingProject> queryListByPage(String projectType, Integer pageNo, Integer pageSize) {
+        List<MappingProject> selectByType = null;
+        PageInfo<MappingProject> pageInfoByType = null;
+
+        try {
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 使用自定义的sql语句，返回查询结果
+            selectByType = mappingProjectMapper.selectAllProjectByType(projectType);
+            // 将查询的结果 进行分页
+            pageInfoByType = new PageInfo<MappingProject>(selectByType);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        // 判断 结果是否为空
+        if (null == pageInfoByType && "".equals(pageInfoByType)){
+            // 说明结果是空，返回null
+            return null;
+        }else {
+            // 返回 分页结果
+            return pageInfoByType;
         }
     }
 

@@ -22,7 +22,17 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    List<MappingProject> selectAllMappingProject();
+    List<MappingProject> selectAllProject();
+
+    /**
+     * @author ligen
+     * @description
+     *  查询测绘项目的详情信息
+     * @date 2020/5/22
+     * @param []
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    MappingProject selectAllProjectDetailById(Long id);
 
     /**
      * @author ligen
@@ -34,7 +44,7 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
      * @param [projectType]
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    List<MappingProject> selectAllByProjectType(String projectType);
+    List<MappingProject> selectAllProjectByType(String projectType);
 
     /**
      * @author ligen

@@ -28,12 +28,42 @@ public class MappingProjectController {
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAll")
+    @GetMapping("/selectAllProject")
     public List<MappingProject> selectAllProject() {
-        // 调用 mappingProjectService 中的 getAllMappingProject 方法获取数据
-        List<MappingProject> projectList = mappingProjectService.selectAllMappingProject();
+        // 调用 mappingProjectService 中的 selectAllProject 方法，返回结果
+        List<MappingProject> projectList = mappingProjectService.selectAllProject();
 
-        return projectList;
+        // 判断 结果不为空
+        if (projectList != null && !"".equals(projectList)){
+            // 说明结果不为空，返回结果
+            return projectList;
+        }else {
+            // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  查询测绘项目的详情信息
+     * @date 2020/5/29
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectAllProjectDetailById")
+    public MappingProject selectAllProjectDetailById(@RequestParam("id") Long id) {
+        // 调用 mappingProjectService 中的 selectAllProjectDetailById 方法，返回结果
+        MappingProject mappingProject = mappingProjectService.selectAllProjectDetailById(id);
+
+        // 判断 结果不为空
+        if (mappingProject != null) {
+            // 说明结果不为空，返回结果
+            return mappingProject;
+        }else {
+            // 返回null
+            return null;
+        }
     }
 
     /**
@@ -45,18 +75,18 @@ public class MappingProjectController {
      * @param projectType
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping ("/selectAllByType")
-    public List<MappingProject> selectAllByType(@RequestParam("projectType") String projectType) {
-        // 调用 mappingProjectService 中的 getAllByProjectType 方法，得到结果
-        List<MappingProject> allByType = mappingProjectService.selectAllByProjectType(projectType);
+    @GetMapping ("/selectAllProjectByType")
+    public List<MappingProject> selectAllProjectByType(@RequestParam("projectType") String projectType) {
+        // 调用 mappingProjectService 中的 selectAllProjectByType 方法，得到结果
+        List<MappingProject> allByType = mappingProjectService.selectAllProjectByType(projectType);
 
         // 判断 结果是否为空
-        if (allByType == null){
-            // 结果为空，返回null
-            return null;
-        }else {
-            // 返回结果
+        if (allByType != null){
+            // 说明结果不为空，返回结果
             return allByType;
+        }else {
+            // 返回null
+            return null;
         }
     }
 
@@ -69,13 +99,45 @@ public class MappingProjectController {
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    @PostMapping("/selectALLByPage")
-    public PageInfo selectALLByPage(@RequestBody MappingProject mappingProject,
-                                    @RequestParam("pageNo") Integer pageNo,
-                                    @RequestParam("pageSize") Integer pageSize) {
-        // 调用 mappingProjectService 中的 getAllByProjectType 方法，查询
-        PageInfo pageInfo = mappingProjectService.selectALLByPage(mappingProject, pageNo, pageSize);
-        return pageInfo;
+    @PostMapping("/queryALLProjectByPage")
+    public PageInfo queryALLProjectByPage(@RequestBody MappingProject mappingProject,
+                                          @RequestParam("pageNo") Integer pageNo,
+                                          @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 selectALLProjectByPage 方法，得到结果
+        PageInfo allProjectByPage = mappingProjectService.selectALLProjectByPage(mappingProject, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (allProjectByPage != null) {
+            // 说明结果不为空，返回结果
+            return allProjectByPage;
+        }else {
+            // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  查询分页，将 根据项目类型查询的结果进行分页
+     * @date 2020/5/29
+     * @param [projectType, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectByPage")
+    public PageInfo<MappingProject> queryListByPage(@RequestParam("projectType") String projectType,
+                                                    @RequestParam("pageNo") Integer pageNo,
+                                                    @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> projectPageInfo = mappingProjectService.queryListByPage(projectType, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (projectPageInfo != null) {
+            // 说明结果不为空，返回结果
+            return projectPageInfo;
+        }else {
+            // 返回null
+            return null;
+        }
     }
 
     /**
