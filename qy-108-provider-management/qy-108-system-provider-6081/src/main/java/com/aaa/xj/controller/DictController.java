@@ -73,8 +73,8 @@ public class DictController {
      * @Date: 2020/5/28 22:09
      */
     @PostMapping("/queryUpdateDict")
-    public Dict selectUpdateDict(@RequestParam("id") Long id){
-        return dictService.selectUpdateDict(id);
+    public Dict selectUpdateDict(@RequestParam("dictId") Long dictId){
+        return dictService.selectUpdateDict(dictId);
     }
 
     /**
