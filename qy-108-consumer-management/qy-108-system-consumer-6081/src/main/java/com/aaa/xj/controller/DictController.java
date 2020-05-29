@@ -90,8 +90,8 @@ public class DictController extends BaseController {
      * @Date: 2020/5/28 22:34 
      */
     @PostMapping("/queryUpdateDict")
-    public ResultData selectUpdateDict(@RequestParam("id") Long id){
-        Dict dict1 = iqyService.selectUpdateDict(id);
+    public ResultData selectUpdateDict(@RequestParam("dictId") Long dictId){
+        Dict dict1 = iqyService.selectUpdateDict(dictId);
         //判断查询结果是否为空
         if (null != dict1 && !"".equals(dict1)){
             //不为空返回自定义信息
