@@ -6,6 +6,8 @@ import com.aaa.xj.model.Dict;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,6 +46,112 @@ public class DictService extends BaseService<Dict> {
         }
         return null;
     }
+
+    /**
+     * @Description: 新增字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 17:33
+     */
+    public Integer addDict(Dict dict){
+        //判断新增字典信息是否为空
+        if (null != dict){
+            //不为空执行增加操作
+            int insert = dictMapper.insert(dict);
+            if (insert > 0){
+                //把新增受影响的行数返回
+                return insert;
+            }else {
+                return 0;
+            }
+        }else {
+            return 0;
+        }
+    }
+
+    /**
+     * @Description: 删除字典信息
+     * @Param: [dictId]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 21:01
+     */
+    public Integer deleteDict(List<Object> dictIds){
+        //判断参数dictIds是否大于0
+        if (dictIds.size()>0){
+            try {
+                //大于0根据dictIds删除字典信息
+                Integer integer = batchDelete(dictIds);
+                //判断删除的受影响行数
+                if (integer > 0){
+                    //大于0返回受影响行数
+                    return integer;
+                }else {
+                    return 0;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            return 0;
+        }
+        return 0;
+    }
+
+    /**
+     * @Description: 查询出要修改的数据
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 21:58
+     */
+    public Dict selectUpdateDict(Long id){
+        //判断参数dict是否为空
+        if (!"".equals(id)){
+            try {
+                //不为空调用父类方发进行查询一条数据操作
+                Dict dict = dictMapper.selectUpdateDict(id);
+                //判断查询结果是否为空
+                if (null != dict && !"".equals(dict)){
+                    //不为空返回查询结果
+                    return dict;
+                }else {
+                    return null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @Description: 修改字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 23:09
+     */
+    public Integer updateDict(Dict dict){
+        //判断要修改的数据是否为空
+        if (null != dict && !"".equals(dict)){
+            try {
+                //不为空调用父类的方法执行修改操作
+                Integer update = dictMapper.updateDict(dict);
+                //判断修改受影响的行数
+                if (update > 0){
+                    //如果大于0就返回受影响的行数
+                    return update;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
+
 
     /**
      * @Description: 字典信息分页查询
