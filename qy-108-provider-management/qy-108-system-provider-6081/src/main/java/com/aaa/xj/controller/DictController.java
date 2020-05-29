@@ -42,6 +42,55 @@ public class DictController {
     }
 
     /**
+     * @Description: 新增字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 17:39
+     */
+    @PostMapping("/addDict")
+    public Integer addDict(@RequestBody Dict dict){
+        return dictService.addDict(dict);
+    }
+
+    /**
+     * @Description: 删除字典信息
+     * @Param: [dictIds]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 21:12
+     */
+    @PostMapping("/deleteDict")
+    public Integer deleteDict(@RequestParam("dictIds") List<Object> dictIds){
+        return dictService.deleteDict(dictIds);
+    }
+
+    /**
+     * @Description: 查询出要修改的数据
+     * @Param: [dict]
+     * @return: com.aaa.xj.model.Dict
+     * @Author: ygy
+     * @Date: 2020/5/28 22:09
+     */
+    @PostMapping("/queryUpdateDict")
+    public Dict selectUpdateDict(@RequestParam("id") Long id){
+        return dictService.selectUpdateDict(id);
+    }
+
+    /**
+     * @Description: 修改字典信息
+     * @Param: [dict]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/28 23:15
+     */
+    @PostMapping("/updateDict")
+    public Integer updateDict(@RequestBody Dict dict){
+        return dictService.updateDict(dict);
+    }
+
+
+    /**
      * @Description: 字典信息分页查询
      * @Param: [dict, pageNo, pageSize]
      * @return: com.github.pagehelper.PageInfo
