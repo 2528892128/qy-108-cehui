@@ -18,9 +18,9 @@ public class Dict implements Serializable {
      * 字典ID
      */
     @Id
-    @Column(name = "DICT_ID")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dictId;
+    private Long id;
 
     /**
      * 键
