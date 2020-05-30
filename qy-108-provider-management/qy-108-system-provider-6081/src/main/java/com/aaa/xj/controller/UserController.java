@@ -59,7 +59,7 @@ public class UserController extends CommonController<User> {
     @PostMapping("/deleteUser")
     public Integer deleteUser(@RequestBody User user){
         try {
-            Integer delete = userService.delete(user);
+            Integer delete = userService.deleteUser(user);
             return delete;
         } catch (Exception e) {
             e.printStackTrace();

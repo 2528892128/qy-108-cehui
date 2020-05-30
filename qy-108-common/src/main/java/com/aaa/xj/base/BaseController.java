@@ -1,7 +1,9 @@
 package com.aaa.xj.base;
 
-import static com.aaa.xj.status.CrudStatus.ADD_FAILED;
-import static com.aaa.xj.status.CrudStatus.ADD_SUCCESS;
+import static com.aaa.xj.status.CrudStatus.*;
+import static com.aaa.xj.status.CrudStatus.DELETE_SUCCESS;
+import static com.aaa.xj.status.CrudStatus.UPDATE_FAILED;
+import static com.aaa.xj.status.CrudStatus.UPDATE_SUCCESS;
 import static com.aaa.xj.status.LoginStatus.*;
 
 /**
@@ -202,6 +204,38 @@ public class BaseController {
         ResultData resultData = new ResultData();
         resultData.setCode(ADD_FAILED.getCode());
         resultData.setMsg(ADD_FAILED.getMsg());
+        return resultData;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      文件上传成功
+     * @Data: 2020/5/30
+     * @param []
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    protected ResultData uploadSuccess(){
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPLOAD_SUCCESS.getCode());
+        resultData.setMsg(UPLOAD_SUCCESS.getMsg());
+        return resultData;
+    }
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      文件上传失败
+     * @Data: 2020/5/30
+     * @param []
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    protected ResultData uploadFalse(){
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPLOAD_FAILED.getCode());
+        resultData.setCode(UPLOAD_FAILED.getMsg());
         return resultData;
     }
 
