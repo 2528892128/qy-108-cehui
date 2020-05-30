@@ -179,7 +179,7 @@ public interface IQYService {
     Integer addDict(@RequestBody Dict dict);
 
     /**
-     * @Description: 删除字典信息
+     * @Description: 通过主键批量删除字典信息
      * @Param: [dictIds]
      * @return: java.lang.Integer
      * @Author: ygy
@@ -247,6 +247,27 @@ public interface IQYService {
      */
     @PostMapping("/qureyMapping_unit")
     List<Mapping_unit> qureyMapping_unit(@RequestParam("userId") Long userId);
+
+    /**
+     * @Description: 查询要修改的测绘单位信息
+     * @Param: [userId]
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/5/29 22:13
+     */
+    @PostMapping("/queryUpdateMappingUnit")
+    List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("userId") Long userId);
+
+    /**
+     * @Description: 修改测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/29 23:14
+     */
+    @PostMapping("/updateMappingUnit")
+    Integer updateMappingUnit(@RequestBody Mapping_unit mappingUnit);
+
 
     /**
      * @Summary:
