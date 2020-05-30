@@ -65,4 +65,43 @@ public class Mapping_unitController {
 
     }
 
+    /**
+     * @Description: 查询要修改的测绘单位信息
+     * @Param: [userId]
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/5/29 22:08
+     */
+    @PostMapping("/queryUpdateMappingUnit")
+    public List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("userId") Long userId){
+        //根据userId进行查询测绘单位要修改的信息
+        List<Mapping_unit> mappingUnits = mappingUnitService.selectUpdateMappingUnit(userId);
+        //判断查询结果是否为空
+        if (null != mappingUnits && !"".equals(mappingUnits)){
+            //不为空就返回查询结果
+            return mappingUnits;
+        }
+        //否则返回null
+        return null;
+    }
+
+    /**
+     * @Description: 修改测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/29 23:13
+     */
+    @PostMapping("/updateMappingUnit")
+    public Integer updateMappingUnit(@RequestBody Mapping_unit mappingUnit){
+        Integer integer = mappingUnitService.updaMappingUnit(mappingUnit);
+        //判断修改受影响的行数
+        if (integer > 0){
+            //大于0返回受影响的行数
+            return integer;
+        }
+        return 0;
+    }
+
+
 }
