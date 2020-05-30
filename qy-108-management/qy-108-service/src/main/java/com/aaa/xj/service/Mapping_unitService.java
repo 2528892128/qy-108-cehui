@@ -1,11 +1,14 @@
 package com.aaa.xj.service;
 
+import com.aaa.xj.base.BaseModel;
 import com.aaa.xj.base.BaseService;
 import com.aaa.xj.mapper.Mapping_unitMapper;
 import com.aaa.xj.model.Mapping_unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,6 +63,54 @@ public class Mapping_unitService extends BaseService<Mapping_unit> {
             return null;
         }
     }
+
+    /**
+     * @Description: 查询要修改的测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/5/29 22:03
+     */
+    public List<Mapping_unit> selectUpdateMappingUnit(Long userId){
+        //判断传进来的userId是for为空
+        if (null != userId && !"".equals(userId)){
+            //不为空进行查询操作
+            List<Mapping_unit> mappingUnits = mappingUnitMapper.selectUpdateMappingUnit(userId);
+            //判断查询的信息是否为空
+            if (null != mappingUnits && !"".equals(mappingUnits)){
+                //不为空就返回查询的结果
+                return mappingUnits;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @Description: 修改测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/29 23:04
+     */
+    public Integer updaMappingUnit(Mapping_unit mappingUnit){
+
+        //获取时间
+        Date date = new Date();
+        //设置时间格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String format = simpleDateFormat.format(date);
+        //把当前系统时间作为修改时间穿进去
+        Mapping_unit mappingUnits = (Mapping_unit) mappingUnit.setModifyTime(format);
+        //根据传进来的值进行修改
+        Integer integer = mappingUnitMapper.updateMappingUnit(mappingUnits);
+        //判断修改受影响的行数
+        if (integer > 0){
+            //大于0返回受影响的行数
+            return integer;
+        }
+        return 0;
+    }
+
 
 
 }
