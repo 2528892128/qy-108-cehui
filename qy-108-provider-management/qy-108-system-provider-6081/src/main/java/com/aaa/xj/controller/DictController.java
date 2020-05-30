@@ -54,7 +54,7 @@ public class DictController {
     }
 
     /**
-     * @Description: 删除字典信息
+     * @Description: 通过主键批量删除字典信息
      * @Param: [dictIds]
      * @return: java.lang.Integer
      * @Author: ygy
