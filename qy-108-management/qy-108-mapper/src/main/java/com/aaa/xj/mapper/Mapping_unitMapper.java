@@ -23,9 +23,9 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
                                      @Param("qualificationLevel") String qualificationLevel);
 
 
+    List<Mapping_unit> selectUpdateMappingUnit(Long userId);
 
-
-
+    Integer updateMappingUnit(Mapping_unit mappingUnit);
 
 
 
