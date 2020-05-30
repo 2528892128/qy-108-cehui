@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +73,7 @@ public class DictService extends BaseService<Dict> {
     }
 
     /**
-     * @Description: 删除字典信息
+     * @Description: 通过主键批量删除字典信息
      * @Param: [dictId]
      * @return: java.lang.Integer
      * @Author: ygy
