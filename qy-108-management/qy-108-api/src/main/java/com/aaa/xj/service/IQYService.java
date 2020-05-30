@@ -5,10 +5,12 @@ import com.aaa.xj.model.*;
 import com.aaa.xj.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -60,6 +62,26 @@ public interface IQYService {
      */
     @PostMapping("/addLoginLog")
     ResultData addLoginLog(@RequestBody Map map);
+
+    /**
+     * @author Seven Lee
+     * @description
+     *      ftp文件上传
+     *      这个时候如果你自己测试过，你会发现file是无论如何都无法发送到provider项目中
+     *      因为feign默认只能发送普通类型(java8种基本类型，封装类型，集合...)
+     *      最终这些普通类型都可以转换为二进制流的形式在http之间传输，但是文件类型不行，
+     *      因为文件类型只能转换为字节流/字符流
+     *      也就是说，最终我可以让PostMapping去接收Multipart/form-data类型
+     *      让feign使用json的数据格式来进行接收
+     * @param [file]
+     * @date 2020/5/29
+     * @return java.lang.Boolean
+     * @throws
+     **/
+    @PostMapping(value = "/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    Boolean uploadFile(@RequestBody MultipartFile file);
 
     /**
      * @author ligen

@@ -51,13 +51,14 @@ public class Map2BeanUtils {
              */
             // 就是为了获取下一步的get和set方法
             CONCURRENT_HASH_MAP.putIfAbsent(clazz, methodAccess);
-            // 循环数据
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                // 于是就可以获取到Map中的各种数据，我就需要通过setter方法进行赋值了
-                String setMethodName = setMethodName(entry.getKey());
-                int index = methodAccess.getIndex(setMethodName, entry.getValue().getClass());
-                methodAccess.invoke(instance, index, entry.getValue());
-            }
+
+        }
+        // 循环数据
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            // 于是就可以获取到Map中的各种数据，我就需要通过setter方法进行赋值了
+            String setMethodName = setMethodName(entry.getKey());
+            int index = methodAccess.getIndex(setMethodName, entry.getValue().getClass());
+            methodAccess.invoke(instance, index, entry.getValue());
         }
         return instance;
     }

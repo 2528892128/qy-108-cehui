@@ -6,8 +6,6 @@ import com.aaa.xj.model.User;
 import com.aaa.xj.service.IQYService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
-import io.swagger.models.auth.In;
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

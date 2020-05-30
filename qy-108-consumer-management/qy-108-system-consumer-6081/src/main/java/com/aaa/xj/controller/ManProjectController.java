@@ -65,7 +65,7 @@ public class ManProjectController extends BaseController {
      * @param manProject
      * @Return:com.aaa.xj.base.ResultData
      */
-    @PutMapping("/updateById")
+    @PostMapping("/updateById")
     public ResultData updateById(ManProject manProject){
         Integer integer = iqyService.updateById(manProject);
         if (integer>0){
