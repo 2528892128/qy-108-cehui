@@ -61,7 +61,17 @@
   </resultMap>
 
   <select id="qureyMapping_unit" parameterType="Mapping_unit" resultType="Mapping_unit">
-    select * from t_mapping_unit where user_id=#{userId}
+    select id, create_time, modify_time, memo, unit_name, register_address, register_time,
+    oa, corporation, linkman, owned_district, register_fund, social_credit_code, qualification_level,
+    phone, contact_way, used_name, register_address_lon, register_address_lat, register_address_postcode,
+    oa_postcode, oa_area, establish_time, mobile_phone, fax_num, email, surveying_num,
+    staff_num, unit_nature, belong_industry, certificate_code, certificate_send_date,
+    company_type, stock_details, joint_venture, joint_ch_p, joint_ratify_code, competent_depart,
+    first_qualification_level, first_qualification_date, qualification_process, organization_code,
+    unit_type, user_id, audit_status, unit_code, unit_status, synchronization_status,
+    score, filing_business, business_scope, unit_intro, coordinate
+    from t_mapping_unit
+    where user_id=#{userId}
   </select>
   <select id="fuzzyUnitName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT id, unit_name, owned_district, qualification_level, register_address
@@ -80,5 +90,68 @@
     </where>
     ORDER BY id ASC
   </select>
+
+  <select id="selectUpdateMappingUnit" parameterType="Mapping_unit"  resultType="Mapping_unit">
+    select  unit_name, register_address, register_time,
+    oa, corporation, linkman, owned_district, register_fund, social_credit_code, qualification_level,
+    phone, contact_way, used_name, register_address_lon, register_address_lat, register_address_postcode,
+    oa_postcode, oa_area, establish_time, mobile_phone, fax_num, email, surveying_num,
+    staff_num, unit_nature, belong_industry, certificate_code, certificate_send_date,
+    company_type, stock_details, joint_venture, joint_ch_p, joint_ratify_code, competent_depart,
+    first_qualification_level, first_qualification_date, qualification_process, organization_code,
+    unit_type, unit_code,
+    filing_business, business_scope, unit_intro
+    from t_mapping_unit
+    where user_id=#{userId}
+  </select>
+
+  <update id="updateMappingUnit" parameterType="Mapping_unit" >
+    update t_mapping_unit
+    set modify_time = #{modifyTime,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      register_address = #{registerAddress,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=VARCHAR},
+      oa = #{oa,jdbcType=VARCHAR},
+      corporation = #{corporation,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      owned_district = #{ownedDistrict,jdbcType=VARCHAR},
+      register_fund = #{registerFund,jdbcType=DOUBLE},
+      social_credit_code = #{socialCreditCode,jdbcType=VARCHAR},
+      qualification_level = #{qualificationLevel,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      contact_way = #{contactWay,jdbcType=VARCHAR},
+      used_name = #{usedName,jdbcType=VARCHAR},
+      register_address_lon = #{registerAddressLon,jdbcType=VARCHAR},
+      register_address_lat = #{registerAddressLat,jdbcType=VARCHAR},
+      register_address_postcode = #{registerAddressPostcode,jdbcType=VARCHAR},
+      oa_postcode = #{oaPostcode,jdbcType=VARCHAR},
+      oa_area = #{oaArea,jdbcType=DOUBLE},
+      establish_time = #{establishTime,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      fax_num = #{faxNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      surveying_num = #{surveyingNum,jdbcType=INTEGER},
+      staff_num = #{staffNum,jdbcType=INTEGER},
+      unit_nature = #{unitNature,jdbcType=VARCHAR},
+      belong_industry = #{belongIndustry,jdbcType=VARCHAR},
+      certificate_code = #{certificateCode,jdbcType=VARCHAR},
+      certificate_send_date = #{certificateSendDate,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      stock_details = #{stockDetails,jdbcType=VARCHAR},
+      joint_venture = #{jointVenture,jdbcType=VARCHAR},
+      joint_ch_p = #{jointChP,jdbcType=INTEGER},
+      joint_ratify_code = #{jointRatifyCode,jdbcType=VARCHAR},
+      competent_depart = #{competentDepart,jdbcType=VARCHAR},
+      first_qualification_level = #{firstQualificationLevel,jdbcType=VARCHAR},
+      first_qualification_date = #{firstQualificationDate,jdbcType=VARCHAR},
+      qualification_process = #{qualificationProcess,jdbcType=VARCHAR},
+      organization_code = #{organizationCode,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      unit_code = #{unitCode,jdbcType=VARCHAR},
+      filing_business = #{filingBusiness,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=LONGVARCHAR},
+      unit_intro = #{unitIntro,jdbcType=LONGVARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
 
 </mapper>
