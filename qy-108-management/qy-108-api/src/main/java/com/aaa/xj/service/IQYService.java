@@ -85,64 +85,60 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
-     *  查询所有的，已提交的项目信息
+     * @description 项目汇交
+     *  查询所有的 项目汇交信息，带分页
+     *      参数：
+     *          pageNo 当前页数，
+     *          pageSize 每页数据个数
      * @date 2020/5/22
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAllProject")
-    List<MappingProject> selectAllProject();
+    @PostMapping("/queryAllProjectResult")
+    PageInfo<MappingProject> queryAllProjectResult(@RequestBody MappingProject mappingProject,
+                                                   @RequestParam("pageNo") Integer pageNo,
+                                                   @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
-     * @description
-     *  查询测绘项目的详情信息
-     * @date 2020/5/29
-     * @param [id]
-     * @return com.aaa.xj.model.MappingProject
-     */
-    @GetMapping("/selectAllProjectDetailById")
-    MappingProject selectAllProjectDetailById(@RequestParam("id") Long id);
-
-    /**
-     * @author ligen
-     * @description
-     *  条件查询，根据项目类型 projectType，查询所有的 已提交的项目信息
+     * @description 项目汇交-根据项目类型查询
+     *  条件查询 根据项目类型 projectType，查询所有的 项目汇交信息，进行分页
      *      项目类型分为：基础测绘，专业测绘
-     * @date 2020/5/22
-     * @param projectType
-     * @return java.util.List<com.aaa.xj.model.MappingProject>
-     */
-    @GetMapping ("/selectAllProjectByType")
-    List<MappingProject> selectAllProjectByType(@RequestParam("projectType") String projectType);
-
-    /**
-     * @author ligen
-     * @description
-     *  分页查询 ，将查询的所有已提交项目信息，进行分页
-     *      参数：pageNo 当前页数，pageSize 每页数据个数
      * @date 2020/5/23
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    @PostMapping("/queryALLProjectByPage")
-    PageInfo queryALLProjectByPage(@RequestBody MappingProject mappingProject,
-                                   @RequestParam("pageNo") Integer pageNo,
-                                   @RequestParam("pageSize") Integer pageSize);
+    @GetMapping("/selectAllProjectResultByType")
+    PageInfo<MappingProject> selectAllProjectResultByType(@RequestParam("projectType") String projectType,
+                                                          @RequestParam("pageNo") Integer pageNo,
+                                                          @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目汇交-查看项目的审核日志
+     *  查询 该项目的审核日志
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     * @date 2020/5/31
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
+     */
+    @GetMapping("/selectProjectAuditById")
+    PageInfo<Audit> selectProjectAuditById(@RequestParam("refId") Long refId,
+                                           @RequestParam("pageNo") Integer pageNo,
+                                           @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
      * @description
-     *  查询分页，将 根据项目类型查询的结果进行分页
+     *  查询分页--查询所有的审核日志
      * @date 2020/5/29
-     * @param [projectType, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     * @param [audit, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    @GetMapping("/queryProjectByPage")
-    PageInfo<MappingProject> queryListByPage(@RequestParam("projectType") String projectType,
-                                             @RequestParam("pageNo") Integer pageNo,
-                                             @RequestParam("pageSize") Integer pageSize);
+    @PostMapping("/selectAllAudit")
+    PageInfo<Audit> selectAllAudit(@RequestBody Audit audit,
+                                   @RequestParam("pageNo") Integer pageNo,
+                                   @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
@@ -397,30 +393,6 @@ public interface IQYService {
      */
     @PostMapping("/qureySpecialPost")
     List<SpecialPost> selectSpecialPost(@RequestParam("userId") Long userId);
-
-    /**
-     * @author ligen
-     * @description
-     *  根据 业务编号 ref_id，查询该业务的审核日志
-     * @date 2020/5/25
-     * @param [refId]
-     * @return java.util.List<com.aaa.xj.model.Audit>
-     */
-    @GetMapping("/selectAuditByRefId")
-    List<Audit> selectAuditByRefId(@RequestParam("refId") Long refId);
-
-    /**
-     * @author ligen
-     * @description
-     *  查询分页--查询所有的审核日志
-     * @date 2020/5/29
-     * @param [audit, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
-     */
-    @PostMapping("/queryAllAudit")
-    PageInfo<Audit> queryAllAudit(@RequestBody Audit audit,
-                                  @RequestParam("pageNo") Integer pageNo,
-                                  @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen

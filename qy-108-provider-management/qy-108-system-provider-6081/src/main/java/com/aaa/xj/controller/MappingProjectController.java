@@ -12,7 +12,7 @@ import java.util.List;
  * @author ligen
  * @program qy-108-cehui
  * @description
- *  项目汇交
+ *  测绘项目
  * @create 2020-05-22 14:01
  */
 @RestController
@@ -22,19 +22,19 @@ public class MappingProjectController {
 
     /**
      * @author ligen
-     * @description
-     *  查询所有的，已提交的项目信息
+     * @description 项目汇交
+     *  查询所有的 项目汇交信息，不带分页
      * @date 2020/5/22
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAllProject")
-    public List<MappingProject> selectAllProject() {
-        // 调用 mappingProjectService 中的 selectAllProject 方法，返回结果
-        List<MappingProject> projectList = mappingProjectService.selectAllProject();
+    @GetMapping("/selectAllProjectResult")
+    public List<MappingProject> selectAllProjectResult() {
+        // 调用 mappingProjectService 中的 selectAllProjectResult 方法，返回结果
+        List<MappingProject> projectList = mappingProjectService.selectAllProjectResult();
 
         // 判断 结果不为空
-        if (projectList != null && !"".equals(projectList)){
+        if (null != projectList){
             // 说明结果不为空，返回结果
             return projectList;
         }else {
@@ -45,97 +45,54 @@ public class MappingProjectController {
 
     /**
      * @author ligen
-     * @description
-     *  查询测绘项目的详情信息
-     * @date 2020/5/29
-     * @param [id]
-     * @return com.aaa.xj.model.MappingProject
-     */
-    @GetMapping("/selectAllProjectDetailById")
-    public MappingProject selectAllProjectDetailById(@RequestParam("id") Long id) {
-        // 调用 mappingProjectService 中的 selectAllProjectDetailById 方法，返回结果
-        MappingProject mappingProject = mappingProjectService.selectAllProjectDetailById(id);
-
-        // 判断 结果不为空
-        if (mappingProject != null) {
-            // 说明结果不为空，返回结果
-            return mappingProject;
-        }else {
-            // 返回null
-            return null;
-        }
-    }
-
-    /**
-     * @author ligen
-     * @description
-     *  条件查询，根据项目类型 projectType，查询所有的 已提交的项目信息
-     *      项目类型分为：基础测绘，专业测绘
-     * @date 2020/5/22
-     * @param projectType
-     * @return java.util.List<com.aaa.xj.model.MappingProject>
-     */
-    @GetMapping ("/selectAllProjectByType")
-    public List<MappingProject> selectAllProjectByType(@RequestParam("projectType") String projectType) {
-        // 调用 mappingProjectService 中的 selectAllProjectByType 方法，得到结果
-        List<MappingProject> allByType = mappingProjectService.selectAllProjectByType(projectType);
-
-        // 判断 结果是否为空
-        if (allByType != null){
-            // 说明结果不为空，返回结果
-            return allByType;
-        }else {
-            // 返回null
-            return null;
-        }
-    }
-
-    /**
-     * @author ligen
-     * @description
-     *  分页查询 ，将查询的所有已提交项目信息，进行分页
-     *      参数：pageNo 当前页数，pageSize 每页数据个数
-     * @date 2020/5/23
+     * @description 项目汇交
+     *  查询所有的 项目汇交信息，带分页
+     *      参数：
+     *          pageNo 当前页数，
+     *          pageSize 每页数据个数
+     * @date 2020/5/31
      * @param [mappingProject, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
      */
-    @PostMapping("/queryALLProjectByPage")
-    public PageInfo queryALLProjectByPage(@RequestBody MappingProject mappingProject,
-                                          @RequestParam("pageNo") Integer pageNo,
-                                          @RequestParam("pageSize") Integer pageSize) {
-        // 调用 mappingProjectService 中的 selectALLProjectByPage 方法，得到结果
-        PageInfo allProjectByPage = mappingProjectService.selectALLProjectByPage(mappingProject, pageNo, pageSize);
+    @PostMapping("/queryAllProjectResult")
+    public PageInfo<MappingProject> queryAllProjectResult(@RequestBody MappingProject mappingProject,
+                                                          @RequestParam("pageNo") Integer pageNo,
+                                                          @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 selectAllProjectResult 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = mappingProjectService.selectAllProjectResult(mappingProject, pageNo, pageSize);
 
         // 判断 结果是否为空
-        if (allProjectByPage != null) {
-            // 说明结果不为空，返回结果
-            return allProjectByPage;
+        if (null != projectPageInfo){
+            // 说明结果不为空，查询成功返回结果
+            return projectPageInfo;
         }else {
-            // 返回null
+            // 查询失败，返回null
             return null;
         }
     }
 
     /**
      * @author ligen
-     * @description
-     *  查询分页，将 根据项目类型查询的结果进行分页
-     * @date 2020/5/29
+     * @description 项目汇交-根据项目类型查询
+     *  条件查询 根据项目类型 projectType，查询所有的 项目汇交信息，进行分页
+     *      项目类型分为：基础测绘，专业测绘
+     * @date 2020/5/31
      * @param [projectType, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/queryProjectByPage")
-    public PageInfo<MappingProject> queryListByPage(@RequestParam("projectType") String projectType,
-                                                    @RequestParam("pageNo") Integer pageNo,
-                                                    @RequestParam("pageSize") Integer pageSize) {
-        PageInfo<MappingProject> projectPageInfo = mappingProjectService.queryListByPage(projectType, pageNo, pageSize);
+    @GetMapping("/selectAllProjectResultByType")
+    public PageInfo<MappingProject> selectAllProjectResultByType(@RequestParam("projectType") String projectType,
+                                                                 @RequestParam("pageNo") Integer pageNo,
+                                                                 @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 selectAllProjectResultByType 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = mappingProjectService.selectAllProjectResultByType(projectType, pageNo, pageSize);
 
         // 判断 结果是否为空
-        if (projectPageInfo != null) {
-            // 说明结果不为空，返回结果
+        if (null != projectPageInfo){
+            // 说明结果不为空，查询成功返回结果
             return projectPageInfo;
         }else {
-            // 返回null
+            // 查询失败，返回null
             return null;
         }
     }

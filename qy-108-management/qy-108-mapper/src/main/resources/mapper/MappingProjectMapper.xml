@@ -98,30 +98,25 @@
       <result property="userId" column="user_id"/>
     </association>
   </resultMap>
-  <select id="selectAllProject" resultMap="BaseResultMap" >
-    select id, project_type, project_name, project_leader, start_date,  end_date, acceptance_department,project_amount,
-      results_status, user_id, create_time, modify_time
-    from t_mapping_project
-    where results_status=0
+  <select id="selectAllProjectResult" resultMap="BaseResultMap" >
+    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date,
+      a.complete_time, a.acceptance_department, a.project_amount,
+      a.results_status, a.user_id
+    FROM t_mapping_project a
+    JOIN t_result_commit b
+    ON a.id=b.ref_id
   </select>
-  <select id="selectAllProjectDetailById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, project_type, project_name, project_leader, start_date,  end_date, acceptance_department,project_amount,
-      results_status, user_id, create_time, modify_time,
-      complete_time, acceptance_report, task_source, project_area, scale, sheet_number, awards_department, prize_level,
-      project_quality_approval, winning_time, acceptance_time, basic_content, credit_status, submit_status, `schedule`,
-      memo, `status`, audit_status, coordinate, meridian, coordinate_system, management_level, funding_source, entrust_unit,
-      accept_unit, mobile_phone, phone, address, center_point, synchronization_status, contract_time
-    from t_mapping_project
-    where results_status=0 and id=#{id, jdbcType=BIGINT}
-  </select>
-  <select id="selectAllProjectByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select id, project_type, project_name, project_leader, start_date,  end_date, acceptance_department,project_amount,
-      results_status, user_id, create_time, modify_time
-    from t_mapping_project
+  <select id="selectAllProjectResultByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date,
+      a.complete_time, a.acceptance_department, a.project_amount,
+      a.results_status, a.user_id
+    FROM t_mapping_project a
+    JOIN t_result_commit b
+    ON a.id=b.ref_id
     <where>
-      results_status=0
+      1=1
       <if test="projectType != null and projectType != '' ">
-        and project_type=#{projectType, jdbcType=VARCHAR}
+        AND project_type=#{projectType, jdbcType=VARCHAR}
       </if>
     </where>
   </select>
