@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * @program: qy-108-cehui
  * @description:
+ *  系统主页-测绘单位
  * @author: ygy
  * @create: 2020-05-22-2020/5/22 19:16
  */
@@ -46,8 +47,9 @@ public class Mapping_unitController extends BaseController {
 
     /**
      * @author ligen
-     * @description
-     *  模糊查询 查询测绘单位名称
+     * @description 系统主页-测绘单位
+     *  查询测绘单位名称
+     *      模糊查询-动态sql
      * @date 2020/5/28
      * @param [unitName, ownedDistrict, qualificationLevel]
      * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Mapping_unit>
@@ -62,10 +64,33 @@ public class Mapping_unitController extends BaseController {
             // 说明结果不为空，查询成功，使用系统消息 自定义返回值
             return getSuccess(mappingUnits);
         }else {
-            // 查询失败
+            // 查询失败，返回系统信息
             return getFalse();
         }
 
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Mapping_unit>
+     */
+    @GetMapping("/selectUnitInfoById")
+    public ResultData<Mapping_unit> selectUnitInfoById(Long id) {
+        // 调用 iqyService 中的 selectUnitInfoById 方法，得到查询结果
+        Mapping_unit mappingUnit = iqyService.selectUnitInfoById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingUnit) {
+            // 说明结果不为空，查询成功，返回系统消息，自定义返回值
+            return getSuccess(mappingUnit);
+        }else {
+            // 查询失败，返回系统信息
+            return getFalse();
+        }
     }
 
 }

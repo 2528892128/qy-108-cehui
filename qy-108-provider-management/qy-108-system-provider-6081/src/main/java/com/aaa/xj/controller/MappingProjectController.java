@@ -165,4 +165,76 @@ public class MappingProjectController {
         }
     }
 
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectInfoById")
+    public MappingProject selectProjectInfoById(@RequestParam("id") Long id) {
+        // 调用 mappingProjectService 中的 selectProjectInfoById 方法，得到查询结果
+        MappingProject mappingProject = mappingProjectService.selectProjectInfoById(id);
+
+        // 判断 结果是否为空
+        if (mappingProject != null) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectDetailById")
+    public MappingProject selectProjectDetailById(@RequestParam("id") Long id) {
+        // 调用 mappingProjectService 中的 selectProjectDetailById 方法，得到查询结果
+        MappingProject mappingProject = mappingProjectService.selectProjectDetailById(id);
+
+        // 判断 结果是否为空
+        if (mappingProject != null) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的所有项目信息，进行分页
+     * @date 2020/5/31
+     * @param [id, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectForUnitByUserId")
+    public PageInfo<MappingProject> queryProjectForUnitByUserId(@RequestParam("id") Long id,
+                                                                 @RequestParam("pageNo") Integer pageNo,
+                                                                 @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 selectProjectForUnitByUserId 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = mappingProjectService.selectProjectForUnitByUserId(id, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (projectPageInfo != null) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return projectPageInfo;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
 }

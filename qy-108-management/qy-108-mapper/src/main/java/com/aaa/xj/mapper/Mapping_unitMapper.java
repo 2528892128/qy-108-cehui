@@ -12,7 +12,7 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
 
     /**
      * @author ligen
-     * @description
+     * @description 系统主页-测绘单位
      *  模糊查询 查询测绘单位名称
      * @date 2020/5/26
      * @param [mappingUnit]
@@ -22,7 +22,15 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
                                      @Param("ownedDistrict") String ownedDistrict,
                                      @Param("qualificationLevel") String qualificationLevel);
 
-
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.Mapping_unit
+     */
+    Mapping_unit selectUnitInfoById(Long id);
 
 
 

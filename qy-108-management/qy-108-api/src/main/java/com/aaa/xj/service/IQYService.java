@@ -424,8 +424,9 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
-     *  模糊查询-动态sql 查询测绘单位名称
+     * @description 系统主页-测绘单位
+     *  查询测绘单位名称
+     *      模糊查询-动态sql
      * @date 2020/5/27
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.Mapping_unit>
@@ -434,6 +435,31 @@ public interface IQYService {
     List<Mapping_unit> fuzzyUnitName(@RequestParam("unitName") String unitName,
                                      @RequestParam("ownedDistrict") String ownedDistrict,
                                      @RequestParam("qualificationLevel") String qualificationLevel);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.Mapping_unit
+     */
+    @GetMapping("/selectUnitInfoById")
+    Mapping_unit selectUnitInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的项目信息，进行分页
+     * @date 2020/5/31
+     * @param [id, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectForUnitByUserId")
+    PageInfo<MappingProject> queryProjectForUnitByUserId(@RequestParam("id") Long id,
+                                                         @RequestParam("pageNo") Integer pageNo,
+                                                         @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
@@ -450,6 +476,28 @@ public interface IQYService {
 
     /**
      * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectInfoById")
+    MappingProject selectProjectInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectDetailById")
+    MappingProject selectProjectDetailById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
      * @description
      *  模糊查询-动态sql 查询测绘成果名称
      * @date 2020/5/27
@@ -463,7 +511,18 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
+     * @description 系统主页-测绘成果
+     *  查询测绘成果基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.ResultCommit
+     */
+    @GetMapping("/selectResultInfoById")
+    ResultCommit selectResultInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘成果-查看详情
      *  查询测绘成果详情，根据成果主键id
      * @date 2020/5/27
      * @param [id]

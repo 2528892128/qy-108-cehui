@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * @author ligen
  * @description
- *  项目汇交
  * @Data Create in 2020/5/22 9:52
  */
 public interface MappingProjectMapper extends Mapper<MappingProject> {
@@ -58,7 +57,36 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
                                           @Param("projectType") String projectType,
                                           @Param("startDate") String startDate);
 
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    MappingProject selectProjectInfoById(Long id);
 
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    MappingProject selectProjectDetailById(Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的项目信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    List<MappingProject> selectProjectForUnitByUserId(Long id);
 
 
 }

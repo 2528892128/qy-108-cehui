@@ -49,6 +49,55 @@
     <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" />
     <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ProjectForUnitResultMap" type="com.aaa.xj.model.MappingProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_leader" property="projectLeader" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
+    <result column="acceptance_department" property="acceptanceDepartment" jdbcType="VARCHAR" />
+    <result column="project_amount" property="projectAmount" jdbcType="DOUBLE" />
+    <result column="results_status" property="resultsStatus" jdbcType="INTEGER" />
+    <result column="complete_time" property="completeTime" jdbcType="VARCHAR" />
+    <result column="acceptance_report" property="acceptanceReport" jdbcType="VARCHAR" />
+    <result column="task_source" property="taskSource" jdbcType="VARCHAR" />
+    <result column="project_area" property="projectArea" jdbcType="DOUBLE" />
+    <result column="scale" property="scale" jdbcType="VARCHAR" />
+    <result column="sheet_number" property="sheetNumber" jdbcType="VARCHAR" />
+    <result column="awards_department" property="awardsDepartment" jdbcType="VARCHAR" />
+    <result column="prize_level" property="prizeLevel" jdbcType="VARCHAR" />
+    <result column="project_quality_approval" property="projectQualityApproval" jdbcType="VARCHAR" />
+    <result column="winning_time" property="winningTime" jdbcType="VARCHAR" />
+    <result column="acceptance_time" property="acceptanceTime" jdbcType="VARCHAR" />
+    <result column="basic_content" property="basicContent" jdbcType="VARCHAR" />
+    <result column="credit_status" property="creditStatus" jdbcType="VARCHAR" />
+    <result column="submit_status" property="submitStatus" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="schedule" property="schedule" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="audit_status" property="auditStatus" jdbcType="INTEGER" />
+    <result column="meridian" property="meridian" jdbcType="VARCHAR" />
+    <result column="coordinate_system" property="coordinateSystem" jdbcType="VARCHAR" />
+    <result column="management_level" property="managementLevel" jdbcType="VARCHAR" />
+    <result column="funding_source" property="fundingSource" jdbcType="VARCHAR" />
+    <result column="entrust_unit" property="entrustUnit" jdbcType="VARCHAR" />
+    <result column="accept_unit" property="acceptUnit" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="center_point" property="centerPoint" jdbcType="VARCHAR" />
+    <result column="synchronization_status" property="synchronizationStatus" jdbcType="INTEGER" />
+    <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" />
+    <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
+    <association property="mappingUnit" javaType="com.aaa.xj.model.Mapping_unit">
+      <id property="id" column="id"/>
+      <result property="userId" column="user_id"/>
+    </association>
+  </resultMap>
   <select id="selectAllProject" resultMap="BaseResultMap" >
     select id, project_type, project_name, project_leader, start_date,  end_date, acceptance_department,project_amount,
       results_status, user_id, create_time, modify_time
@@ -92,5 +141,31 @@
       </if>
     </where>
     ORDER BY id ASC
+  </select>
+  <select id="selectProjectInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT id, project_type, project_name, project_amount, project_leader, start_date, end_date, complete_time,
+        acceptance_department, acceptance_report, project_area
+    FROM t_mapping_project
+    WHERE id=#{id, jdbcType=BIGINT}
+  </select>
+  <select id="selectProjectDetailById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT id, project_type, project_name,
+      project_amount, project_leader, start_date,
+      complete_time, acceptance_department, acceptance_report,
+      task_source, project_area, scale,
+      sheet_number, awards_department, prize_level,
+      project_quality_approval, winning_time, acceptance_time,
+      basic_content, address, credit_status,
+      submit_status, user_id, memo
+    FROM t_mapping_project
+    WHERE id=#{id, jdbcType=BIGINT}
+  </select>
+  <select id="selectProjectForUnitByUserId" resultMap="ProjectForUnitResultMap" parameterType="java.lang.Long" >
+    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time,
+        a.acceptance_department, a.project_amount, a.schedule
+    FROM t_mapping_project a
+    JOIN t_mapping_unit b
+    ON a.user_id=b.user_id
+    WHERE b.id=#{id, jdbcType=BIGINT}
   </select>
 </mapper>

@@ -32,13 +32,13 @@ public class MappingProjectService extends BaseService<MappingProject> {
      */
     public List<MappingProject> selectAllProject() {
         List<MappingProject> projectList = null;
-
         try {
             // 调用 mappingProjectMapper 中的 selectAllProject 方法获取数据
             projectList = mappingProjectMapper.selectAllProject();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
         if (null != projectList && projectList.size() > 0) {
             // 说明查询到了结果，返回查询的数据
@@ -59,13 +59,13 @@ public class MappingProjectService extends BaseService<MappingProject> {
      */
     public MappingProject selectAllProjectDetailById(Long id) {
         MappingProject projectDetailById = null;
-
         try {
             // 调用 mappingProjectMapper 中的 selectAllProjectDetailById 方法，返回查询的结果
             projectDetailById = mappingProjectMapper.selectAllProjectDetailById(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
         if (null != projectDetailById && !"".equals(projectDetailById)) {
             // 说明查询到了结果，返回查询的数据
@@ -88,7 +88,6 @@ public class MappingProjectService extends BaseService<MappingProject> {
      */
     public List<MappingProject> selectAllProjectByType(String projectType) {
         List<MappingProject> allByProjectType = null;
-
         try {
             // 调用 mappingProjectMapper 中的 selectAllByProjectType 方法获取数据
             allByProjectType = mappingProjectMapper.selectAllProjectByType(projectType);
@@ -96,6 +95,7 @@ public class MappingProjectService extends BaseService<MappingProject> {
             // 非法参数异常
             e.printStackTrace();
         }
+
         // 判断 如果结果不为空并且结果的个数大于0，返回拿到的数据
         if (null != allByProjectType && allByProjectType.size() > 0) {
             // 说明结果不为空，返回查询的数据
@@ -117,13 +117,13 @@ public class MappingProjectService extends BaseService<MappingProject> {
      */
     public PageInfo selectALLProjectByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
         PageInfo<MappingProject> projectPageInfo = null;
-
         try {
             // 调用重写的分页查询方法，得到分页结果
             projectPageInfo = queryListByPage(mappingProject, pageNo, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // 判断 结果是否为空
         if (null != projectPageInfo && !"".equals(projectPageInfo)) {
             // 说明查询的结果不是空，返回结果
@@ -148,7 +148,6 @@ public class MappingProjectService extends BaseService<MappingProject> {
     public PageInfo<MappingProject> queryListByPage(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
         List<MappingProject> select = null;
         PageInfo<MappingProject> pageInfo = null;
-
         try {
             // 设置分页，pageNO 当前页数，pageSize 每页数据个数
             PageHelper.startPage(pageNo, pageSize);
@@ -159,6 +158,7 @@ public class MappingProjectService extends BaseService<MappingProject> {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
         // 判断 结果是否为空
         if (null == pageInfo && "".equals(pageInfo)){
             // 说明结果是空，返回null
@@ -181,7 +181,6 @@ public class MappingProjectService extends BaseService<MappingProject> {
     public PageInfo<MappingProject> queryListByPage(String projectType, Integer pageNo, Integer pageSize) {
         List<MappingProject> selectByType = null;
         PageInfo<MappingProject> pageInfoByType = null;
-
         try {
             // 设置分页，pageNO 当前页数，pageSize 每页数据个数
             PageHelper.startPage(pageNo, pageSize);
@@ -192,6 +191,7 @@ public class MappingProjectService extends BaseService<MappingProject> {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
         // 判断 结果是否为空
         if (null == pageInfoByType && "".equals(pageInfoByType)){
             // 说明结果是空，返回null
@@ -211,7 +211,7 @@ public class MappingProjectService extends BaseService<MappingProject> {
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
     public List<MappingProject> fuzzyProjectName(String projectName, String projectType, String startDate) {
-        // 调用 mappingProjectMapper 中的 fuzzyProjectName 方法，得到结果
+        // 调用 mappingProjectMapper 中的 fuzzyProjectName 方法，得到查询结果
         List<MappingProject> mappingProjects = mappingProjectMapper.fuzzyProjectName(projectName, projectType, startDate);
 
         // 判断 结果是否为空
@@ -220,6 +220,88 @@ public class MappingProjectService extends BaseService<MappingProject> {
             return mappingProjects;
         }else {
             // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    public MappingProject selectProjectInfoById(Long id) {
+        // 调用 mappingProjectMapper 中的 selectProjectInfoById 方法，得到查询结果
+        MappingProject mappingProject = mappingProjectMapper.selectProjectInfoById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingProject && !"".equals(mappingProject)) {
+            // 说明结果不为空，查询成功，返回分页结果
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    public MappingProject selectProjectDetailById(Long id) {
+        // 调用 mappingProjectMapper 中的 selectProjectDetailById 方法，得到查询结果
+        MappingProject mappingProject = null;
+        try {
+            mappingProject = mappingProjectMapper.selectProjectDetailById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if (null != mappingProject && !"".equals(mappingProject)) {
+            // 说明结果不为空，查询成功
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的所有项目信息，进行分页
+     * @date 2020/5/31
+     * @param [id]
+     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     */
+    public PageInfo<MappingProject> selectProjectForUnitByUserId(Long id, Integer pageNo, Integer pageSize) {
+        List<MappingProject> mappingProjects = null;
+        PageInfo<MappingProject> pageInfoByType = null;
+        try {
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 调用 mappingProjectMapper 中的 selectProjectForUnitByUserId 方法，得到查询结果
+            mappingProjects = mappingProjectMapper.selectProjectForUnitByUserId(id);
+            // 将查询的结果 进行分页
+            pageInfoByType = new PageInfo<MappingProject>(mappingProjects);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if (null != pageInfoByType && !"".equals(pageInfoByType)){
+            // 说明结果不为空，返回分页结果
+            return pageInfoByType;
+        }else {
+            // 查询失败，返回null
             return null;
         }
     }

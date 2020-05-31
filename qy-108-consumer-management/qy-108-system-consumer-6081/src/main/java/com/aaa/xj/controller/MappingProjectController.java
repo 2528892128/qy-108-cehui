@@ -17,7 +17,7 @@ import java.util.List;
  * @author ligen
  * @program qy-108-cehui
  * @description
- *  项目汇交
+ *  系统主页-测绘项目
  * @create 2020-05-22 15:32
  */
 @RestController
@@ -160,6 +160,76 @@ public class MappingProjectController extends BaseController {
         if (fuzzyProjectName != null) {
             // 说明结果不为空，返回结果数据
             return getSuccess(fuzzyProjectName);
+        }else {
+            // 返回null
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectProjectInfoById")
+    public ResultData<MappingProject> selectProjectInfoById(Long id) {
+        // 调用 iqyService 中的 selectProjectInfoById 方法，得到查询结果
+        MappingProject mappingProject = iqyService.selectProjectInfoById(id);
+
+        // 判断 结果是否为空
+        if (mappingProject != null) {
+            // 说明结果不为空，返回结果数据
+            return getSuccess(mappingProject);
+        }else {
+            // 返回null
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectProjectDetailById")
+    public ResultData<MappingProject> selectProjectDetailById(Long id) {
+        // 调用 iqyService 中的 selectProjectDetailById 方法，得到查询结果
+        MappingProject mappingProject = iqyService.selectProjectDetailById(id);
+
+        // 判断 结果是否为空
+        if (mappingProject != null) {
+            // 说明结果不为空，返回结果数据
+            return getSuccess(mappingProject);
+        }else {
+            // 返回null
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的项目信息，进行分页
+     * @date 2020/5/31
+     * @param [id, pageNo, pageSize]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectForUnitByUserId")
+    public ResultData<MappingProject> queryProjectForUnitByUserId(Long id, Integer pageNo, Integer pageSize) {
+        // 调用 iqyService 中的 queryProjectForUnitByUserId 方法，得到结果
+        PageInfo<MappingProject> projectPageInfo = iqyService.queryProjectForUnitByUserId(id, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (projectPageInfo != null) {
+            // 说明结果不为空，返回结果数据
+            return getSuccess(projectPageInfo);
         }else {
             // 返回null
             return getFalse();

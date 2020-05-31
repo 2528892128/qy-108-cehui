@@ -252,5 +252,7 @@ public class MappingProject extends BaseModel {
      */
     private String coordinate;
 
+    public Mapping_unit mappingUnit;
+
 
 }
