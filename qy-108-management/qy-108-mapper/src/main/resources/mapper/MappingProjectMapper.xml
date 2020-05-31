@@ -23,8 +23,8 @@
     <result column="awards_department" property="awardsDepartment" jdbcType="VARCHAR" />
     <result column="prize_level" property="prizeLevel" jdbcType="VARCHAR" />
     <result column="project_quality_approval" property="projectQualityApproval" jdbcType="VARCHAR" />
-    <result column="winning_time" property="winningTime" jdbcType="DATE" />
-    <result column="acceptance_time" property="acceptanceTime" jdbcType="DATE" />
+    <result column="winning_time" property="winningTime" jdbcType="VARCHAR" />
+    <result column="acceptance_time" property="acceptanceTime" jdbcType="VARCHAR" />
     <result column="basic_content" property="basicContent" jdbcType="VARCHAR" />
     <result column="credit_status" property="creditStatus" jdbcType="VARCHAR" />
     <result column="submit_status" property="submitStatus" jdbcType="VARCHAR" />

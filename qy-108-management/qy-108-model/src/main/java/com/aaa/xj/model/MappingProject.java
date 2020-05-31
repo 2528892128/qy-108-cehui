@@ -122,13 +122,13 @@ public class MappingProject extends BaseModel {
      * 获奖时间
      */
     @Column(name = "winning_time")
-    private Date winningTime;
+    private String winningTime;
 
     /**
      * 验收时间
      */
     @Column(name = "acceptance_time")
-    private Date acceptanceTime;
+    private String acceptanceTime;
 
     /**
      * 基本内容
