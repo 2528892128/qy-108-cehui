@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.Dept" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectDeptByDeptId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT DEPT_ID, PARENT_ID, DEPT_NAME, ORDER_NUM, CREATE_TIME, MODIFY_TIME
+    FROM t_dept
+    WHERE DEPT_ID=#{deptId, jdbcType=INTEGER}
+  </select>
+  <select id="selectDeptByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT DEPT_ID, PARENT_ID, DEPT_NAME, ORDER_NUM, CREATE_TIME, MODIFY_TIME
+    FROM t_dept
+    WHERE PARENT_ID=#{parentId, jdbcType=INTEGER}
+    ORDER BY ORDER_NUM ASC
+  </select>
+  <insert id="insertDept" parameterType="com.aaa.xj.model.Dept" >
+    <selectKey resultType="java.lang.Integer" keyProperty="deptId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO t_dept (PARENT_ID, DEPT_NAME, ORDER_NUM, CREATE_TIME, MODIFY_TIME)
+    VALUES (#{parentId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},
+        #{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR})
+  </insert>
+</mapper>

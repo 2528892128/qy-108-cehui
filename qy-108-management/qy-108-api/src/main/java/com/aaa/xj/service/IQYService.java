@@ -502,6 +502,73 @@ public interface IQYService {
      */
     @PostMapping("/queryDictList")
     List<Dict> selectDictList(@RequestBody Dict dict);
+
+    /**
+     * @author ligen
+     * @description 部门管理
+     *  递归查询
+     *      根据 parentId（父id）查询该部门及其子部门
+     * @date 2020/5/30
+     * @param [parentId]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @GetMapping("/selectAllDeptByParentId")
+    List<Dept> selectAllDeptByParentId(@RequestParam("parentId") Long parentId);
+
+    /**
+     * @author ligen
+     * @description 部门管理
+     *  查询部门信息，根据主键id查询部门的信息
+     * @date 2020/5/31
+     * @param [parentId]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @GetMapping("/selectDeptByDeptId")
+    Dept selectDeptByDeptId(@RequestParam("deptId") Integer deptId);
+
+    /**
+     * @author ligen
+     * @description
+     *  新增部门信息
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/insertDept")
+    Boolean insertDept(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description
+     *  通过主键 执行删除操作
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/deleteDeptByPrimaryKey")
+    Boolean deleteDeptByPrimaryKey(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description
+     *  批量删除 调用父类的批量删除方法（根据主键），执行删除操作
+     * @date 2020/5/31
+     * @param [ids]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/batchDeleteByPrimaryKey")
+    Boolean batchDeleteByPrimaryKey(@RequestBody List<Object> ids);
+
+    /**
+     * @author ligen
+     * @description
+     *  修改，通过主键-修改部门信息
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/updateDeptByPrimaryKey")
+    Boolean updateDeptByPrimaryKey(@RequestBody Dept dept);
 }
 
 
