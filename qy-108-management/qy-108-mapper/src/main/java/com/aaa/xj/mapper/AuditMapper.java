@@ -9,12 +9,25 @@ public interface AuditMapper extends Mapper<Audit> {
 
     /**
      * @author ligen
-     * @description
-     *  查询 该项目的审核日志
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
      *      项目id 作为日志表的refId，进行查询该项目的审核日志
-     * @date 2020/5/25
-     * @param []
-     * @return java.util.List<com.aaa.two.model.Audit>
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
+     * @param [refId]
+     * @return java.util.List<com.aaa.xj.model.Audit>
      */
-    List<Audit> selectProjectAuditById(Long refId);
+    List<Audit> selectAuditProjectResult(Long refId);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询 该项目的审核记录
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
+     * @param [refId]
+     * @return java.util.List<com.aaa.xj.model.Audit>
+     */
+    List<Audit> selectAuditProjectByRefId(Long refId);
 }

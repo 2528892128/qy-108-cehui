@@ -169,4 +169,75 @@ public class MappingProjectController extends BaseController {
         }
     }
 
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @date 2020/6/1
+     * @param [pageNo, pageSize]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/getAllProjectAudit")
+    public ResultData<MappingProject> getAllProjectAudit(Integer pageNo, Integer pageSize) {
+        // 调用 iqyService 中的 selectAllProjectAudit 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = iqyService.selectAllProjectAudit(pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (projectPageInfo != null) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return getSuccess(projectPageInfo);
+        }else {
+            // 查询失败返回null
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/1
+     * @param [projectName, pageNo, pageSize]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectAuditByType")
+    public ResultData<MappingProject> fuzzyProjectAuditByType(String projectName, Integer pageNo, Integer pageSize) {
+        // 调用 iqyService 中的 fuzzyProjectAuditByType 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = iqyService.fuzzyProjectAuditByType(projectName, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (null != projectPageInfo) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return getSuccess(projectPageInfo);
+        }else {
+            // 查询失败返回null
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询项目详细信息-主键查询
+     * @date 2020/6/1
+     * @param [id]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/getProjectAuditById")
+    public ResultData<MappingProject> getProjectAuditById(Long id) {
+        // 调用 iqyService 中的 selectProjectAuditById 方法，得到查询结果
+        MappingProject mappingProject = iqyService.selectProjectAuditById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingProject) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return getSuccess(mappingProject);
+        }else {
+            // 查询失败返回null
+            return getFalse();
+        }
+    }
+
 }

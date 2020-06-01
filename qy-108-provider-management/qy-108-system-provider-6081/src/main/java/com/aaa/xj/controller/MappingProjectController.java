@@ -194,4 +194,78 @@ public class MappingProjectController {
         }
     }
 
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @date 2020/6/1
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectAudit")
+    public PageInfo<MappingProject> selectAllProjectAudit(@RequestParam("pageNo") Integer pageNo,
+                                                          @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 selectAllProjectAudit 方法，得到查询结果
+        PageInfo<MappingProject> projectPageInfo = mappingProjectService.selectAllProjectAudit(pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (null != projectPageInfo) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return projectPageInfo;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/1
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectAuditByType")
+    public PageInfo<MappingProject> fuzzyProjectAuditByType(@RequestParam("projectName") String projectName,
+                                                            @RequestParam("pageNo") Integer pageNo,
+                                                            @RequestParam("pageSize") Integer pageSize) {
+        // 调用 mappingProjectService 中的 fuzzyProjectAuditByType 方法，得到查询结果
+        PageInfo<MappingProject> fuzzyProjectAuditByType = mappingProjectService.fuzzyProjectAuditByType(projectName, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (null != fuzzyProjectAuditByType) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return fuzzyProjectAuditByType;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询项目详细信息-主键查询
+     * @date 2020/6/1
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectAuditById")
+    public MappingProject selectProjectAuditById(@RequestParam("id") Long id) {
+        // 调用 mappingProjectService 中的 selectProjectAuditById 方法，得到查询结果
+        MappingProject mappingProject = mappingProjectService.selectProjectAuditById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingProject) {
+            // 说明结果不为空，查询成功，返回结果数据
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
 }

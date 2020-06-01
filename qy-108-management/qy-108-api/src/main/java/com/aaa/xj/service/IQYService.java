@@ -87,6 +87,7 @@ public interface IQYService {
      * @author ligen
      * @description 项目汇交
      *  查询所有的 项目汇交信息，带分页
+     *  -项目成果汇交状态为：通过 已提交
      *      参数：
      *          pageNo 当前页数，
      *          pageSize 每页数据个数
@@ -115,30 +116,18 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description 项目汇交-查看项目的审核日志
-     *  查询 该项目的审核日志
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
      *      项目id 作为日志表的refId，进行查询该项目的审核日志
-     * @date 2020/5/31
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
      * @param [refId, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    @GetMapping("/selectProjectAuditById")
-    PageInfo<Audit> selectProjectAuditById(@RequestParam("refId") Long refId,
-                                           @RequestParam("pageNo") Integer pageNo,
-                                           @RequestParam("pageSize") Integer pageSize);
-
-    /**
-     * @author ligen
-     * @description
-     *  查询分页--查询所有的审核日志
-     * @date 2020/5/29
-     * @param [audit, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
-     */
-    @PostMapping("/selectAllAudit")
-    PageInfo<Audit> selectAllAudit(@RequestBody Audit audit,
-                                   @RequestParam("pageNo") Integer pageNo,
-                                   @RequestParam("pageSize") Integer pageSize);
+    @GetMapping("/selectAuditProjectResult")
+    PageInfo<Audit> selectAuditProjectResult(@RequestParam("refId") Long refId,
+                                             @RequestParam("pageNo") Integer pageNo,
+                                             @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
@@ -625,6 +614,59 @@ public interface IQYService {
      */
     @PostMapping("/updateDeptByPrimaryKey")
     Boolean updateDeptByPrimaryKey(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @date 2020/6/1
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectAudit")
+    PageInfo<MappingProject> selectAllProjectAudit(@RequestParam("pageNo") Integer pageNo,
+                                                   @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/1
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectAuditByType")
+    PageInfo<MappingProject> fuzzyProjectAuditByType(@RequestParam("projectName") String projectName,
+                                                     @RequestParam("pageNo") Integer pageNo,
+                                                     @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询项目详细信息-主键查询
+     * @date 2020/6/1
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectAuditById")
+    MappingProject selectProjectAuditById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询 该项目的审核记录，分页
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
+     */
+    @GetMapping("/selectAuditProjectByRefId")
+    PageInfo<Audit> selectAuditProjectByRefId(@RequestParam("refId") Long refId,
+                                              @RequestParam("pageNo") Integer pageNo,
+                                              @RequestParam("pageSize") Integer pageSize);
 }
 
 

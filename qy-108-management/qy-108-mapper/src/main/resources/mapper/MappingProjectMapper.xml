@@ -46,7 +46,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="center_point" property="centerPoint" jdbcType="VARCHAR" />
     <result column="synchronization_status" property="synchronizationStatus" jdbcType="INTEGER" />
-    <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" />
+    <result column="contract_time" property="contractTime" jdbcType="VARCHAR" />
     <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
   </resultMap>
   <resultMap id="ProjectForUnitResultMap" type="com.aaa.xj.model.MappingProject" >
@@ -91,7 +91,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="center_point" property="centerPoint" jdbcType="VARCHAR" />
     <result column="synchronization_status" property="synchronizationStatus" jdbcType="INTEGER" />
-    <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" />
+    <result column="contract_time" property="contractTime" jdbcType="VARCHAR" />
     <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
     <association property="mappingUnit" javaType="com.aaa.xj.model.Mapping_unit">
       <id property="id" column="id"/>
@@ -162,5 +162,37 @@
     JOIN t_mapping_unit b
     ON a.user_id=b.user_id
     WHERE b.id=#{id, jdbcType=BIGINT}
+  </select>
+  <select id="selectAllProjectAudit" resultMap="BaseResultMap" >
+    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time,
+        a.acceptance_department, a.project_amount, a.acceptance_report, a.project_area, a.schedule
+    FROM t_mapping_project a
+    JOIN t_audit b
+    ON a.id=b.ref_id
+    GROUP BY a.id
+  </select>
+  <select id="fuzzyProjectAuditByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT a.audit_status, a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time, a.acceptance_department, a.project_amount, a.acceptance_report, a.project_area, a.schedule
+    FROM t_mapping_project a
+    JOIN t_audit b
+    ON a.id=b.ref_id
+    <where>
+      1=1
+      <if test="projectName != null and projectName != '' " >
+        AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
+    GROUP BY a.id
+  </select>
+  <select id="selectProjectAuditById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT id, project_type, project_name,
+      project_amount, project_leader, contract_time, start_date,
+      end_date, complete_time, acceptance_department, acceptance_report,
+      task_source, project_area, scale, sheet_number,
+      awards_department, prize_level, project_quality_approval, winning_time,
+      acceptance_time, basic_content, credit_status, submit_status,
+      memo
+    FROM t_mapping_project
+    where id=#{id, jdbcType=BIGINT}
   </select>
 </mapper>

@@ -249,6 +249,97 @@ public class MappingProjectService extends BaseService<MappingProject> {
         }
     }
 
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @date 2020/6/1
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    public PageInfo<MappingProject> selectAllProjectAudit(Integer pageNo, Integer pageSize) {
+        PageInfo<MappingProject> projectPageInfo = null;
+        try {
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 调用 mappingProjectMapper 中的 selectAllProjectAudit 方法，得到查询结果
+            List<MappingProject> allProjectAudit = mappingProjectMapper.selectAllProjectAudit();
+            // 将查询的结果 进行分页
+            projectPageInfo = new PageInfo<>(allProjectAudit);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if (null != projectPageInfo && !"".equals(projectPageInfo)){
+            // 说明结果不为空，查询成功，返回分页结果
+            return projectPageInfo;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/1
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    public PageInfo<MappingProject> fuzzyProjectAuditByType(String projectName, Integer pageNo, Integer pageSize) {
+        PageInfo<MappingProject> projectPageInfo = null;
+        try {
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 调用 mappingProjectMapper 中的 fuzzyProjectAuditByType 方法，得到查询结果
+            List<MappingProject> fuzzyProjectAuditByType = mappingProjectMapper.fuzzyProjectAuditByType(projectName);
+            // 将查询的结果 进行分页
+            projectPageInfo = new PageInfo<>(fuzzyProjectAuditByType);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if (null != projectPageInfo && !"".equals(projectPageInfo)){
+            // 说明结果不为空，查询成功，返回分页结果
+            return projectPageInfo;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询项目详细信息-主键查询
+     * @date 2020/6/1
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    public MappingProject selectProjectAuditById(Long id) {
+        MappingProject mappingProject = null;
+        try {
+            // 调用 mappingProjectMapper 中的 selectProjectAuditById 方法，得到查询结果
+            mappingProject = mappingProjectMapper.selectProjectAuditById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if (null != mappingProject && !"".equals(mappingProject)){
+            // 说明结果不为空，查询成功，返回分页结果
+            return mappingProject;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
 
 
 }

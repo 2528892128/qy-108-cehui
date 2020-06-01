@@ -16,10 +16,18 @@
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="ref_id" property="refId" jdbcType="BIGINT" />
   </resultMap>
-  <select id="selectProjectAuditById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectAuditProjectResult" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT id, name, status, memo, submit_time, audit_time,
         create_time, type, user_id, ref_id
     FROM t_audit
-    WHERE ref_id=#{refId, jdbcType=BIGINT}
+    WHERE type=4
+    AND ref_id=#{refId, jdbcType=BIGINT}
+  </select>
+  <select id="selectAuditProjectByRefId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT id, name, status, memo, submit_time, audit_time,
+        create_time, type, user_id, ref_id
+    FROM t_audit
+    WHERE type=2
+    AND ref_id=#{refId, jdbcType=BIGINT}
   </select>
 </mapper>

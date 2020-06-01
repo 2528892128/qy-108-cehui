@@ -19,23 +19,24 @@ public class AuditController {
 
     /**
      * @author ligen
-     * @description 项目汇交-查看项目的审核日志
-     *  查询 该项目的审核日志
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
      *      项目id 作为日志表的refId，进行查询该项目的审核日志
-     * @date 2020/5/25
-     * @param [refId]
-     * @return java.util.List<com.aaa.xj.model.Audit>
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    @GetMapping("/selectProjectAuditById")
-    public PageInfo<Audit> selectProjectAuditById(@RequestParam("refId") Long refId,
-                                              @RequestParam("pageNo") Integer pageNo,
-                                              @RequestParam("pageSize") Integer pageSize) {
-        // 调用 auditService 中的 selectProjectAuditById 方法，返回查询的结果
-        PageInfo<Audit> auditPageInfo = auditService.selectProjectAuditById(refId, pageNo, pageSize);
+    @GetMapping("/selectAuditProjectResult")
+    public PageInfo<Audit> selectAuditProjectResult(@RequestParam("refId") Long refId,
+                                                    @RequestParam("pageNo") Integer pageNo,
+                                                    @RequestParam("pageSize") Integer pageSize) {
+        // 调用 auditService 中的 selectAuditProjectByRefId 方法，得到查询结果
+        PageInfo<Audit> auditPageInfo = auditService.selectAuditProjectResult(refId, pageNo, pageSize);
 
         // 判断 结果是否为空
         if (null != auditPageInfo) {
-            // 说明结果不为空，查询成功，返回结果
+            // 说明结果不为空，查询成功，返回结果数据
             return auditPageInfo;
         }else {
             // 查询失败，返回null
@@ -46,27 +47,28 @@ public class AuditController {
     /**
      * @author ligen
      * @description
-     *  查询分页--查询所有的审核日志
-     * @date 2020/5/29
-     * @param [audit, pageNo, pageSize]
+     *  查询 该项目的审核记录，分页
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    @PostMapping("/selectAllAudit")
-    public PageInfo<Audit> selectAllAudit(@RequestBody Audit audit,
-                                          @RequestParam("pageNo") Integer pageNo,
-                                          @RequestParam("pageSize") Integer pageSize) {
-        // 调用 auditService 中的 selectAllAudit 方法，返回查询的结果
-        PageInfo<Audit> auditPageInfo = auditService.selectAllAudit(audit, pageNo, pageSize);
+    @GetMapping("/selectAuditProjectByRefId")
+    public PageInfo<Audit> selectAuditProjectByRefId(@RequestParam("refId") Long refId,
+                                                     @RequestParam("pageNo") Integer pageNo,
+                                                     @RequestParam("pageSize") Integer pageSize) {
+        // 调用 auditService 中的 selectAuditProjectByRefId 方法，得到查询结果
+        PageInfo<Audit> auditPageInfo = auditService.selectAuditProjectByRefId(refId, pageNo, pageSize);
 
         // 判断 结果是否为空
         if (null != auditPageInfo) {
-            // 说明结果不为空，查询成功，返回结果
+            // 说明结果不为空，查询成功，返回结果数据
             return auditPageInfo;
         }else {
             // 查询失败，返回null
             return null;
         }
     }
-
 
 }
