@@ -88,7 +88,7 @@
     FROM t_result_commit a
     JOIN t_mapping_project b
     ON a.ref_id=b.id
-    WHERE a.id=1205750882424061952
+    WHERE a.id=#{id, jdbcType=BIGINT}
   </select>
   <select id="selectResultDetails" resultMap="resultResultMap" parameterType="java.lang.Long" >
     SELECT a.id, a.project_type, a.project_name, a.project_amount, a.project_leader, a.start_date, a.end_date,
