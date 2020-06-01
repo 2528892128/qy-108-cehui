@@ -5,6 +5,7 @@ import com.aaa.xj.base.CommonController;
 import com.aaa.xj.model.User;
 import com.aaa.xj.service.UserService;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -148,6 +149,24 @@ public class UserController extends CommonController<User> {
         return userService.ResetUserPwd(user);
     }
 
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      使用动态sql实现分页条件查询
+     * @Data: 2020/5/31
+     * @param [username, deptId, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @PostMapping("/selectUserByField")
+    public PageInfo<User> selectUserByField(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
+
+        PageInfo<User> pageInfo = userService.selectUserByFiles(user,pageNo, pageSize);
+        if (!"".equals(pageInfo) && null !=pageInfo){
+            return pageInfo;
+        }
+        return null;
+    }
     @Override
     public BaseService<User> getBaseService() {
         return userService;

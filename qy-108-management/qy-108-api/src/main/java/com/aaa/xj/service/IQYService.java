@@ -362,6 +362,19 @@ public interface IQYService {
     @GetMapping("/selectUserBySta")
     PageInfo selectUserBySta(@RequestParam("status") String status,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
 
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      使用动态sql实现条件查询
+     * @Data: 2020/5/31
+     * @param [username, deptId, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+
+    @PostMapping("/selectUserByField")
+    PageInfo<User> selectUserByField(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
     /**
      * @Summary:
      * @Author:  xj
