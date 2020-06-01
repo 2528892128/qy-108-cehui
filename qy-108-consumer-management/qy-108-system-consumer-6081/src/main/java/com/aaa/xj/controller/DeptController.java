@@ -7,9 +7,11 @@ import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ligen
@@ -36,6 +38,30 @@ public class DeptController extends BaseController {
     public ResultData<Dept> getAllDeptByParentId(Long parentId) {
         // 调用 iqyService 中的 selectAllDeptByParentId 方法，得到查询结果
         List<Dept> deptList = iqyService.selectAllDeptByParentId(parentId);
+
+        // 判断 结果是否为空
+        if (deptList != null) {
+            // 说明查询成功，使用系统消息
+            return getSuccess(deptList);
+        }else {
+            // 查询失败，使用系统消息
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Dept>
+     */
+    @PostMapping("/getDeptInfoByField")
+    public ResultData<Dept> getDeptInfoByField(@RequestBody Map map) {
+        // 调用 iqyService 中的 selectDeptInfoByField 方法，得到查询结果
+        List<Dept> deptList = iqyService.selectDeptInfoByField(map);
 
         // 判断 结果是否为空
         if (deptList != null) {

@@ -4,6 +4,7 @@ import com.aaa.xj.model.Dept;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DeptMapper extends Mapper<Dept> {
 
@@ -27,6 +28,17 @@ public interface DeptMapper extends Mapper<Dept> {
      */
     List<Dept> selectDeptByParentId(Integer parentId);
 
+    /**
+     * @author ligen
+     * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    List<Dept> selectDeptInfoByField(Map map);
+    
     /**
      * @author ligen
      * @description

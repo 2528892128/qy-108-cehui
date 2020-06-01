@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ligen
@@ -39,6 +40,30 @@ public class DeptController {
             return allDept;
         }else {
             // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @PostMapping("/selectDeptInfoByField")
+    public List<Dept> selectDeptInfoByField(@RequestBody Map map) {
+        // 调用 deptService 中的 selectDeptInfoByField 方法，得到查询结果
+        List<Dept> deptList = deptService.selectDeptInfoByField(map);
+
+        // 判断 结果是否为空
+        if (deptList != null) {
+            // 说明结果不为空，查询成功，返回查询的结果
+            return deptList;
+        }else {
+            // 查询失败，返回null
             return null;
         }
     }

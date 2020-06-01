@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ligen
@@ -61,6 +62,34 @@ public class DeptService extends BaseService<Dept> {
     /**
      * @author ligen
      * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    public List<Dept> selectDeptInfoByField(Map map) {
+        List<Dept> deptList = null;
+        try {
+            // 调用 deptMapper 中的 selectDeptInfoByField 方法，根据条件查询部门信息
+            deptList = deptMapper.selectDeptInfoByField(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 判断 结果是否为空
+        if(null != deptList && deptList.size() > 0){
+            // 查询成功，返回 查询的部门信息
+            return deptList;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description
      *  查询部门信息，根据主键id查询部门的信息
      * @date 2020/5/30
      * @param [deptID]
@@ -71,7 +100,7 @@ public class DeptService extends BaseService<Dept> {
         Dept deptByDeptId = deptMapper.selectDeptByDeptId(deptId);
 
         // 判断 结果是否为空
-        if(null!=deptByDeptId && !"".equals(deptByDeptId)){
+        if(null != deptByDeptId && !"".equals(deptByDeptId)){
             // 返回 查询的部门信息
             return deptByDeptId;
         }else {

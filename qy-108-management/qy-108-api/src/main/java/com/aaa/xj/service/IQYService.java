@@ -561,6 +561,18 @@ public interface IQYService {
 
     /**
      * @author ligen
+     * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @PostMapping("/selectDeptInfoByField")
+    List<Dept> selectDeptInfoByField(@RequestBody Map map);
+
+    /**
+     * @author ligen
      * @description 部门管理
      *  查询部门信息，根据主键id查询部门的信息
      * @date 2020/5/31
