@@ -1,18 +1,19 @@
 package com.aaa.xj.service;
 
 import com.aaa.xj.base.BaseService;
+import com.aaa.xj.dynamic.annotation.TDS;
 import com.aaa.xj.mapper.UserMapper;
 import com.aaa.xj.model.User;
 import com.aaa.xj.utils.IDUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.aaa.xj.staticstatus.TimeProperties.TIME_TYPE;
 import static com.aaa.xj.staticstatus.UserPassword.USER_PASSWORD;
@@ -171,6 +172,7 @@ public class UserService extends BaseService<User> {
      * @Summary:
      * @Author:  xj
      * @description
+     *      根据主键查询用户信息
      * @Data: 2020/5/28
      * @param [id]
      * @Return:com.aaa.xj.model.User
@@ -340,13 +342,13 @@ public class UserService extends BaseService<User> {
      * @Return:com.github.pagehelper.PageInfo
      */
 
-    public PageInfo<User> selectUserByFiles(User user, Integer pageNo, Integer pageSize){
+    public PageInfo<User> selectUserByFiles(Map map, Integer pageNo, Integer pageSize){
 
         PageHelper.startPage(pageNo,pageSize);
         //判断前段是否传值成功
             try {
                 //使用动态sql查询数据
-                List<User> users = userMapper.selectUserByField(user);
+                List<User> users = userMapper.selectUserByField(map);
                 //判断是否查询成功
                 if (!"".equals(users) && null !=users){
                     //将查询结果放入

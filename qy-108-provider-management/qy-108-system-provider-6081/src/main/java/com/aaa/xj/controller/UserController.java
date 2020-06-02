@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -159,9 +160,9 @@ public class UserController extends CommonController<User> {
      * @Return:com.github.pagehelper.PageInfo
      */
     @PostMapping("/selectUserByField")
-    public PageInfo<User> selectUserByField(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
+    public PageInfo<User> selectUserByField(@RequestBody Map map, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
 
-        PageInfo<User> pageInfo = userService.selectUserByFiles(user,pageNo, pageSize);
+        PageInfo<User> pageInfo = userService.selectUserByFiles(map,pageNo, pageSize);
         if (!"".equals(pageInfo) && null !=pageInfo){
             return pageInfo;
         }

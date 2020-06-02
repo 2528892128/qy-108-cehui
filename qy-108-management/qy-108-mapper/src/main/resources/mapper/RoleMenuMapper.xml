@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.xj.mapper.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.xj.model.RoleMenu" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <resultMap id="RoleMenuMap" type="com.aaa.xj.model.RoleMenu" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="BIGINT" />
+    <association property="menu" javaType="com.aaa.xj.model.Menu">
+      <id column="MENU_ID" property="menuId" jdbcType="BIGINT" />
+      <result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
+      <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+      <result column="PATH" property="path" jdbcType="VARCHAR" />
+      <result column="COMPONENT" property="component" jdbcType="VARCHAR" />
+      <result column="PERMS" property="perms" jdbcType="VARCHAR" />
+      <result column="ICON" property="icon" jdbcType="VARCHAR" />
+      <result column="TYPE" property="type" jdbcType="CHAR" />
+      <result column="ORDER_NUM" property="orderNum" jdbcType="DOUBLE" />
+      <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+  <select id="selectRoleMenuById" resultMap="RoleMenuMap">
+    select MENU_ID, PARENT_ID,MENU_NAME
+    from t_menu where MENU_ID
+    in (select MENU_ID from t_role_menu where ROLE_ID=#{roleId,jdbcType=BIGINT})
+  </select>
+
+  <delete id="deleteByRoleId"  parameterType="java.lang.Object">
+        delete from t_role_menu where role_id = #{roleId}
+  </delete>
+</mapper>
