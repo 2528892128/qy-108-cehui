@@ -5,10 +5,7 @@ import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.Mapping_unit;
 import com.aaa.xj.service.IQYService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -92,5 +89,42 @@ public class Mapping_unitController extends BaseController {
             return getFalse();
         }
     }
+
+    /**
+     * @Description:查询要修改的测绘单位信息
+     * @Param: [id]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/6/2 10:49
+     */
+    @PostMapping("/queryUpdateMappingUnit")
+    public ResultData selectUpdateMappingUnit(@RequestParam("id") Long id){
+        List<Mapping_unit> mappingUnits = iqyService.selectUpdateMappingUnit(id);
+        //判断查询结果
+        if (null != mappingUnits && !"".equals(mappingUnits)){
+            //不为空返回查询结果
+            return getSuccess(mappingUnits);
+        }
+        return getFalse();
+    }
+
+    /**
+     * @Description: 修改测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/6/2 10:58
+     */
+    @PostMapping("/updateMappingUnit")
+    public ResultData updateMappingUnit(@RequestBody Mapping_unit mappingUnit){
+        Integer integer = iqyService.updateMappingUnit(mappingUnit);
+        //判断修改受影响的行数
+        if(integer > 0){
+            //大于0返回成功信息
+            return updateSuccess();
+        }
+        return updateFalse();
+    }
+
 
 }
