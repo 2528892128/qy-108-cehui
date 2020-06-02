@@ -95,9 +95,9 @@ public class Mapping_unitController {
      * @Date: 2020/5/29 22:08
      */
     @PostMapping("/queryUpdateMappingUnit")
-    public List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("userId") Long userId){
-        //根据userId进行查询测绘单位要修改的信息
-        List<Mapping_unit> mappingUnits = mappingUnitService.selectUpdateMappingUnit(userId);
+    public List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("id") Long id){
+        //根据Id进行查询测绘单位要修改的信息
+        List<Mapping_unit> mappingUnits = mappingUnitService.selectUpdateMappingUnit(id);
         //判断查询结果是否为空
         if (null != mappingUnits && !"".equals(mappingUnits)){
             //不为空就返回查询结果
