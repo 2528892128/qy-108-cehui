@@ -108,17 +108,17 @@ public class PrincipalController extends BaseController {
      * @Author: ygy
      * @Date: 2020/6/1 16:43
      */
-//    @PostMapping("/insertPrincipal")
-//    public ResultData insertPrincipal(@RequestBody Principal principal,MultipartFile multipartFile){
-//        //根据前端信息新增负责人信息
-//        Integer integer = qyService.insertPrincipal(principal,multipartFile);
-//        //判断新增负责人信息受影响的行数
-//        if (integer > 0){
-//            //大于0说明成功返回自定义成功信息
-//            return addSuccess();
-//        }
-//        return addFalse();
-//    }
+    @PostMapping("/insertPrincipal")
+    public ResultData insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
+        //根据前端信息新增负责人信息
+        Integer integer = qyService.insertPrincipal(principal,multipartFile);
+        //判断新增负责人信息受影响的行数
+        if (integer > 0){
+            //大于0说明成功返回自定义成功信息
+            return addSuccess();
+        }
+        return addFalse();
+    }
 
     /**
      * @Description: 查询要修改的负责人信息
