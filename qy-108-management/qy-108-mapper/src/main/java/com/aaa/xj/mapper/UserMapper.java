@@ -1,12 +1,10 @@
 package com.aaa.xj.mapper;
 
 import com.aaa.xj.model.User;
-import com.aaa.xj.vo.TokenVo;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestBody;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper extends Mapper<User> {
 
@@ -19,5 +17,5 @@ public interface UserMapper extends Mapper<User> {
     List<User> selectUserBySta(String status);
 
 
-    List<User> selectUserByField(User user);
+    List<User> selectUserByField(Map map);
 }

@@ -78,6 +78,18 @@ public abstract class BaseService<T> {
         return mapper.deleteByExample(example);
     }
 
+    /**
+     * @Author:  xj
+     * @description
+     * 重载批量删除方法
+     * @Data: 2020/6/2
+     * @param [roleId]
+     * @Return:java.lang.Integer
+     */
+    public Integer batchDelete1(List<Object> roleIds) throws Exception {
+        Example example = Example.builder(getTypeArguement()).where(Sqls.custom().andIn("roleId", roleIds)).build();
+        return mapper.deleteByExample(example);
+    }
     
     /**
      *@Summary:

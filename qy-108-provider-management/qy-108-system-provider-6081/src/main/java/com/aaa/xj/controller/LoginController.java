@@ -48,10 +48,5 @@ public class LoginController {
         return null;
 
     }
-//
-//    @PostMapping("/isLogin")
-//    public ResultData isLogin(){
-//        return loginService.isLogin(redisService);
-//    }
 
 }

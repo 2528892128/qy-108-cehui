@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Api(value = "用户管理" ,tags = "用户管理接口")
@@ -121,7 +122,7 @@ public class UserController extends BaseController {
    @PostMapping("/updateUserById")
    public ResultData updateUserById(User user){
        Integer integer = iqyService.updateUserById(user);
-       if (integer>0){
+       if (integer!=null){
            return super.updateSuccess();
        }
        return super.updateFalse();
@@ -171,9 +172,9 @@ public class UserController extends BaseController {
      * @Return:java.lang.Integer
      */
     @PostMapping("/resetUserPwd")
-    public ResultData ResetUserPwd(User user){
+    public ResultData resetUserPwd(User user){
         Integer integer = iqyService.ResetUserPwd(user);
-        if (integer>0){
+        if (integer!=null){
             return super.updateSuccess();
         }
         return super.updateFalse();
@@ -188,8 +189,8 @@ public class UserController extends BaseController {
      * @Return:com.github.pagehelper.PageInfo
      */
     @PostMapping("/selectUserByField")
-    public ResultData<User> selectUserByField(User user, Integer pageNo, Integer pageSize){
-        PageInfo<User> userPageInfo = iqyService.selectUserByField(user, pageNo, pageSize);
+    public ResultData<User> selectUserByField(@RequestBody Map map, Integer pageNo, Integer pageSize){
+        PageInfo<User> userPageInfo = iqyService.selectUserByField(map, pageNo, pageSize);
         //判断查询是否成功
         if (!"".equals(userPageInfo) && null !=userPageInfo){
             return super.getSuccess(userPageInfo);

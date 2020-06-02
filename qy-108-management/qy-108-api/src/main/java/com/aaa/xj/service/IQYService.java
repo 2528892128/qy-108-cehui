@@ -6,10 +6,7 @@ import com.aaa.xj.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -486,9 +483,8 @@ public interface IQYService {
      * @param [username, deptId, pageNo, pageSize]
      * @Return:com.github.pagehelper.PageInfo
      */
-
     @PostMapping("/selectUserByField")
-    PageInfo<User> selectUserByField(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+    PageInfo<User> selectUserByField(@RequestBody Map map, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
     /**
      * @Summary:
      * @Author:  xj
@@ -792,6 +788,88 @@ public interface IQYService {
     PageInfo<Audit> selectAuditProjectByRefId(@RequestParam("refId") Long refId,
                                               @RequestParam("pageNo") Integer pageNo,
                                               @RequestParam("pageSize") Integer pageSize);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     * 查询所有角色信息
+     * @Data: 2020/6/2
+     * @param [pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectAllRole")
+    PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据条件查询
+     * @Data: 2020/6/1
+     * @param [map, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @PostMapping("/selectRoleByField")
+    PageInfo selectRoleByField(@RequestBody Map map,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     *       根据主键查询角色信息
+     * @Data: 2020/6/1
+     * @param [roleId]
+     * @Return:com.aaa.xj.model.Role
+     */
+    @GetMapping("selectRoleByPrimaryKey")
+    Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据角色id查询拥有的权限
+     * @Data: 2020/6/1
+     * @param [roleId]
+     * @Return:java.util.List<com.aaa.xj.model.RoleMenu>
+     */
+    @GetMapping("/selectRoleMenuById")
+    List<RoleMenu> selectRoleMenuById(@RequestParam("roleId") Long roleId);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      新增角色和权限
+     * @Data: 2020/6/2
+     * @param [map]
+     * @Return:java.lang.Boolean
+     */
+    @PutMapping("insertRole")
+    Boolean insertRole(@RequestBody Map map);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     *      修改角色信息和权限
+     * @Data: 2020/6/2
+     * @param [map]
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("updateRoleByPrimaryKey")
+    Boolean updateRoleByPrimaryKey(@RequestBody Map map);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id批量删除角色和权限
+     * @Data: 2020/6/2
+     * @param [roleIds]
+     * @Return:java.lang.Boolean
+     */
+    @DeleteMapping("/deleteRoleAndMenu")
+    Boolean deleteRoleAndMenuByRoleId(@RequestBody List<Object> roleIds);
+
+
 }
 
 

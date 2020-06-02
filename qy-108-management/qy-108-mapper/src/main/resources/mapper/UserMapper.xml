@@ -21,6 +21,9 @@
     <result column="type" property="type" jdbcType="CHAR" />
     <result column="token" property="token" jdbcType="VARCHAR" />
   </resultMap>
+  <sql id="Base_List">
+        userName,deptId,beginDate,endDate
+  </sql>
 
   <select id="selectUserBySsex" resultMap="BaseResultMap">
     select id,username,ssex,email,dept_id,mobile,status,create_time
@@ -44,6 +47,9 @@
       </if>
       <if test="deptId != null and deptId != '' ">
         AND dept_id=#{deptId, jdbcType=BIGINT}
+      </if>
+      <if test="beginDate !=null and beginDate !=''">
+        and create_time >= #{beginDate} and #{endDate} >= create_time
       </if>
     </where>
     ORDER BY id ASC
