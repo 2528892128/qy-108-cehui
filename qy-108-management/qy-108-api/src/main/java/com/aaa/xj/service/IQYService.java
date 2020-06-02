@@ -1,16 +1,16 @@
 package com.aaa.xj.service;
 
-import com.aaa.xj.base.ResultData;
-import com.aaa.xj.model.*;
-import com.aaa.xj.vo.TokenVo;
-import com.github.pagehelper.PageInfo;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+        import com.aaa.xj.base.ResultData;
+        import com.aaa.xj.model.*;
+        import com.aaa.xj.vo.TokenVo;
+        import com.github.pagehelper.PageInfo;
+        import org.springframework.cloud.openfeign.FeignClient;
+        import org.springframework.http.MediaType;
+        import org.springframework.web.bind.annotation.*;
+        import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Map;
+        import java.util.List;
+        import java.util.Map;
 
 
 /**
@@ -44,7 +44,7 @@ public interface IQYService {
      * @date 2020/5/15
      * @return com.aaa.lee.base.ResultData
      * @throws
-    **/
+     **/
     @PostMapping("/doLogin")
     TokenVo doLogin(@RequestBody User user);
 
@@ -657,6 +657,141 @@ public interface IQYService {
     @PostMapping("/queryDictList")
     List<Dict> selectDictList(@RequestBody Dict dict);
 
+
+
+
+
+
+
+
+
+
+
+    /**
+     * liukai
+     *根据ID查询单条仪器设备信息
+     */
+    @PostMapping("/OneEquipment")
+    List<Equipment> selectOneEquipment(@RequestParam("id") Long id);
+
+
+    /**
+     * liukai
+     * 根据实体新增仪器设备信息
+     * @param equipment
+     * @return
+     */
+    @PostMapping("/insertEquipment")
+    Integer insertEquipment(@RequestBody Equipment equipment);
+
+    /**
+     * liukai
+     * 先id查询再修改仪器设备信息
+     * @param id
+     * @return
+     */
+    @PostMapping("/selectByKey")
+    List<Equipment> selectByKey(@RequestParam("id") Long id);
+    @PostMapping("/updateEquipment")
+    Integer updateEquipment(@RequestBody Equipment equipment);
+
+    /**
+     * liukai
+     * 根据id删除仪器设备信息
+     * @param id
+     * @return
+     */
+    @PostMapping("/deleteByKey")
+    Integer deleteByKey(@RequestParam("id") Long id);
+
+
+    /**
+     * liukai
+     * 根据id查询单个特殊岗位人员
+     * @param id
+     * @return
+     */
+    @PostMapping("/selectOneSpecialPost")
+    List<SpecialPost> selectOneSpecialPost(@RequestParam("id") Long id);
+
+
+
+    /**
+     * liukai
+     * 根据实体新增特殊岗位人员信息
+     * @param specialPost
+     * @return
+     */
+    @PostMapping("/insertSpecialPost")
+    Integer insertSpecialPost(@RequestBody SpecialPost specialPost );
+
+
+    /**
+     * liukai
+     * 先进行id先查询再修改特殊岗位人员信息
+     * @param id
+     * @return
+     */
+    @PostMapping("/selectByKeySpecialPost")
+    List<SpecialPost> selectByKeySpecialPost(@RequestParam("id") Long id);
+    @PostMapping("/updateSpecialPost")
+    Integer updateSpecialPost(@RequestBody SpecialPost specialPost);
+
+
+    /**
+     * liukai
+     * 根据id进行删除特殊岗位人员信息
+     * @param id
+     * @return
+     */
+    @PostMapping("/deleteSpecialPost")
+    Integer deleteSpecialPost(@RequestParam("id") Long id);
+
+
+    /**
+     *liukai
+     * 分页查询仪器设备信息
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("/selectEquipmentByPage")
+    PageInfo<Equipment> selectEquipmentByPage(@RequestParam("userId") Long userId, @RequestParam("pageNo") Integer pageNo , @RequestParam("pageSize")Integer pageSize);
+
+
+    /**
+     * liukai
+     * 分页查询特殊岗位人员信息
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("/selectSpecialPostByPage")
+    PageInfo<SpecialPost> selectSpecialPostByPage(@RequestParam("userId") Long userId, @RequestParam("pageNo") Integer pageNo , @RequestParam("pageSize")Integer pageSize);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @author ligen
      * @description 部门管理
@@ -871,6 +1006,5 @@ public interface IQYService {
 
 
 }
-
 
 

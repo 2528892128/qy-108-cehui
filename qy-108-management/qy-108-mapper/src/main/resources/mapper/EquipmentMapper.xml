@@ -28,4 +28,40 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
+  <select id="selectOneEquipment" parameterType="Equipment" resultType="Equipment">
+    select id, name, brand, production_id, number, check_date, effective_date, invoice_code,
+    check_department, check_certificate_id, identified
+    from t_equipment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+
+  <update id="updateEquipment" parameterType="com.aaa.xj.model.Equipment" >
+    update t_equipment
+    set name = #{name,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      production_id = #{productionId,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      check_date = #{checkDate,jdbcType=DATE},
+      effective_date = #{effectiveDate,jdbcType=DATE},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      check_department = #{checkDepartment,jdbcType=VARCHAR},
+      check_certificate_id = #{checkCertificateId,jdbcType=VARCHAR},
+      identified = #{identified,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, brand, production_id, number, check_date, effective_date, invoice_code,
+    check_department, check_certificate_id, identified
+    from t_equipment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <delete id="deleteByKey" parameterType="java.lang.Long" >
+    delete from t_equipment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
 </mapper>

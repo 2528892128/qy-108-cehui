@@ -27,4 +27,36 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
+  <select id="selectOneSpecialPost" resultMap="BaseResultMap" parameterType="com.aaa.xj.model.SpecialPost" >
+    select id, name, id_number, sex, age, work_year, school, major, education_background,
+    degree, special_post
+    from t_special_post
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+
+  <select id="selectByKeySpecialPost" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, id_number, sex, age, work_year, school, major, education_background,
+    degree, special_post
+    from t_special_post
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <update id="updateSpecialPost" parameterType="com.aaa.xj.model.SpecialPost" >
+    update t_special_post
+    set name = #{name,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      special_post = #{specialPost,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteSpecialPost" parameterType="java.lang.Long" >
+    delete from t_special_post
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
 </mapper>
