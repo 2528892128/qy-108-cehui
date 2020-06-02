@@ -38,18 +38,45 @@
     select id,name,id_number,major_type,sex,age,major,duty from t_technicist where user_id=#{userId}
   </select>
 
+  <delete id="deleteTechnicistKey" parameterType="Technicist">
+    delete from t_technicist where id = #{id}
+  </delete>
+
+  <select id="selectOneTcehnicist" parameterType="Technicist" resultType="Technicist">
+    select id, name, major_type, id_type, id_number, sex, age, work_year, duty,
+    school, graduation_date, degree, education_background, major, title_major, start_time,
+    post, mapping_year, special_post, affirm
+    from t_technicist
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
   <update id="updataTechnicist" parameterType="Technicist">
     update t_technicist
     set name = #{name,jdbcType=VARCHAR},
       major_type = #{majorType,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=VARCHAR},
       id_number = #{idNumber,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       age = #{age,jdbcType=INTEGER},
+      work_year = #{workYear,jdbcType=INTEGER},
       duty = #{duty,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      graduation_date = #{graduationDate,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
       major = #{major,jdbcType=VARCHAR},
       title_major = #{titleMajor,jdbcType=VARCHAR},
-    where user_id = #{userId,jdbcType=BIGINT}
+      start_time = #{startTime,jdbcType=VARCHAR},
+      start_contract = #{startContract,jdbcType=VARCHAR},
+      end_contract = #{endContract,jdbcType=VARCHAR},
+      post = #{post,jdbcType=VARCHAR},
+      mapping_year = #{mappingYear,jdbcType=INTEGER},
+      special_post = #{specialPost,jdbcType=VARCHAR},
+      affirm = #{affirm,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
 </mapper>
