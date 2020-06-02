@@ -178,4 +178,22 @@ public class UserController extends BaseController {
         }
         return super.updateFalse();
     }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      使用动态sql实现分页条件查询
+     * @Data: 2020/5/31
+     * @param [username, deptId, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @PostMapping("/selectUserByField")
+    public ResultData<User> selectUserByField(User user, Integer pageNo, Integer pageSize){
+        PageInfo<User> userPageInfo = iqyService.selectUserByField(user, pageNo, pageSize);
+        //判断查询是否成功
+        if (!"".equals(userPageInfo) && null !=userPageInfo){
+            return super.getSuccess(userPageInfo);
+        }
+        return super.getFalse();
+    }
 }

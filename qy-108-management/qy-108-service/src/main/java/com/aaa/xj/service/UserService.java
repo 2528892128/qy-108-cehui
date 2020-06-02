@@ -3,14 +3,13 @@ package com.aaa.xj.service;
 import com.aaa.xj.base.BaseService;
 import com.aaa.xj.mapper.UserMapper;
 import com.aaa.xj.model.User;
-import com.aaa.xj.redis.RedisService;
 import com.aaa.xj.utils.IDUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -331,4 +330,34 @@ public class UserService extends BaseService<User> {
         return null;
     }
 
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      使用动态sql实现分页条件查询
+     * @Data: 2020/5/31
+     * @param [username, deptId, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+
+    public PageInfo<User> selectUserByFiles(User user, Integer pageNo, Integer pageSize){
+
+        PageHelper.startPage(pageNo,pageSize);
+        //判断前段是否传值成功
+            try {
+                //使用动态sql查询数据
+                List<User> users = userMapper.selectUserByField(user);
+                //判断是否查询成功
+                if (!"".equals(users) && null !=users){
+                    //将查询结果放入
+                    PageInfo<User> userPageInfo = new PageInfo<>(users);
+                    //返回分页结果
+                    return userPageInfo;
+                }
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return null;
+    }
 }

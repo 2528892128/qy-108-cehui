@@ -44,22 +44,44 @@ public class Mapping_unitService extends BaseService<Mapping_unit> {
 
     /**
      * @author ligen
-     * @description
+     * @description 系统主页-测绘单位
      *  模糊查询 查询测绘单位名称
      * @date 2020/5/26
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.MappingUnit>
      */
     public List<Mapping_unit> fuzzyUnitName(String unitName, String ownedDistrict, String qualificationLevel) {
-        // 调用 mappingProjectMapper 中的 selectAllByProjectType 方法，得到结果
+        // 调用 mappingUnitMapper 中的 fuzzyUnitName 方法，得到查询结果
         List<Mapping_unit> mappingUnitList = mappingUnitMapper.fuzzyUnitName(unitName, ownedDistrict, qualificationLevel);
 
         // 判断 结果是否为空
         if (mappingUnitList != null && mappingUnitList.size() > 0) {
-            // 说明结果不为空，返回查询结果
+            // 说明结果不为空，查询成功，返回结果
             return mappingUnitList;
         }else {
-            // 返回null
+            // 查询失败，返回null
+            return null;
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.Mapping_unit
+     */
+    public Mapping_unit selectUnitInfoById(Long id) {
+        // 调用 mappingUnitMapper 中的 selectUnitInfoById 方法，得到查询结果
+        Mapping_unit mappingUnit = mappingUnitMapper.selectUnitInfoById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingUnit && !"".equals(mappingUnit)) {
+            // 说明结果不为空，查询成功，返回结果
+            return mappingUnit;
+        }else {
+            // 查询失败，返回null
             return null;
         }
     }

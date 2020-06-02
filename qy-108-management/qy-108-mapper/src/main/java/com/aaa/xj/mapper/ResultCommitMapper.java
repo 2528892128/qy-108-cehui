@@ -10,7 +10,7 @@ public interface ResultCommitMapper extends Mapper<ResultCommit> {
 
     /**
      * @author ligen
-     * @description
+     * @description 系统主页-测绘成果
      *  模糊查询-动态sql 查询测绘成果名称
      * @date 2020/5/27
      * @param [resultCommit]
@@ -19,6 +19,16 @@ public interface ResultCommitMapper extends Mapper<ResultCommit> {
     List<ResultCommit> fuzzyResultName(@Param("name") String name,
                                        @Param("projectType") String projectType,
                                        @Param("resultDate") String resultDate);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘成果
+     *  查询测绘成果基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.ResultCommit
+     */
+    ResultCommit selectResultInfoById(Long id);
 
     /**
      * @author ligen

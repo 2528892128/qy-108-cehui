@@ -8,10 +8,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author ligen
@@ -28,43 +25,22 @@ public class AuditController extends BaseController {
 
     /**
      * @author ligen
-     * @description
-     *  根据 业务编号 ref_id，查询该业务的审核日志
-     * @date 2020/5/25
-     * @param [refId]
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
      * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Audit>
      */
-    @GetMapping("/getAuditByRefId")
-    public ResultData<Audit> getAuditByRefId(Long refId) {
-        // 调用 iqyService 中的 selectAuditByRefId 方法，得到结果
-        List<Audit> audits = iqyService.selectAuditByRefId(refId);
+    @GetMapping("/getAuditProjectResult")
+    public ResultData<Audit> getAuditProjectResult(Long refId, Integer pageNo, Integer pageSize) {
+        // 调用 iqyService 中的 selectAuditProjectResult 方法，得到查询结果
+        PageInfo<Audit> auditPageInfo = iqyService.selectAuditProjectResult(refId, pageNo, pageSize);
 
         // 判断 结果是否为空
-        if (audits == null) {
-            // 说明结果为空，返回系统查询失败，使用系统消息
-            return getFalse();
-        }else {
-            // 查询成功，使用系统消息、自定义返回值
-            return getSuccess(audits);
-        }
-    }
-
-    /**
-     * @author ligen
-     * @description
-     *  查询分页--查询所有的审核日志
-     * @date 2020/5/29
-     * @param [audit, pageNo, pageSize]
-     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Audit>
-     */
-    @PostMapping("/queryAllAuditPageInfo")
-    public ResultData<Audit> queryAllAuditPageInfo(Audit audit, Integer pageNo, Integer pageSize) {
-        // 调用 iqyService 中的 queryAllAudit 方法，得到结果
-        PageInfo<Audit> auditPageInfo = iqyService.queryAllAudit(audit, pageNo, pageSize);
-
-        // 判断 结果是否为空
-        if (auditPageInfo != null) {
-            // 说明结果不为空，查询成功，使用系统消息、自定义返回值
+        if (null != auditPageInfo) {
+            // 说明结果不为空，查询成功，使用系统消息 自定义返回值
             return getSuccess(auditPageInfo);
         }else {
             // 查询失败，使用系统消息
@@ -72,6 +48,30 @@ public class AuditController extends BaseController {
         }
     }
 
+    /**
+     * @author ligen
+     * @description
+     *  查询 该项目的审核记录，分页
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.model.Audit>
+     */
+    @GetMapping("/getAuditProjectByRefId")
+    public ResultData<Audit> getAuditProjectByRefId(Long refId, Integer pageNo, Integer pageSize) {
+        // 调用 iqyService 中的 selectAuditByRefId 方法，得到查询结果
+        PageInfo<Audit> auditPageInfo = iqyService.selectAuditProjectByRefId(refId, pageNo, pageSize);
+
+        // 判断 结果是否为空
+        if (null != auditPageInfo) {
+            // 说明结果不为空，查询成功，使用系统消息 自定义返回值
+            return getSuccess(auditPageInfo);
+        }else {
+            // 查询失败，使用系统消息
+            return getFalse();
+        }
+    }
 
 
 }

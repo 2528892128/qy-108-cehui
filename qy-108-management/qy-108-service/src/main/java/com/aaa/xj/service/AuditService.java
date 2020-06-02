@@ -3,6 +3,7 @@ package com.aaa.xj.service;
 import com.aaa.xj.base.BaseService;
 import com.aaa.xj.mapper.AuditMapper;
 import com.aaa.xj.model.Audit;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,59 +24,68 @@ public class AuditService extends BaseService<Audit> {
 
     /**
      * @author ligen
-     * @description
-     *  根据 业务编号 ref_id，查询该业务的审核日志
-     * @date 2020/5/25
-     * @param []
-     * @return java.util.List<com.aaa.two.model.Audit>
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    public List<Audit> selectAuditByRefId(Long refId) {
-        List<Audit> audits = null;
-
+    public PageInfo<Audit> selectAuditProjectResult(Long refId, Integer pageNo, Integer pageSize) {
+        PageInfo<Audit> auditPageInfo = null;
         try {
-            // 调用 auditMapper 中的 selectAuditByRefId 方法，返回查询的结果
-            audits = auditMapper.selectAuditByRefId(refId);
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 调用 auditMapper 中的 selectAuditProjectResult 查询分页方法，得到查询结果
+            List<Audit> auditList = auditMapper.selectAuditProjectResult(refId);
+            // 将查询的结果 进行分页
+            auditPageInfo = new PageInfo<>(auditList);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // 判断 结果是否为空
-        if ("".equals(audits) && audits == null) {
-            // 说明结果为空，返回null
-            return null;
+        if (null != auditPageInfo && !"".equals(auditPageInfo)) {
+            // 说明结果不为空，查询成功，返回结果
+            return auditPageInfo;
         }else {
-            // 返回结果
-            return audits;
+            // 查询失败，返回结果
+            return null;
         }
     }
 
     /**
      * @author ligen
      * @description
-     *  查询分页--查询所有的审核日志
-     *      调用BaseService 封装的 queryListByPage 查询所有
-     * @date 2020/5/29
+     *  查询 该项目的审核记录，分页
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
      * @param [audit, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    public PageInfo<Audit> queryAllAudit(Audit audit, Integer pageNo, Integer pageSize) {
+    public PageInfo<Audit> selectAuditProjectByRefId(Long refId, Integer pageNo, Integer pageSize) {
         PageInfo<Audit> auditPageInfo = null;
-
         try {
-            // 调用 BaseService 中的 queryListByPage 查询分页方法，得到结果
-            auditPageInfo = queryListByPage(audit, pageNo, pageSize);
+            // 设置分页，pageNO 当前页数，pageSize 每页数据个数
+            PageHelper.startPage(pageNo, pageSize);
+            // 调用 auditMapper 中的 selectAuditProjectByRefId 查询分页方法，得到查询结果
+            List<Audit> auditList = auditMapper.selectAuditProjectByRefId(refId);
+            // 将查询的结果 进行分页
+            auditPageInfo = new PageInfo<>(auditList);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // 判断 结果是否为空
-        if (auditPageInfo != null && !"".equals(auditPageInfo)) {
+        if (null != auditPageInfo && !"".equals(auditPageInfo)) {
             // 说明结果不为空，查询成功，返回结果
             return auditPageInfo;
         }else {
-            // 返回结果
+            // 查询失败，返回结果
             return null;
         }
-
-
     }
 
 

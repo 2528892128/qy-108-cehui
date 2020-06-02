@@ -85,62 +85,47 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
-     *  查询所有的，已提交的项目信息
+     * @description 项目汇交
+     *  查询所有的 项目汇交信息，带分页
+     *  -项目成果汇交状态为：通过 已提交
+     *      参数：
+     *          pageNo 当前页数，
+     *          pageSize 每页数据个数
      * @date 2020/5/22
      * @param []
      * @return java.util.List<com.aaa.xj.model.MappingProject>
      */
-    @GetMapping("/selectAllProject")
-    List<MappingProject> selectAllProject();
+    @PostMapping("/queryAllProjectResult")
+    PageInfo<MappingProject> queryAllProjectResult(@RequestBody MappingProject mappingProject,
+                                                   @RequestParam("pageNo") Integer pageNo,
+                                                   @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
-     * @description
-     *  查询测绘项目的详情信息
-     * @date 2020/5/29
-     * @param [id]
-     * @return com.aaa.xj.model.MappingProject
-     */
-    @GetMapping("/selectAllProjectDetailById")
-    MappingProject selectAllProjectDetailById(@RequestParam("id") Long id);
-
-    /**
-     * @author ligen
-     * @description
-     *  条件查询，根据项目类型 projectType，查询所有的 已提交的项目信息
+     * @description 项目汇交-根据项目类型查询
+     *  条件查询 根据项目类型 projectType，查询所有的 项目汇交信息，进行分页
      *      项目类型分为：基础测绘，专业测绘
-     * @date 2020/5/22
-     * @param projectType
-     * @return java.util.List<com.aaa.xj.model.MappingProject>
-     */
-    @GetMapping ("/selectAllProjectByType")
-    List<MappingProject> selectAllProjectByType(@RequestParam("projectType") String projectType);
-
-    /**
-     * @author ligen
-     * @description
-     *  分页查询 ，将查询的所有已提交项目信息，进行分页
-     *      参数：pageNo 当前页数，pageSize 每页数据个数
      * @date 2020/5/23
      * @param [mappingProject, pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo
      */
-    @PostMapping("/queryALLProjectByPage")
-    PageInfo queryALLProjectByPage(@RequestBody MappingProject mappingProject,
-                                   @RequestParam("pageNo") Integer pageNo,
-                                   @RequestParam("pageSize") Integer pageSize);
+    @GetMapping("/selectAllProjectResultByType")
+    PageInfo<MappingProject> selectAllProjectResultByType(@RequestParam("projectType") String projectType,
+                                                          @RequestParam("pageNo") Integer pageNo,
+                                                          @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
-     * @description
-     *  查询分页，将 根据项目类型查询的结果进行分页
-     * @date 2020/5/29
-     * @param [projectType, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     * @description 项目汇交-查看汇交项目审核日志
+     *  查询 该项目的审核记录
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=4，成果汇交审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
      */
-    @GetMapping("/queryProjectByPage")
-    PageInfo<MappingProject> queryListByPage(@RequestParam("projectType") String projectType,
+    @GetMapping("/selectAuditProjectResult")
+    PageInfo<Audit> selectAuditProjectResult(@RequestParam("refId") Long refId,
                                              @RequestParam("pageNo") Integer pageNo,
                                              @RequestParam("pageSize") Integer pageSize);
 
@@ -491,6 +476,19 @@ public interface IQYService {
     @GetMapping("/selectUserBySta")
     PageInfo selectUserBySta(@RequestParam("status") String status,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
 
+
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      使用动态sql实现条件查询
+     * @Data: 2020/5/31
+     * @param [username, deptId, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+
+    @PostMapping("/selectUserByField")
+    PageInfo<User> selectUserByField(@RequestBody User user, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
     /**
      * @Summary:
      * @Author:  xj
@@ -525,32 +523,9 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
-     *  根据 业务编号 ref_id，查询该业务的审核日志
-     * @date 2020/5/25
-     * @param [refId]
-     * @return java.util.List<com.aaa.xj.model.Audit>
-     */
-    @GetMapping("/selectAuditByRefId")
-    List<Audit> selectAuditByRefId(@RequestParam("refId") Long refId);
-
-    /**
-     * @author ligen
-     * @description
-     *  查询分页--查询所有的审核日志
-     * @date 2020/5/29
-     * @param [audit, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
-     */
-    @PostMapping("/queryAllAudit")
-    PageInfo<Audit> queryAllAudit(@RequestBody Audit audit,
-                                  @RequestParam("pageNo") Integer pageNo,
-                                  @RequestParam("pageSize") Integer pageSize);
-
-    /**
-     * @author ligen
-     * @description
-     *  模糊查询-动态sql 查询测绘单位名称
+     * @description 系统主页-测绘单位
+     *  查询测绘单位名称
+     *      模糊查询-动态sql
      * @date 2020/5/27
      * @param [mappingUnit]
      * @return java.util.List<com.aaa.xj.model.Mapping_unit>
@@ -559,6 +534,31 @@ public interface IQYService {
     List<Mapping_unit> fuzzyUnitName(@RequestParam("unitName") String unitName,
                                      @RequestParam("ownedDistrict") String ownedDistrict,
                                      @RequestParam("qualificationLevel") String qualificationLevel);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.Mapping_unit
+     */
+    @GetMapping("/selectUnitInfoById")
+    Mapping_unit selectUnitInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位-查看详情-项目信息
+     *  查询，
+     *      根据单位id 查询该单位下的项目信息，进行分页
+     * @date 2020/5/31
+     * @param [id, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/queryProjectForUnitByUserId")
+    PageInfo<MappingProject> queryProjectForUnitByUserId(@RequestParam("id") Long id,
+                                                         @RequestParam("pageNo") Integer pageNo,
+                                                         @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
@@ -575,6 +575,28 @@ public interface IQYService {
 
     /**
      * @author ligen
+     * @description 系统主页-测绘项目
+     *  查询项目基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectInfoById")
+    MappingProject selectProjectInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘项目-查看详情
+     *  查询测绘项目详情-根据主键id查询
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectDetailById")
+    MappingProject selectProjectDetailById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
      * @description
      *  模糊查询-动态sql 查询测绘成果名称
      * @date 2020/5/27
@@ -588,7 +610,18 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description
+     * @description 系统主页-测绘成果
+     *  查询测绘成果基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.ResultCommit
+     */
+    @GetMapping("/selectResultInfoById")
+    ResultCommit selectResultInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘成果-查看详情
      *  查询测绘成果详情，根据成果主键id
      * @date 2020/5/27
      * @param [id]
@@ -627,6 +660,138 @@ public interface IQYService {
      */
     @PostMapping("/queryDictList")
     List<Dict> selectDictList(@RequestBody Dict dict);
+
+    /**
+     * @author ligen
+     * @description 部门管理
+     *  递归查询
+     *      根据 parentId（父id）查询该部门及其子部门
+     * @date 2020/5/30
+     * @param [parentId]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @GetMapping("/selectAllDeptByParentId")
+    List<Dept> selectAllDeptByParentId(@RequestParam("parentId") Long parentId);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询-动态sql
+     *      查询条件：部门名称 创建时间区间
+     * @date 2020/6/1
+     * @param [map]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @PostMapping("/selectDeptInfoByField")
+    List<Dept> selectDeptInfoByField(@RequestBody Map map);
+
+    /**
+     * @author ligen
+     * @description 部门管理
+     *  查询部门信息，根据主键id查询部门的信息
+     * @date 2020/5/31
+     * @param [parentId]
+     * @return java.util.List<com.aaa.xj.model.Dept>
+     */
+    @GetMapping("/selectDeptByDeptId")
+    Dept selectDeptByDeptId(@RequestParam("deptId") Integer deptId);
+
+    /**
+     * @author ligen
+     * @description
+     *  新增部门信息
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/insertDept")
+    Boolean insertDept(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description
+     *  通过主键 执行删除操作
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/deleteDeptByPrimaryKey")
+    Boolean deleteDeptByPrimaryKey(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description
+     *  批量删除 调用父类的批量删除方法（根据主键），执行删除操作
+     * @date 2020/5/31
+     * @param [ids]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/batchDeleteByPrimaryKey")
+    Boolean batchDeleteByPrimaryKey(@RequestBody List<Object> ids);
+
+    /**
+     * @author ligen
+     * @description
+     *  修改，通过主键-修改部门信息
+     * @date 2020/5/31
+     * @param [dept]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/updateDeptByPrimaryKey")
+    Boolean updateDeptByPrimaryKey(@RequestBody Dept dept);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @date 2020/6/1
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectAudit")
+    PageInfo<MappingProject> selectAllProjectAudit(@RequestParam("pageNo") Integer pageNo,
+                                                   @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/1
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectAuditByType")
+    PageInfo<MappingProject> fuzzyProjectAuditByType(@RequestParam("projectName") String projectName,
+                                                     @RequestParam("pageNo") Integer pageNo,
+                                                     @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目信息
+     *  查询项目详细信息-主键查询
+     * @date 2020/6/1
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectAuditById")
+    MappingProject selectProjectAuditById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description
+     *  查询 该项目的审核记录，分页
+     *      项目id 作为日志表的refId，进行查询该项目的审核日志
+     *      type=2，项目等级审核
+     * @date 2020/6/1
+     * @param [refId, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.Audit>
+     */
+    @GetMapping("/selectAuditProjectByRefId")
+    PageInfo<Audit> selectAuditProjectByRefId(@RequestParam("refId") Long refId,
+                                              @RequestParam("pageNo") Integer pageNo,
+                                              @RequestParam("pageSize") Integer pageSize);
 }
 
 

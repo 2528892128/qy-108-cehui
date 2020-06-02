@@ -15,7 +15,7 @@ import java.util.List;
  * @author ligen
  * @program qy-108-cehui
  * @description
- *  测绘成果
+ *  系统主页-测绘成果
  * @create 2020-05-27 20:24
  */
 @RestController
@@ -39,8 +39,31 @@ public class ResultCommitController extends BaseController {
 
         // 判断 结果是否为空
         if (resultCommits != null) {
-            // 说明拿到数据，返回系统查询成功，使用系统消息、自定义返回值
+            // 说明拿到数据，查询成功，使用系统消息、自定义返回值
             return getSuccess(resultCommits);
+        }else {
+            // 查询失败，使用系统消息
+            return getFalse();
+        }
+    }
+
+    /**
+     * @author ligen
+     * @description 系统主页-测绘成果
+     *  查询测绘成果基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.base.ResultData<com.aaa.xj.base.ResultData>
+     */
+    @GetMapping("/selectResultInfoById")
+    public ResultData<ResultData> selectResultInfoById(Long id) {
+        // 调用 qyService 中的 selectResultInfoById 方法获取数据
+        ResultCommit resultCommit = qyService.selectResultInfoById(id);
+
+        // 判断 结果是否为空
+        if (resultCommit != null) {
+            // 说明拿到数据，系统查询成功，使用系统消息、自定义返回值
+            return getSuccess(resultCommit);
         }else {
             // 查询失败，使用系统消息
             return getFalse();
@@ -62,7 +85,7 @@ public class ResultCommitController extends BaseController {
 
         // 判断 结果是否为空
         if (resultCommit != null) {
-            // 说明拿到数据，返回系统查询成功，使用系统消息、自定义返回值
+            // 说明拿到数据，查询成功，使用系统消息、自定义返回值
             return getSuccess(resultCommit);
         }else {
             // 查询失败，使用系统消息

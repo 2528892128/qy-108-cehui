@@ -90,6 +90,11 @@
     </where>
     ORDER BY id ASC
   </select>
+  <select id="selectUnitInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT owned_district, unit_name, used_name, oa, oa_postcode, linkman
+    FROM t_mapping_unit
+    WHERE id=#{id, jdbcType=BIGINT}
+  </select>
 
   <select id="selectUpdateMappingUnit" parameterType="Mapping_unit"  resultType="Mapping_unit">
     select  unit_name, register_address, register_time,

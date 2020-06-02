@@ -62,7 +62,29 @@ public class Mapping_unitController {
             // 返回null
             return null;
         }
+    }
 
+    /**
+     * @author ligen
+     * @description 系统主页-测绘单位
+     *  查询测绘单位基本信息
+     * @date 2020/5/31
+     * @param [id]
+     * @return com.aaa.xj.model.Mapping_unit
+     */
+    @GetMapping("/selectUnitInfoById")
+    public Mapping_unit selectUnitInfoById(@RequestParam("id") Long id) {
+        // 调用 mappingUnitService 中的 selectUnitInfoById 方法，得到查询结果
+        Mapping_unit mappingUnit = mappingUnitService.selectUnitInfoById(id);
+
+        // 判断 结果是否为空
+        if (null != mappingUnit) {
+            // 说明结果不为空，查询成功，返回结果
+            return mappingUnit;
+        }else {
+            // 查询失败，返回null
+            return null;
+        }
     }
 
     /**

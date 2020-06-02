@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Table(name = "t_mapping_project")
 @Data
@@ -122,13 +121,13 @@ public class MappingProject extends BaseModel {
      * 获奖时间
      */
     @Column(name = "winning_time")
-    private Date winningTime;
+    private String winningTime;
 
     /**
      * 验收时间
      */
     @Column(name = "acceptance_time")
-    private Date acceptanceTime;
+    private String acceptanceTime;
 
     /**
      * 基本内容
@@ -245,12 +244,14 @@ public class MappingProject extends BaseModel {
      * 合同上传时间
      */
     @Column(name = "contract_time")
-    private Date contractTime;
+    private String contractTime;
 
     /**
      * 坐标
      */
     private String coordinate;
+
+    public Mapping_unit mappingUnit;
 
 
 }
