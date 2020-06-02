@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface TechnicistMapper extends Mapper<Technicist> {
 
-    List<Technicist> qureyTechnicist(Long id);
+    List<Technicist> qureyTechnicist(Long userId);
 
-    int updataTechnicist(Technicist technicist);
+    Integer deleteTechnicistKey(Long id);
 
+    Integer updataTechnicist(Technicist technicist);
+
+    List<Technicist> selectOneTcehnicist(Long id);
 }
