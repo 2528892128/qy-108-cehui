@@ -93,11 +93,11 @@ public class Mapping_unitService extends BaseService<Mapping_unit> {
      * @Author: ygy
      * @Date: 2020/5/29 22:03
      */
-    public List<Mapping_unit> selectUpdateMappingUnit(Long userId){
-        //判断传进来的userId是for为空
-        if (null != userId && !"".equals(userId)){
+    public List<Mapping_unit> selectUpdateMappingUnit(Long id){
+        //判断传进来的uid是否为空
+        if (null != id && !"".equals(id)){
             //不为空进行查询操作
-            List<Mapping_unit> mappingUnits = mappingUnitMapper.selectUpdateMappingUnit(userId);
+            List<Mapping_unit> mappingUnits = mappingUnitMapper.selectUpdateMappingUnit(id);
             //判断查询的信息是否为空
             if (null != mappingUnits && !"".equals(mappingUnits)){
                 //不为空就返回查询的结果
