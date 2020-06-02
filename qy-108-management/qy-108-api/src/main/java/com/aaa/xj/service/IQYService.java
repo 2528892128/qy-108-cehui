@@ -209,8 +209,8 @@ public interface IQYService {
      * @Author: ygy
      * @Date: 2020/6/1 19:41
      */
-//    @PostMapping("/inertPrincipal")
-//    Integer insertPrincipal(@RequestBody Principal principal,MultipartFile multipartFile);
+    @PostMapping("/inertPrincipal")
+    Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile);
 
 
     /**
@@ -364,7 +364,7 @@ public interface IQYService {
      * @Date: 2020/5/29 22:13
      */
     @PostMapping("/queryUpdateMappingUnit")
-    List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("userId") Long userId);
+    List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("id") Long id);
 
     /**
      * @Description: 修改测绘单位信息
