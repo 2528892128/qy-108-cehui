@@ -26,17 +26,33 @@
     select id,type,name,id_number,sex,age,major,title from t_principal where user_id =#{userId}
   </select>
 
-  <update id="updateList" parameterType="Principal">
+  <delete id="deletePrincipal" parameterType="Principal">
+    delete from t_principal
+    where user_id =#{userId}
+  </delete>
+
+  <select id="selectOnePrincipal" parameterType="Principal" resultType="Principal">
+    select type, name, id_type, id_number, age, sex, work_year, duty, title, mapping_year,
+    major
+    from t_principal
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <update id="updatePrincipal" parameterType="Principal">
     update t_principal
-    set id = #{id,jdbcType=BIGINT},
-    type = #{type,jdbcType=VARCHAR},
+    set  type = #{type,jdbcType=VARCHAR},
      name = #{name,jdbcType=VARCHAR},
+     id_type =#{idType},
       id_number = #{idNumber,jdbcType=VARCHAR},
     age = #{age,jdbcType=INTEGER},
       sex = #{sex,jdbcType=INTEGER},
+      work_year =#{workYear},
+      duty =#{duty},
       title = #{title,jdbcType=VARCHAR},
+      mapping_year =#{mappingYear},
       major = #{major,jdbcType=VARCHAR},
-    where user_id = #{userId,jdbcType=BIGINT}
+      modify_time = #{modifyTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
 </mapper>
