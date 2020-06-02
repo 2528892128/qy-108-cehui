@@ -191,6 +191,47 @@ public interface IQYService {
     List<Principal> qureyOne(@RequestParam("userId") Long userId);
 
     /**
+     * @Description: 根据userId分页查询负责人信息
+     * @Param: [userId, pageNo, pageSize]
+     * @return: com.github.pagehelper.PageInfo
+     * @Author: ygy
+     * @Date: 2020/5/31 9:50
+     */
+    @PostMapping("/queryPrincipalByPage")
+    public PageInfo selectPrincipalByPage(@RequestParam("userId") Long userId, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Description: 通过userId删除负责人信息
+     * @Param: [userId]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/30 22:40
+     */
+    @PostMapping("/deletePrincipal")
+    Integer deletePrincipal(@RequestParam("userId") Long userId);
+
+    /**
+     * @Description: 根据主键id查看负责人信息
+     * @Param: [id]
+     * @return: java.util.List<com.aaa.xj.model.Principal>
+     * @Author: ygy
+     * @Date: 2020/5/31 21:05
+     */
+    @PostMapping("/queryOnePrincipal")
+    public List<Principal> selectOnePrincipal(@RequestParam("id") Long id);
+
+    /**
+     * @Description: 新增负责人信息
+     * @Param: [principal, multipartFile]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/1 19:41
+     */
+//    @PostMapping("/inertPrincipal")
+//    Integer insertPrincipal(@RequestBody Principal principal,MultipartFile multipartFile);
+
+
+    /**
      * @Description: 新增字典信息
      * @Param: [dict]
      * @return: java.lang.Integer
@@ -211,7 +252,7 @@ public interface IQYService {
     Integer deleteDict(@RequestParam("dictIds") List<Object> dictIds);
 
     /**
-     * @Description: 查询出要修改的数据
+     * @Description: 查询出要修改的字典数据
      * @Param: [dict]
      * @return: com.aaa.xj.model.Dict
      * @Author: ygy
@@ -230,6 +271,18 @@ public interface IQYService {
     @PostMapping("/updateDict")
     Integer updateDict(@RequestBody Dict dict);
 
+
+    /**
+     * @Description: 查询要修改的负责人信息
+     * @Param: [id]
+     * @return: java.util.List<com.aaa.xj.model.Principal>
+     * @Author: ygy
+     * @Date: 2020/6/1 17:16
+     */
+    @PostMapping("/queryupdatePrincipal")
+    List<Principal> selectUpdatePrincipal(@RequestParam("id") Long id );
+
+
     /**
      * @Description: 修改负责人信息
      * @Param: [principal]
@@ -237,8 +290,8 @@ public interface IQYService {
      * @Author: ygy
      * @Date: 2020/5/21 19:38
      */
-    @PostMapping("/updateList")
-    Boolean updateList(@RequestBody Principal principal);
+//    @PostMapping("/updatePrincipal")
+//    Integer updatePrincipal(@RequestBody Principal principal,MultipartFile multipartFile);
 
     /**
      * @Description: 获取技术人员信息
@@ -251,6 +304,57 @@ public interface IQYService {
     List<Technicist> qureyTechnicist(@RequestParam("userId") Long userId);
 
     /**
+     * @Description: 技术人员根据userid分页查询
+     * @Param: [userId, pageNo, pageSize]
+     * @return: com.github.pagehelper.PageInfo
+     * @Author: ygy
+     * @Date: 2020/5/30 23:16
+     */
+    @PostMapping("/queryTechnicistByPage")
+    PageInfo selectTechnicistByPage(@RequestParam("userId") Long userId,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Description:根据主键id进行删除技术人员信息
+     * @Param: [id]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/5/31 10:18
+     */
+    @PostMapping("/deleteTechnicistKey")
+    Integer deleteTechnicistKey(@RequestParam("id") Long id);
+
+    /**
+     * @Description: 根据主键id查看技术人员信息
+     * @Param: [id]
+     * @return: java.util.List<com.aaa.xj.model.Technicist>
+     * @Author: ygy
+     * @Date: 2020/5/31 21:58
+     */
+    @PostMapping("/queryOneTechnicist")
+    List<Technicist> selectOneTechnicist(@RequestParam("id") Long id);
+
+    /**
+     * @Description: 添加技术人员信息
+     * @Param: [technicist]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/1 20:23
+     */
+    @PostMapping("/insertTechnicist")
+    Integer insertTechnicist(@RequestBody Technicist technicist);
+
+    /**
+     * @Description: 查询要修改的技术人员信息
+     * @Param: [id]
+     * @return: java.util.List<com.aaa.xj.model.Technicist>
+     * @Author: ygy
+     * @Date: 2020/6/1 21:57
+     */
+    @PostMapping("/queryUpdateTechnicist")
+    List<Technicist> selectUpdateTechnicist(@RequestParam("id") Long id);
+
+
+    /**
      * @Description: 修改技术人员信息
      * @Param: [technicist]
      * @return: java.lang.Boolean
@@ -258,7 +362,7 @@ public interface IQYService {
      * @Date: 2020/5/22 16:37
      */
     @PostMapping("/updateTechnicist")
-    Boolean updateTechnicist(@RequestBody Technicist technicist);
+    Integer updateTechnicist(@RequestBody Technicist technicist);
 
     /**
      * @Description: 获取单位信息
