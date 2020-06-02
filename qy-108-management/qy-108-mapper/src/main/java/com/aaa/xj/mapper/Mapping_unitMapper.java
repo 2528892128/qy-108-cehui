@@ -33,9 +33,23 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
     Mapping_unit selectUnitInfoById(Long id);
 
 
+    /**
+     * @Description: 查询要修改的测绘单位信息
+     * @Param: [id]
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/6/2 10:56
+     */
+    List<Mapping_unit> selectUpdateMappingUnit(Long id);
 
-
-
+    /**
+     * @Description: 修改测绘单位信息
+     * @Param: [mappingUnit]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/2 10:56
+     */
+    Integer updateMappingUnit(Mapping_unit mappingUnit);
 
 
 
