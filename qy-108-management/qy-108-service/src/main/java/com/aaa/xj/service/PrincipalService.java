@@ -7,9 +7,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -114,36 +118,37 @@ public class PrincipalService extends BaseService<Principal> {
      * @Author: ygy
      * @Date: 2020/6/1 10:17
      */
-//    public Integer insertPrincipal(Principal principal, MultipartFile multipartFile){
-//        //获取时间
-//        Date date = new Date();
-//        //设置时间格式作为创建时间
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-//        String format = simpleDateFormat.format(date);
-//        // 获取系统当前时间的毫秒数
-//        Long timeMillis = System.currentTimeMillis();
-//        // 创建Random对象
-//        Random random = new Random();
-//        // 做一个随机数，随机区间是0-9999之间随机
-//        Integer randomNum = random.nextInt(9999);
-//        //把系统当前时间和randomNum相加作为id
-//        Long id = randomNum + timeMillis;
-//        //把生成的时间和id传进去
-//        Principal principal1 = principal.setCreateTime(format)
-//                .setId(id);
-//        //new 一个UploadService
-//        UploadService uploadService = new UploadService();
-//        //把文件传进去进行上传返回一个boolean类型
-//        Boolean upload = uploadService.upload(multipartFile);
-//        //接受前台要增加的负责人信息进行添加
-//        int insert = principalMapper.insert(principal1);
-//        //判断增加受影响的行数
-//        if (insert > 0) {
-//            //大于0 说明成功返回受影响的行数
-//            return insert;
-//        }
-//        return 0;
-//    }
+    public Integer insertPrincipal(Principal principal, MultipartFile multipartFile){
+        //获取时间
+        Date date = new Date();
+        //设置时间格式作为创建时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String format = simpleDateFormat.format(date);
+        // 获取系统当前时间的毫秒数
+        Long timeMillis = System.currentTimeMillis();
+        // 创建Random对象
+        Random random = new Random();
+        // 做一个随机数，随机区间是0-9999之间随机
+        Integer randomNum = random.nextInt(9999);
+        //把系统当前时间和randomNum相加作为id
+        Long id = randomNum + timeMillis;
+        //把生成的时间和id传进去
+        Principal principal1 = principal.setCreateTime(format)
+                .setId(id);
+        //new 一个UploadService
+        UploadService uploadService = new UploadService();
+        //把文件传进去进行上传返回一个boolean类型
+        Boolean upload = uploadService.upload(multipartFile);
+        System.out.println(upload);
+        //接受前台要增加的负责人信息进行添加
+        int insert = principalMapper.insert(principal1);
+        //判断增加受影响的行数
+        if (insert > 0) {
+            //大于0 说明成功返回受影响的行数
+            return insert;
+        }
+        return 0;
+    }
 
     /**
      * @Description: 查询要修改的信息
