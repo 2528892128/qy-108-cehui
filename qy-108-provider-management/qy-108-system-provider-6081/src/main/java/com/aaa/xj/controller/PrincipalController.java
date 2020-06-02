@@ -105,16 +105,16 @@ public class PrincipalController {
      * @Author: ygy
      * @Date: 2020/6/1 16:34
      */
-//    @PostMapping("/inertPrincipal")
-//    public Integer insertPrincipal(@RequestBody Principal principal, MultipartFile multipartFile){
-//        Integer integer = principalService.insertPrincipal(principal,multipartFile);
-//        //判断添加受影响的行数
-//        if (integer > 0){
-//            //大于0 说明成功返回受影响的行数
-//            return integer;
-//        }
-//        return 0;
-//    }
+    @PostMapping("/inertPrincipal")
+    public Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
+        Integer integer = principalService.insertPrincipal(principal,multipartFile);
+        //判断添加受影响的行数
+        if (integer > 0){
+            //大于0 说明成功返回受影响的行数
+            return integer;
+        }
+        return 0;
+    }
 
     /**
      * @Description: 查询要修改的负责人信息
