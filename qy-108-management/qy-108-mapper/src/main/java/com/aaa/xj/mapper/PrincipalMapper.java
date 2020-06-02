@@ -9,6 +9,9 @@ public interface PrincipalMapper extends Mapper<Principal> {
 
     List<Principal> qureyOne(Long id);
 
-    int updateList(Principal principal);
+    Integer deletePrincipal(Long userId);
 
+    Integer updatePrincipal(Principal principal);
+
+    List<Principal> selectOnePrincipal(Long id);
 }
