@@ -107,7 +107,7 @@
     unit_type, unit_code,
     filing_business, business_scope, unit_intro
     from t_mapping_unit
-    where user_id=#{userId}
+    where id=#{id}
   </select>
 
   <update id="updateMappingUnit" parameterType="Mapping_unit" >
@@ -156,7 +156,7 @@
       filing_business = #{filingBusiness,jdbcType=VARCHAR},
       business_scope = #{businessScope,jdbcType=LONGVARCHAR},
       unit_intro = #{unitIntro,jdbcType=LONGVARCHAR}
-    where user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
 </mapper>
