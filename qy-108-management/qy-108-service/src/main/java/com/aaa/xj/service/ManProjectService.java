@@ -123,4 +123,56 @@ public class ManProjectService extends BaseService<ManProject> {
     }
 
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据类型查询数据
+     * @Data: 2020/5/21
+     * @param [manProject, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    public PageInfo selectMappingProjectByType(ManProject manProject ,Integer pageNo,Integer pageSize){
+        //传入当前页和数量
+        PageHelper.startPage(pageNo,pageSize);
+
+        try {
+            //调用查询方法
+            List<ManProject> manProjects = manProjectMapper.selectByTypes(manProject);
+            //判断是否查询出数据
+            if (null !=manProject){
+                //将查询的数据放入分页
+                PageInfo<ManProject> manProjectPageInfo = new PageInfo<>(manProjects);
+                return manProjectPageInfo;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:java.lang.Boolean
+     */
+    public Boolean deleteMappingProjectById(Long id){
+        //判断前段是否传值成功
+        if (null !=id){
+            try {
+                //调用删除方法
+                int i = manProjectMapper.deleteByPrimaryKey(id);
+                if (i>0){
+                    return true;
+                }
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

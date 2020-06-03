@@ -9,10 +9,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,20 +73,39 @@ public class ManProjectController extends BaseController {
         return super.updateFalse();
     }
 
-//    /**
-//     * @Summary:
-//     * @Author:  xj
-//     * @description
-//     *      根据项目类型查询
-//     * @Data: 2020/5/22 10:48
-//     * @param type
-//     * @Return:com.aaa.xj.base.ResultData
-//     */
-//    @PostMapping("/selectByType")
-//    public ResultData selectByType(String projectType,User user){
-//        ResultData resultData = iqyService.selectByType(projectType, user);
-//        return resultData;
-//    }
+    /**
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据项目类型查询
+     * @Data: 2020/5/22 10:48
+     * @param type
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @PostMapping("/selectAllProjectResultByType")
+    public ResultData selectAllProjectResultByType(@RequestBody ManProject manProject, Integer pageNo, Integer pageSize){
+        PageInfo pageInfo = iqyService.selectAllProjectResultByType(manProject, pageNo, pageSize);
+        if (null !=pageInfo){
+            return super.getSuccess(pageInfo);
+        }
+        return super.getFalse();
+    }
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @DeleteMapping("deleteMappingProjectById")
+    public ResultData deleteMappingProjectById(Long id){
+        Boolean aBoolean = iqyService.deleteMappingProjectById(id);
+        if (aBoolean){
+            return super.deleteSuccess();
+        }
+        return super.deleteFalse();
+    }
 
 }

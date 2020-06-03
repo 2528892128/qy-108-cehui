@@ -11,5 +11,5 @@ public interface ManProjectMapper extends Mapper<ManProject> {
 
     List<ManProject> selectAllPros(ManProject manProject);
 
-    List<ManProject> selectByTypes(String projectType,Long id);
+    List<ManProject> selectByTypes(ManProject manProject);
 }

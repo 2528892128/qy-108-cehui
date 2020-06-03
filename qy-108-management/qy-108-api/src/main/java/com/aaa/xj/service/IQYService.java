@@ -172,6 +172,27 @@ public interface IQYService {
     Integer updateById(@RequestBody ManProject manProject);
 
     /**
+     * @Author:  xj
+     * @description
+     *      根据类型查询项目
+     * @Data: 2020/5/21
+     * @param [manProject, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    @PostMapping("selectAllProjectResultByType")
+    PageInfo selectAllProjectResultByType(@RequestBody ManProject manProject,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:java.lang.Boolean
+     */
+    @DeleteMapping("deleteMappingProjectById")
+    Boolean deleteMappingProjectById(@RequestParam("id") Long id);
+    /**
      * @Description: 获取负责人信息
      * @Param: [principal]
      * @return: com.aaa.xj.base.ResultData
