@@ -25,12 +25,11 @@ public class ManProjectController {
      * @Return:java.util.List<com.aaa.xj.model.ManProject>
      */
     @PostMapping("/allPro")
-    public List<ManProject> selectAllPros(@RequestBody ManProject manProject){
+    public PageInfo selectAllPros(@RequestBody ManProject manProject , @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
 
         try {
-            //PageInfo<ManProject> manProjectPageInfo = manProjectService.queryListByPage(manProject,5,2);
-            List<ManProject> manProjects = manProjectService.selectAllPros(manProject);
-            return manProjects;
+            PageInfo<ManProject> manProjectPageInfo = manProjectService.selectAllPros(manProject, pageNo, pageSize);
+            return manProjectPageInfo;
         } catch (Exception e) {
             e.printStackTrace();
         }

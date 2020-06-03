@@ -5,7 +5,9 @@ import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.ManProject;
 import com.aaa.xj.model.User;
 import com.aaa.xj.service.IQYService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +33,10 @@ public class ManProjectController extends BaseController {
      * @Return:com.aaa.xj.base.ResultData
      */
     @PostMapping("/allPro")
-    public ResultData selectAllPro(ManProject manProject) {
-        List<ManProject> manProjects = iqyService.selectAllPros(manProject);
-        if (manProjects.size()>0){
-            return super.getSuccess(manProjects);
+    public ResultData selectAllPro(ManProject manProject, Integer pageNo,Integer pageSize) {
+        PageInfo pageInfo = iqyService.selectAllPros(manProject, pageNo, pageSize);
+        if (null !=pageInfo){
+            return super.getSuccess(pageInfo);
         }
         return super.getFalse();
     }

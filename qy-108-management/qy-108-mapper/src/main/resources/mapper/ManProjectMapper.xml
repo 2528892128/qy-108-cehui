@@ -53,7 +53,7 @@
   <select id="selectAllPros" resultMap="BaseResultMap">
     select a.id,a.project_type,a.project_name,a.project_leader,a.start_date,a.end_date,
     a.acceptance_department,a.project_amount,a.schedule,a.user_id  from t_mapping_project a
-    where a.user_id=#{userId,jdbcType=BIGINT};
+    where a.user_id=#{userId,jdbcType=BIGINT}
   </select>
 
   <select id="selectByTypes" resultMap="BaseResultMap">

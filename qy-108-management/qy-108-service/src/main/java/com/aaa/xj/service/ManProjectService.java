@@ -34,15 +34,18 @@ public class ManProjectService extends BaseService<ManProject> {
      * @Return:com.aaa.xj.base.ResultData
      */
 
-    public List<ManProject> selectAllPros(ManProject manProject){
+    public PageInfo<ManProject> selectAllPros(ManProject manProject,Integer pageNo,Integer pageSize){
+
+        PageHelper.startPage(pageNo,pageSize);
+
         try {
-            //查询公司信息
-            //PageInfo<ManProject> manProjectPageInfo = queryListByPage(manProject, 5, 2);
-            //List<ManProject> manProjects = manProjectMapper.select(manProject);
+            //调用查询方法
             List<ManProject> manProjects = manProjectMapper.selectAllPros(manProject);
                 //判断是否查询出值
                 if (!"".equals(manProjects) && null != manProjects){
-                    return manProjects;
+                    //将结果放入分页
+                    PageInfo<ManProject> manProjectPageInfo = new PageInfo<>(manProjects);
+                    return manProjectPageInfo;
                 }
                 else {
                     return null;
@@ -53,15 +56,7 @@ public class ManProjectService extends BaseService<ManProject> {
         return null;
     }
 
-//    @Override
-//    public PageInfo<ManProject> queryListByPage(ManProject manProject, Integer pageNo, Integer pageSize) {
-//        PageHelper.startPage(pageNo, pageSize);
-//        Long userId = manProject.getUserId();
-//        List<ManProject> manProjects = manProjectMapper.selectAllPros(userId);
-//        System.out.println(manProjects);
-//        PageInfo<ManProject> pageInfo = new PageInfo<ManProject>(manProjects);
-//        return pageInfo;
-//    }
+
     /**
      * @Summary:
      * @Author:  xj

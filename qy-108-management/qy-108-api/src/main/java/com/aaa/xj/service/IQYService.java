@@ -2,6 +2,7 @@ package com.aaa.xj.service;
 
         import com.aaa.xj.base.ResultData;
         import com.aaa.xj.model.*;
+        import com.aaa.xj.vo.MenuVo;
         import com.aaa.xj.vo.TokenVo;
         import com.github.pagehelper.PageInfo;
         import org.springframework.cloud.openfeign.FeignClient;
@@ -144,7 +145,7 @@ public interface IQYService {
      * @Return:java.util.List<com.aaa.xj.model.ManProject>
      */
     @PostMapping("/allPro")
-    List<ManProject> selectAllPros(@RequestBody ManProject manProject);
+    PageInfo selectAllPros(@RequestBody ManProject manProject , @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Summary:
@@ -654,7 +655,6 @@ public interface IQYService {
     @PostMapping("/queryDictAllPage")
     PageInfo<Dict> selectAllDictByPage(@RequestBody Dict dict, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
 
-
     /**
      * @Description: 字典信息条件查询
      * @Param: [dict]
@@ -664,16 +664,6 @@ public interface IQYService {
      */
     @PostMapping("/queryDictList")
     List<Dict> selectDictList(@RequestBody Dict dict);
-
-
-
-
-
-
-
-
-
-
 
     /**
      * liukai
@@ -778,27 +768,6 @@ public interface IQYService {
      */
     @PostMapping("/selectSpecialPostByPage")
     PageInfo<SpecialPost> selectSpecialPostByPage(@RequestParam("userId") Long userId, @RequestParam("pageNo") Integer pageNo , @RequestParam("pageSize")Integer pageSize);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * @author ligen
@@ -905,6 +874,7 @@ public interface IQYService {
     PageInfo<MappingProject> fuzzyProjectAuditByType(@RequestParam("projectName") String projectName,
                                                      @RequestParam("pageNo") Integer pageNo,
                                                      @RequestParam("pageSize") Integer pageSize);
+
 
     /**
      * @author ligen
@@ -1137,7 +1107,84 @@ public interface IQYService {
     @DeleteMapping("/deleteRoleAndMenu")
     Boolean deleteRoleAndMenuByRoleId(@RequestBody List<Object> roleIds);
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据条件查询菜单信息
+     * @Data: 2020/6/2
+     * @param [map]
+     * @Return:java.util.List<com.aaa.xj.model.Menu>
+     */
+    @PostMapping("selectMenuByField")
+    List<Menu> selectMenuByField(@RequestBody Map map);
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据主键查询菜单信息
+     * @Data: 2020/6/3
+     * @param [menuId]
+     * @Return:com.aaa.xj.model.Menu
+     */
+    @GetMapping("selectMenuByPrimaryKey")
+    Menu selectMenuByPrimaryKey(@RequestParam("menuId") Long menuId);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      遍历查询所有菜单信息
+     * @Data: 2020/6/3
+     * @param [parentId]
+     * @Return:java.util.List<com.aaa.xj.vo.MenuVo>
+     */
+    @GetMapping("selectMenuByParentId")
+    List<MenuVo> selectMenuByParentId(@RequestParam("parentId") Object parentId);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      新增菜单
+     * @Data: 2020/6/3
+     * @param [menu]
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("insertMenu")
+    Boolean insertMenu(@RequestBody Menu menu);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     *      新增按钮
+     * @Data: 2020/6/3
+     * @param [menu]
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("insertMenuButton")
+    Boolean insertMenuButton(@RequestBody Menu menu);
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id批量删除菜单
+     * @Data: 2020/6/3
+     * @param [menuIds]
+     * @Return:java.lang.Boolean
+     */
+    @PostMapping("deleteMenuByMenuId")
+    Boolean deleteMenuByMenuId(@RequestBody List<Object> menuIds);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     * 根据主键id 更新菜单信息
+     * @Data: 2020/6/3
+     * @param [menu]
+     * @Return:java.lang.Integer
+     */
+    @PostMapping("updateMenuByPrimaryKey")
+    Integer updateMenuByPrimaryKey(@RequestBody Menu menu);
 }
 
 
