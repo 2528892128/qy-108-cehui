@@ -83,33 +83,41 @@ public interface IQYService {
     /**
      * @author ligen
      * @description 项目汇交
-     *  查询所有的 项目汇交信息，带分页
-     *  -项目成果汇交状态为：通过 已提交
-     *      参数：
-     *          pageNo 当前页数，
-     *          pageSize 每页数据个数
-     * @date 2020/5/22
-     * @param []
-     * @return java.util.List<com.aaa.xj.model.MappingProject>
+     *  查询所有未提交的汇交成果
+     *      汇交成果状态 results_status=3
+     * @date 2020/6/2
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
      */
-    @PostMapping("/queryAllProjectResult")
-    PageInfo<MappingProject> queryAllProjectResult(@RequestBody MappingProject mappingProject,
-                                                   @RequestParam("pageNo") Integer pageNo,
-                                                   @RequestParam("pageSize") Integer pageSize);
+    @GetMapping("/selectAllProjectResult")
+    PageInfo<MappingProject> selectAllProjectResult(@RequestParam("pageNo") Integer pageNo,
+                                                    @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @author ligen
      * @description 项目汇交-根据项目类型查询
      *  条件查询 根据项目类型 projectType，查询所有的 项目汇交信息，进行分页
      *      项目类型分为：基础测绘，专业测绘
-     * @date 2020/5/23
-     * @param [mappingProject, pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo
+     * @date 2020/5/31
+     * @param [projectType, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
      */
     @GetMapping("/selectAllProjectResultByType")
     PageInfo<MappingProject> selectAllProjectResultByType(@RequestParam("projectType") String projectType,
                                                           @RequestParam("pageNo") Integer pageNo,
                                                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目汇交-操作
+     *  修改汇交成果状态 results_status=2
+     *  场景：点击按钮提交汇交成果项目
+     * @date 2020/6/2
+     * @param [id]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/updateProjectResultStatusById")
+    Boolean updateProjectResultStatusById(@RequestParam("id") Long id);
 
     /**
      * @author ligen
@@ -874,7 +882,7 @@ public interface IQYService {
     /**
      * @author ligen
      * @description 项目审核-项目信息
-     *  查询所有的项目信息-项目审核结果为通过 已提交
+     *  查询所有的汇交成果为通过的项目信息 results_status=0
      * @date 2020/6/1
      * @param [pageNo, pageSize]
      * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
@@ -885,8 +893,8 @@ public interface IQYService {
 
     /**
      * @author ligen
-     * @description 项目审核-项目信息
-     *  查询所有的项目信息-项目审核结果为通过 已提交
+     * @description 项目审核-汇交成果信息
+     *  查询所有的汇交成果为通过项目信息
      *      条件查询-模糊查询，
      *      条件：项目名称 projectName
      * @date 2020/6/1
@@ -923,6 +931,131 @@ public interface IQYService {
     PageInfo<Audit> selectAuditProjectByRefId(@RequestParam("refId") Long refId,
                                               @RequestParam("pageNo") Integer pageNo,
                                               @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果信息
+     *  查询所有的汇交成果为通过的项目信息 results_status=0
+     * @date 2020/6/2
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectResultAudit")
+    PageInfo<MappingProject> selectAllProjectResultAudit(@RequestParam("pageNo") Integer pageNo,
+                                                         @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果信息
+     *  查询所有的汇交成果为通过的项目信息
+     *      条件查询-模糊查询，
+     *      条件：项目名称 projectName
+     * @date 2020/6/2
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectResultAuditByType")
+    PageInfo<MappingProject> fuzzyProjectResultAuditByType(@RequestParam("projectName") String projectName,
+                                                           @RequestParam("pageNo") Integer pageNo,
+                                                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果信息-查看
+     *  查看汇交成果项目详情
+     * @date 2020/6/2
+     * @param [id]
+     * @return com.aaa.xj.model.MappingProject
+     */
+    @GetMapping("/selectProjectResultAuditById")
+    MappingProject selectProjectResultAuditById(@RequestParam("id") Long id);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目审核
+     *  查询所有待审核的项目信息
+     *      项目审核结果为已提交 audit_status=2
+     * @date 2020/6/2
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectToAudit")
+    PageInfo<MappingProject> selectAllProjectToAudit(@RequestParam("pageNo") Integer pageNo,
+                                                     @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目审核-条件查询
+     *  条件查询-模糊查询，项目名称
+     *  查询所有待审核的项目信息
+     *      项目审核结果为已提交 audit_status=2
+     * @date 2020/6/2
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectToAuditByPName")
+    PageInfo<MappingProject> fuzzyProjectToAuditByPName(@RequestParam("projectName") String projectName,
+                                                        @RequestParam("pageNo") Integer pageNo,
+                                                        @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-项目审核-审核
+     *  更改项目审核结果 audit_status
+     *      0 通过；1 不通过。
+     *  并 添加审核日志 memo审核意见，status==audit_status审核状态
+     * @date 2020/6/3
+     * @param [audit, id, auditStatus]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/updateProjectAuditStatus")
+    Boolean updateProjectAuditStatus(@RequestBody Audit audit,
+                                     @RequestParam("id") Long id,
+                                     @RequestParam("auditStatus") Integer auditStatus);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果审核
+     *  查询所有待审核的汇交成果项目信息
+     *      汇交成果状态为已提交 results_status=2
+     * @date 2020/6/2
+     * @param [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/selectAllProjectResultToAudit")
+    PageInfo<MappingProject> selectAllProjectResultToAudit(@RequestParam("pageNo") Integer pageNo,
+                                                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果审核-条件模糊查询
+     *  条件查询-模糊查询，项目名称 projectName
+     *  查询所有待审核的汇交成果项目信息
+     *      汇交成果状态为已提交 results_status=2
+     * @date 2020/6/2
+     * @param [projectName, pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo<com.aaa.xj.model.MappingProject>
+     */
+    @GetMapping("/fuzzyProjectResultToAuditByPName")
+    PageInfo<MappingProject> fuzzyProjectResultToAuditByPName(@RequestParam("projectName") String projectName,
+                                                              @RequestParam("pageNo") Integer pageNo,
+                                                              @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @author ligen
+     * @description 项目审核-汇交成果审核-审核
+     *      t_mapping_project：
+     *          id 操作项目编号id；
+     *          results_status 项目审核结果，0 通过；1 不通过；
+     *      操作成功，新增审核日志：memo审核意见，status==audit_status审核状态
+     * @date 2020/6/3
+     * @param [audit, id, auditStatus]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/updateProjectResultStatus")
+    Boolean updateProjectResultStatus(@RequestBody Audit audit,
+                                      @RequestParam("id") Long id,
+                                      @RequestParam("resultsStatus") Integer resultsStatus);
 
 
     /**

@@ -253,5 +253,7 @@ public class MappingProject extends BaseModel {
 
     public Mapping_unit mappingUnit;
 
+    private ResultCommit resultCommit;
+
 
 }
