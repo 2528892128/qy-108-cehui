@@ -2,11 +2,11 @@ package com.aaa.xj.controller;
 
 import com.aaa.xj.model.Mapping_unit;
 import com.aaa.xj.service.Mapping_unitService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: qy-108-cehui
@@ -127,28 +127,5 @@ public class Mapping_unitController {
     }
 
 
-    /**
-     * @Author:  xj
-     * @description
-     *      单位资质统计
-     * @Data: 2020/6/4
-     * @param []
-     * @Return:java.util.List<java.util.Map>
-     */
-    @GetMapping("selectMappingUnitByLevel")
-    public List<Map> selectMappingUnitByLevel(){
-        List<Map> maps = null;
-        try {
-            //查询数据
-            maps = mappingUnitService.selectMappingUnitByLevel();
-            //判断是否查询出数据
-            if (null !=maps){
-                return maps;
-            }
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-       return null;
-    }
+
 }

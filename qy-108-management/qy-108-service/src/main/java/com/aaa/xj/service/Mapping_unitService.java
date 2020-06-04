@@ -4,13 +4,14 @@ import com.aaa.xj.base.BaseModel;
 import com.aaa.xj.base.BaseService;
 import com.aaa.xj.mapper.Mapping_unitMapper;
 import com.aaa.xj.model.Mapping_unit;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: qy-108-cehui
@@ -134,29 +135,5 @@ public class Mapping_unitService extends BaseService<Mapping_unit> {
         return 0;
     }
 
-
-    /**
-     * @Author:  xj
-     * @description
-     *      单位资质统计
-     * @Data: 2020/6/4
-     * @param []
-     * @Return:java.util.List<java.util.Map>
-     */
-    public List<Map> selectMappingUnitByLevel(){
-
-        try {
-            //调用查询方法
-            List<Map> maps = mappingUnitMapper.selectMappingUnitByLevel();
-            //判断是否查询成功
-            if (null !=maps){
-                return maps;
-            }
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

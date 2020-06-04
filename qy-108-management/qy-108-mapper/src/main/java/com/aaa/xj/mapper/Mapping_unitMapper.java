@@ -52,6 +52,14 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
      */
     Integer updateMappingUnit(Mapping_unit mappingUnit);
 
+    /**
+     * @Description: 查询测绘单位信息
+     * @Param: []
+     * @return: java.util.List<com.aaa.xj.model.Mapping_unit>
+     * @Author: ygy
+     * @Date: 2020/6/3 0:05
+     */
+    List<Mapping_unit> selectMappingUnitPartList();
 
     List<Map> selectMappingUnitByLevel();
 
