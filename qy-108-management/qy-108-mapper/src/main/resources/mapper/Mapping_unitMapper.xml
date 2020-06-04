@@ -167,4 +167,8 @@
 
 
 
+  <select id="selectMappingUnitByLevel" resultType="HashMap" >
+   select qualification_level,count(qualification_level) from t_mapping_unit group by qualification_level;
+  </select>
+
 </mapper>

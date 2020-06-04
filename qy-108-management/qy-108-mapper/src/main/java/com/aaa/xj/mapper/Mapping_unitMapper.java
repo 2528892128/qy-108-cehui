@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
 
@@ -52,5 +53,6 @@ public interface Mapping_unitMapper extends Mapper<Mapping_unit> {
     Integer updateMappingUnit(Mapping_unit mappingUnit);
 
 
+    List<Map> selectMappingUnitByLevel();
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: qy-108-cehui
@@ -124,6 +125,24 @@ public class Mapping_unitController extends BaseController {
             return updateSuccess();
         }
         return updateFalse();
+    }
+
+
+    /**
+     * @Author:  xj
+     * @description
+     *      单位资质统计
+     * @Data: 2020/6/4
+     * @param []
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @GetMapping("selectMappingUnitByLevel")
+    public ResultData selectMappingUnitByLevel(){
+        List<Map> maps = iqyService.selectMappingUnitByLevel();
+        if (null !=maps){
+            return super.getSuccess(maps);
+        }
+        return super.getFalse();
     }
 
 

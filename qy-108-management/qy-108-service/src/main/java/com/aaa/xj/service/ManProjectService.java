@@ -212,4 +212,24 @@ public class ManProjectService extends BaseService<ManProject> {
         }
         return false;
     }
+
+    /**
+     * @Author:  xj
+     * @description
+     *  查询测绘不同类别及是否完成的数量，用于统计图
+     * @Data: 2020/5/24
+     * @param []
+     * @Return:java.util.List<java.util.Map>
+     */
+    public List<Map> selectProjectType(){
+        List<Map> maps = manProjectMapper.selectProjectType();
+        //判断结果是否为空
+        if (null !=maps && !maps.isEmpty()){
+            //不为空 返回数据
+            return maps;
+        }else{
+            //查询失败 返回null
+            return null;
+        }
+    }
 }

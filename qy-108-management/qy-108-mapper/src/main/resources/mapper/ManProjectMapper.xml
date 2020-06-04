@@ -61,4 +61,8 @@
     a.acceptance_department,a.project_amount,a.schedule,a.user_id  from t_mapping_project a
     where a.user_id=#{userId,jdbcType=BIGINT} and a.project_type=#{projectType,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectProjectType" resultType="HashMap" >
+   select project_type,status,count(project_type) from t_mapping_project group by project_type,status;
+  </select>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -125,4 +126,23 @@ public class ManProjectController {
         }
         return false;
     }
+
+    /**
+     * @Author:  xj
+     * @description
+     * 查询测绘不同类别及是否完成的数量，用于统计图
+     * @Data: 2020/6/3
+     * @param []
+     * @Return:java.lang.Boolean
+     */
+    @GetMapping("selectProjectByType")
+    public List<Map> selectProjectByType(){
+        //调用查询方法
+        List<Map> maps = manProjectService.selectProjectType();
+        if (null !=maps && ! maps.isEmpty()){
+            return maps;
+        }
+        return null;
+    }
+
 }
