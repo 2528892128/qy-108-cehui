@@ -192,6 +192,30 @@ public interface IQYService {
      */
     @DeleteMapping("deleteMappingProjectById")
     Boolean deleteMappingProjectById(@RequestParam("id") Long id);
+
+
+    /**
+     * @Author:  xj
+     * @description
+     * 查询测绘不同类别及是否完成的数量，用于统计图
+     * @Data: 2020/6/3
+     * @param []
+     * @Return:java.lang.Boolean
+     */
+    @GetMapping("selectProjectByType")
+    List<Map> selectProjectByType();
+
+    /**
+     * @Author:  xj
+     * @description
+     *      单位资质统计
+     * @Data: 2020/6/4
+     * @param []
+     * @Return:java.util.List<java.util.Map>
+     */
+    @GetMapping("selectMappingUnitByLevel")
+    List<Map> selectMappingUnitByLevel();
+
     /**
      * @Description: 获取负责人信息
      * @Param: [principal]

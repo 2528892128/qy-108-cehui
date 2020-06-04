@@ -12,4 +12,8 @@ public interface ManProjectMapper extends Mapper<ManProject> {
     List<ManProject> selectAllPros(ManProject manProject);
 
     List<ManProject> selectByTypes(ManProject manProject);
+
+    //对项目类型进行统计
+
+    List<Map> selectProjectType();
 }

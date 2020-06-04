@@ -8,10 +8,12 @@ import com.aaa.xj.service.IQYService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -106,6 +108,25 @@ public class ManProjectController extends BaseController {
             return super.deleteSuccess();
         }
         return super.deleteFalse();
+    }
+
+    /**
+     * @Author:  xj
+     * @description
+     * 查询测绘不同类别及是否完成的数量，用于统计图
+     * @Data: 2020/6/3
+     * @param []
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @GetMapping("selectProjectByType")
+    public ResultData selectProjectByType(){
+        //调用方法
+        List<Map> maps = iqyService.selectProjectByType();
+        //判断查询结果是否为空
+        if (null !=maps){
+            return super.getSuccess(maps);
+        }
+        return super.getFalse();
     }
 
 }
