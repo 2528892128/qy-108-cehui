@@ -145,4 +145,26 @@ public class ManProjectController {
         return null;
     }
 
+    /** 
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: java.lang.Integer 
+     * @Author: ygy
+     * @Date: 2020/6/4 11:46 
+     */
+    @PostMapping("/addManprodect")
+    public Integer addManProject(@RequestBody ManProject manProject){
+        Integer integer = manProjectService.addManProject(manProject);
+        //判断新增受影响的行数
+        if (integer>0){
+            //大于0 返回受影响的行数
+            return integer;
+        }
+        return 0;
+
+    }
+    
+    
+    
+
 }
