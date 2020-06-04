@@ -250,7 +250,7 @@ public interface IQYService {
      * @Date: 2020/6/4 9:11
      */
     @PostMapping(value = "/addPrincipal",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResultData addPrincipal(@RequestBody MultipartFile[] files, @RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("idType") String idType,
+    ResultData addPrincipal(@RequestPart("files") MultipartFile[] files, @RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("idType") String idType,
                             @RequestParam("idNumber") String idNumber, @RequestParam("age") Integer age, @RequestParam("sex") Integer sex,
                             @RequestParam("workYear") Integer workYear, @RequestParam("duty") String duty, @RequestParam("title") String title,
                             @RequestParam("major") String major, @RequestParam("mappingYear") Integer mappingYear, @RequestParam("userId") Long userId);
@@ -316,7 +316,7 @@ public interface IQYService {
      * @Date: 2020/5/21 19:38
      */
     @PostMapping("/updatePrincipal")
-    Integer updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile);
+    Integer updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile")MultipartFile multipartFile);
 
     /**
      * @Description: 获取技术人员信息
