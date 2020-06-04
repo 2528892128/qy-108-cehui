@@ -129,4 +129,24 @@ public class ManProjectController extends BaseController {
         return super.getFalse();
     }
 
+    /**
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/6/4 11:54
+     */
+    @PostMapping("/addManprodect")
+    public ResultData addManProject(@RequestBody ManProject manProject){
+        Integer integer = iqyService.addManProject(manProject);
+        //判断新增受影响的行数
+        if (integer>0){
+            //大于0返回成功信息
+            return addSuccess();
+        }
+        return addFalse();
+
+    }
+    
+    
 }
