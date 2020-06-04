@@ -90,7 +90,18 @@ public abstract class BaseService<T> {
         Example example = Example.builder(getTypeArguement()).where(Sqls.custom().andIn("roleId", roleIds)).build();
         return mapper.deleteByExample(example);
     }
-    
+
+    /**
+     * @Author:  xj
+     * @description
+     * @Data: 2020/6/3
+     * @param [menuIds]
+     * @Return:java.lang.Integer
+     */
+    public Integer batchDeleteMenu(List<Object> menuIds) throws Exception {
+        Example example = Example.builder(getTypeArguement()).where(Sqls.custom().andIn("menuId", menuIds)).build();
+        return mapper.deleteByExample(example);
+    }
     /**
      *@Summary:
      *@Author:  xj

@@ -25,12 +25,11 @@ public class ManProjectController {
      * @Return:java.util.List<com.aaa.xj.model.ManProject>
      */
     @PostMapping("/allPro")
-    public List<ManProject> selectAllPros(@RequestBody ManProject manProject){
+    public PageInfo selectAllPros(@RequestBody ManProject manProject , @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
 
         try {
-            //PageInfo<ManProject> manProjectPageInfo = manProjectService.queryListByPage(manProject,5,2);
-            List<ManProject> manProjects = manProjectService.selectAllPros(manProject);
-            return manProjects;
+            PageInfo<ManProject> manProjectPageInfo = manProjectService.selectAllPros(manProject, pageNo, pageSize);
+            return manProjectPageInfo;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,22 +79,50 @@ public class ManProjectController {
         return null;
     }
 
-
     /**
-     * @Description: 新增测绘项目信息
-     * @Param: [manProject]
-     * @return: java.lang.Integer
-     * @Author: ygy
-     * @Date: 2020/6/3 23:34
+     * @Author:  xj
+     * @description
+     *      通过项目类型查询
+     * @Data: 2020/5/21
+     * @param [manProject, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
      */
-    @PostMapping("/addManProject")
-    public Integer addManProject(@RequestBody ManProject manProject){
-        Integer integer = manProjectService.addManProject(manProject);
-        if (integer > 0){
-            return integer;
+    @PostMapping("selectAllProjectResultByType")
+    public PageInfo selectAllProjectResultByType(@RequestBody ManProject manProject,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+        try {
+            PageInfo pageInfo = manProjectService.selectMappingProjectByType(manProject, pageNo, pageSize);
+            if (null !=pageInfo){
+                return pageInfo;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return 0;
+        return null;
     }
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:java.lang.Boolean
+     */
+    @DeleteMapping("deleteMappingProjectById")
+    public Boolean deleteMappingProjectById(@RequestParam("id") Long id){
 
+        Boolean aBoolean = null;
+        try {
+            //调用删除的方法
+            aBoolean = manProjectService.deleteMappingProjectById(id);
+            if (aBoolean){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -93,33 +93,93 @@
     <result column="synchronization_status" property="synchronizationStatus" jdbcType="INTEGER" />
     <result column="contract_time" property="contractTime" jdbcType="VARCHAR" />
     <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
-    <association property="mappingUnit" javaType="com.aaa.xj.model.Mapping_unit">
-      <id property="id" column="id"/>
+    <association property="mappingUnit" javaType="com.aaa.xj.model.Mapping_unit" column="id" >
+      <id property="id" column="uId"/>
       <result property="userId" column="user_id"/>
     </association>
   </resultMap>
+  <resultMap id="ProjectForResultCommitResultMap" type="com.aaa.xj.model.MappingProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_leader" property="projectLeader" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
+    <result column="acceptance_department" property="acceptanceDepartment" jdbcType="VARCHAR" />
+    <result column="project_amount" property="projectAmount" jdbcType="DOUBLE" />
+    <result column="results_status" property="resultsStatus" jdbcType="INTEGER" />
+    <result column="complete_time" property="completeTime" jdbcType="VARCHAR" />
+    <result column="acceptance_report" property="acceptanceReport" jdbcType="VARCHAR" />
+    <result column="task_source" property="taskSource" jdbcType="VARCHAR" />
+    <result column="project_area" property="projectArea" jdbcType="DOUBLE" />
+    <result column="scale" property="scale" jdbcType="VARCHAR" />
+    <result column="sheet_number" property="sheetNumber" jdbcType="VARCHAR" />
+    <result column="awards_department" property="awardsDepartment" jdbcType="VARCHAR" />
+    <result column="prize_level" property="prizeLevel" jdbcType="VARCHAR" />
+    <result column="project_quality_approval" property="projectQualityApproval" jdbcType="VARCHAR" />
+    <result column="winning_time" property="winningTime" jdbcType="VARCHAR" />
+    <result column="acceptance_time" property="acceptanceTime" jdbcType="VARCHAR" />
+    <result column="basic_content" property="basicContent" jdbcType="VARCHAR" />
+    <result column="credit_status" property="creditStatus" jdbcType="VARCHAR" />
+    <result column="submit_status" property="submitStatus" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="schedule" property="schedule" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="audit_status" property="auditStatus" jdbcType="INTEGER" />
+    <result column="meridian" property="meridian" jdbcType="VARCHAR" />
+    <result column="coordinate_system" property="coordinateSystem" jdbcType="VARCHAR" />
+    <result column="management_level" property="managementLevel" jdbcType="VARCHAR" />
+    <result column="funding_source" property="fundingSource" jdbcType="VARCHAR" />
+    <result column="entrust_unit" property="entrustUnit" jdbcType="VARCHAR" />
+    <result column="accept_unit" property="acceptUnit" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="center_point" property="centerPoint" jdbcType="VARCHAR" />
+    <result column="synchronization_status" property="synchronizationStatus" jdbcType="INTEGER" />
+    <result column="contract_time" property="contractTime" jdbcType="VARCHAR" />
+    <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
+    <collection property="resultCommit" ofType="com.aaa.xj.model.ResultCommit" column="id">
+      <id property="id" column="rId"/>
+      <result column="name" property="name" />
+      <result column="medium_type" property="mediumType" />
+      <result column="result_date" property="resultDate" />
+      <result column="ref_id" property="refId" />
+      <result column="plotting_scale" property="plottingScale" />
+      <result column="new_figure" property="newFigure" />
+      <result column="old_figure" property="oldFigure" />
+      <result column="figure" property="figure" />
+      <result column="data_format" property="dataFormat" />
+      <result column="create_date" property="createDate" />
+      <result column="height_datum" property="heightDatum" />
+      <result column="rMemo" property="memo" />
+      <result column="rMeridian" property="meridian" />
+      <result column="rCoordinate" property="coordinate" />
+    </collection>
+  </resultMap>
   <select id="selectAllProjectResult" resultMap="BaseResultMap" >
-    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date,
-      a.complete_time, a.acceptance_department, a.project_amount,
-      a.results_status, a.user_id
-    FROM t_mapping_project a
-    JOIN t_result_commit b
-    ON a.id=b.ref_id
+    SELECT *
+    FROM t_mapping_project
+    WHERE results_status=3
   </select>
   <select id="selectAllProjectResultByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date,
-      a.complete_time, a.acceptance_department, a.project_amount,
-      a.results_status, a.user_id
-    FROM t_mapping_project a
-    JOIN t_result_commit b
-    ON a.id=b.ref_id
+    SELECT *
+    FROM t_mapping_project
     <where>
-      1=1
+      results_status=3
       <if test="projectType != null and projectType != '' ">
         AND project_type=#{projectType, jdbcType=VARCHAR}
       </if>
     </where>
   </select>
+  <update id="updateProjectResultStatusById" parameterType="java.lang.Long" >
+    UPDATE t_mapping_project
+    SET results_status=2
+    WHERE id=#{id, jdbcType=BIGINT}
+  </update>
   <select id="fuzzyProjectName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT id, project_name, start_date
     FROM t_mapping_project
@@ -157,42 +217,105 @@
   </select>
   <select id="selectProjectForUnitByUserId" resultMap="ProjectForUnitResultMap" parameterType="java.lang.Long" >
     SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time,
-        a.acceptance_department, a.project_amount, a.schedule
+        a.acceptance_department, a.project_amount, a.schedule, b.id AS uId
     FROM t_mapping_project a
     JOIN t_mapping_unit b
     ON a.user_id=b.user_id
     WHERE b.id=#{id, jdbcType=BIGINT}
   </select>
   <select id="selectAllProjectAudit" resultMap="BaseResultMap" >
-    SELECT a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time,
-        a.acceptance_department, a.project_amount, a.acceptance_report, a.project_area, a.schedule
-    FROM t_mapping_project a
-    JOIN t_audit b
-    ON a.id=b.ref_id
-    GROUP BY a.id
+    SELECT *
+    FROM t_mapping_project
+    WHERE audit_status=0
   </select>
   <select id="fuzzyProjectAuditByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    SELECT a.audit_status, a.id, a.project_type, a.project_name, a.project_leader, a.start_date, a.end_date, a.complete_time, a.acceptance_department, a.project_amount, a.acceptance_report, a.project_area, a.schedule
-    FROM t_mapping_project a
-    JOIN t_audit b
-    ON a.id=b.ref_id
+    SELECT *
+    FROM t_mapping_project
     <where>
-      1=1
+      audit_status=0
       <if test="projectName != null and projectName != '' " >
         AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
       </if>
     </where>
-    GROUP BY a.id
   </select>
   <select id="selectProjectAuditById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    SELECT id, project_type, project_name,
-      project_amount, project_leader, contract_time, start_date,
-      end_date, complete_time, acceptance_department, acceptance_report,
-      task_source, project_area, scale, sheet_number,
-      awards_department, prize_level, project_quality_approval, winning_time,
-      acceptance_time, basic_content, credit_status, submit_status,
-      memo
+    SELECT *
     FROM t_mapping_project
     where id=#{id, jdbcType=BIGINT}
   </select>
+  <select id="selectAllProjectResultAudit" resultMap="BaseResultMap" >
+    SELECT *
+    FROM t_mapping_project
+    WHERE results_status=0
+  </select>
+  <select id="fuzzyProjectResultAuditByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+    FROM t_mapping_project
+    <where>
+      results_status=0
+      <if test="projectName != null and projectName != '' " >
+        AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="selectProjectResultAuditById" resultMap="ProjectForResultCommitResultMap" parameterType="java.lang.Long" >
+    SELECT a.id, a.project_type, a.project_name,
+      b.height_datum, a.project_amount, a.project_leader,
+      a.contract_time, a.start_date, end_date,
+      a.complete_time, a.acceptance_department, a.acceptance_report,
+      a.task_source, a.project_area, a.scale,
+      a.sheet_number, a.awards_department, a.prize_level,
+      a.project_quality_approval, a.winning_time, a.acceptance_time,
+      a.basic_content, a.credit_status, a.submit_status,
+      a. memo,
+      b.id AS rId, b.meridian AS rMeridian, b.coordinate AS rCoordinate,
+      b.plotting_scale, b.new_figure, b.old_figure,
+      b.figure, b.medium_type, b.result_date,
+      b.data_format, b.name, b.height_datum,
+      b.memo AS rMemo
+    FROM t_mapping_project a
+    JOIN t_result_commit b
+    ON a.id=b.ref_id
+    where a.id=#{id, jdbcType=BIGINT}
+  </select>
+  <select id="selectAllProjectToAudit" resultMap="BaseResultMap" >
+    SELECT *
+    FROM t_mapping_project
+    WHERE audit_status=2
+  </select>
+  <select id="fuzzyProjectToAuditByPName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+    FROM t_mapping_project
+    <where>
+      audit_status=2
+      <if test="projectName != null and projectName != '' ">
+        AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
+  </select>
+  <update id="updateProjectAuditStatus" parameterType="com.aaa.xj.model.MappingProject" >
+    UPDATE t_mapping_project
+    SET audit_status=#{auditStatus, jdbcType=INTEGER}
+    WHERE id=#{id, jdbcType=BIGINT}
+  </update>
+  <select id="selectAllProjectResultToAudit" resultMap="BaseResultMap" >
+    SELECT *
+    FROM t_mapping_project
+    WHERE results_status=2
+  </select>
+  <select id="fuzzyProjectResultToAuditByPName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+    FROM t_mapping_project
+    <where>
+      results_status=2
+      <if test="projectName != null and projectName != '' ">
+        AND project_name LIKE CONCAT('%', CONCAT(#{projectName, jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
+  </select>
+  <update id="updateProjectResultStatus" parameterType="com.aaa.xj.model.MappingProject" >
+    UPDATE t_mapping_project
+    SET results_status=#{resultsStatus, jdbcType=INTEGER}
+    WHERE id=#{id, jdbcType=BIGINT}
+  </update>
 </mapper>

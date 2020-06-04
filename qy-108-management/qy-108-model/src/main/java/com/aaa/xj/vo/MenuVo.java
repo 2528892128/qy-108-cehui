@@ -1,28 +1,34 @@
-package com.aaa.xj.model;
+package com.aaa.xj.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-@Table(name = "t_menu")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Menu  implements Serializable {
-    /**
-     * 菜单/按钮ID
-     */
+public class MenuVo implements Serializable {
+
     @Id
-    @Column(name = "MENU_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long menuId;
 
+    @Column(name = "create_time")
+    @Max(value = 100,message ="时间长度最长不能超过100")
+    private String createTime;
+
+    @Column(name = "modify_time")
+    @Max(value = 100,message ="时间长度最长不能超过100")
+    private String modifyTime;
     /**
      * 上级菜单ID
      */
@@ -71,17 +77,5 @@ public class Menu  implements Serializable {
     @Column(name = "ORDER_NUM")
     private Double orderNum;
 
-    /**
-     * 创建时间
-     */
-    @Column(name = "CREATE_TIME")
-    private String createTime;
-
-    /**
-     * 修改时间
-     */
-    @Column(name = "MODIFY_TIME")
-    private String modifyTime;
-
-
+    private List<MenuVo> childrenList;
 }

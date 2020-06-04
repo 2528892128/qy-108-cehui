@@ -14,7 +14,27 @@
     <result column="ICON" property="icon" jdbcType="VARCHAR" />
     <result column="TYPE" property="type" jdbcType="CHAR" />
     <result column="ORDER_NUM" property="orderNum" jdbcType="DOUBLE" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="MenuVo" type="com.aaa.xj.vo.MenuVo">
+
+  </resultMap>
+  <sql id="Base_List">
+        menuName,beginDate,endDate
+  </sql>
+  <select id="selectMenuByField" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select MENU_ID,PARENT_ID,MENU_NAME,PATH,COMPONENT,PERMS,ICON,TYPE,ORDER_NUM,CREATE_TIME,MODIFY_TIME
+    from t_menu where 1 = 1
+    <if test="menuName != null and menuName != ''">
+      and menu_name = #{menuName,jdbcType=VARCHAR}
+    </if>
+    <if test="beginDate != null and beginDate != ''">
+      and CREATE_TIME >= #{beginDate} and #{endDate} >= CREATE_TIME
+    </if>
+  </select>
+
+  <select id="selectMenuByParentId" resultMap="MenuVo" parameterType="java.lang.Object">
+        select * from t_menu where parent_id = #{parentId}
+  </select>
 </mapper>

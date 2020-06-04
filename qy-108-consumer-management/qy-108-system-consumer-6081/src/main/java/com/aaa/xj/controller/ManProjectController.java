@@ -5,7 +5,9 @@ import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.ManProject;
 import com.aaa.xj.model.User;
 import com.aaa.xj.service.IQYService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +30,10 @@ public class ManProjectController extends BaseController {
      * @Return:com.aaa.xj.base.ResultData
      */
     @PostMapping("/allPro")
-    public ResultData selectAllPro(ManProject manProject) {
-        List<ManProject> manProjects = iqyService.selectAllPros(manProject);
-        if (manProjects.size()>0){
-            return super.getSuccess(manProjects);
+    public ResultData selectAllPro(ManProject manProject, Integer pageNo,Integer pageSize) {
+        PageInfo pageInfo = iqyService.selectAllPros(manProject, pageNo, pageSize);
+        if (null !=pageInfo){
+            return super.getSuccess(pageInfo);
         }
         return super.getFalse();
     }
@@ -72,37 +74,38 @@ public class ManProjectController extends BaseController {
     }
 
     /**
-     * @Description: 新增测绘项目信息
-     * @Param: [manProject]
-     * @return: java.lang.Integer
-     * @Author: ygy
-     * @Date: 2020/6/3 23:38
+     * @Summary:
+     * @Author:  xj
+     * @description
+     *      根据项目类型查询
+     * @Data: 2020/5/22 10:48
+     * @param type
+     * @Return:com.aaa.xj.base.ResultData
      */
-    @PostMapping("/addManProject")
-    public ResultData addManProject(@RequestBody ManProject manProject){
-        Integer integer = iqyService.addManProject(manProject);
-        if (integer > 0 ){
-            return addSuccess();
+    @PostMapping("/selectAllProjectResultByType")
+    public ResultData selectAllProjectResultByType(@RequestBody ManProject manProject, Integer pageNo, Integer pageSize){
+        PageInfo pageInfo = iqyService.selectAllProjectResultByType(manProject, pageNo, pageSize);
+        if (null !=pageInfo){
+            return super.getSuccess(pageInfo);
         }
-        return addFalse();
+        return super.getFalse();
     }
 
-
-
-//    /**
-//     * @Summary:
-//     * @Author:  xj
-//     * @description
-//     *      根据项目类型查询
-//     * @Data: 2020/5/22 10:48
-//     * @param type
-//     * @Return:com.aaa.xj.base.ResultData
-//     */
-//    @PostMapping("/selectByType")
-//    public ResultData selectByType(String projectType,User user){
-//        ResultData resultData = iqyService.selectByType(projectType, user);
-//        return resultData;
-//    }
-
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:com.aaa.xj.base.ResultData
+     */
+    @DeleteMapping("deleteMappingProjectById")
+    public ResultData deleteMappingProjectById(Long id){
+        Boolean aBoolean = iqyService.deleteMappingProjectById(id);
+        if (aBoolean){
+            return super.deleteSuccess();
+        }
+        return super.deleteFalse();
+    }
 
 }

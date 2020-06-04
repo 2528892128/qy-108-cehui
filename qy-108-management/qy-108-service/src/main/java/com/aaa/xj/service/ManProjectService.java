@@ -35,15 +35,18 @@ public class ManProjectService extends BaseService<ManProject> {
      * @Return:com.aaa.xj.base.ResultData
      */
 
-    public List<ManProject> selectAllPros(ManProject manProject){
+    public PageInfo<ManProject> selectAllPros(ManProject manProject,Integer pageNo,Integer pageSize){
+
+        PageHelper.startPage(pageNo,pageSize);
+
         try {
-            //查询公司信息
-            //PageInfo<ManProject> manProjectPageInfo = queryListByPage(manProject, 5, 2);
-            //List<ManProject> manProjects = manProjectMapper.select(manProject);
+            //调用查询方法
             List<ManProject> manProjects = manProjectMapper.selectAllPros(manProject);
                 //判断是否查询出值
                 if (!"".equals(manProjects) && null != manProjects){
-                    return manProjects;
+                    //将结果放入分页
+                    PageInfo<ManProject> manProjectPageInfo = new PageInfo<>(manProjects);
+                    return manProjectPageInfo;
                 }
                 else {
                     return null;
@@ -54,15 +57,7 @@ public class ManProjectService extends BaseService<ManProject> {
         return null;
     }
 
-//    @Override
-//    public PageInfo<ManProject> queryListByPage(ManProject manProject, Integer pageNo, Integer pageSize) {
-//        PageHelper.startPage(pageNo, pageSize);
-//        Long userId = manProject.getUserId();
-//        List<ManProject> manProjects = manProjectMapper.selectAllPros(userId);
-//        System.out.println(manProjects);
-//        PageInfo<ManProject> pageInfo = new PageInfo<ManProject>(manProjects);
-//        return pageInfo;
-//    }
+
     /**
      * @Summary:
      * @Author:  xj
@@ -165,4 +160,56 @@ public class ManProjectService extends BaseService<ManProject> {
     }
 
 
+    /**
+     * @Author:  xj
+     * @description
+     *      根据类型查询数据
+     * @Data: 2020/5/21
+     * @param [manProject, pageNo, pageSize]
+     * @Return:com.github.pagehelper.PageInfo
+     */
+    public PageInfo selectMappingProjectByType(ManProject manProject ,Integer pageNo,Integer pageSize){
+        //传入当前页和数量
+        PageHelper.startPage(pageNo,pageSize);
+
+        try {
+            //调用查询方法
+            List<ManProject> manProjects = manProjectMapper.selectByTypes(manProject);
+            //判断是否查询出数据
+            if (null !=manProject){
+                //将查询的数据放入分页
+                PageInfo<ManProject> manProjectPageInfo = new PageInfo<>(manProjects);
+                return manProjectPageInfo;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @Author:  xj
+     * @description
+     *      根据id删除项目信息
+     * @Data: 2020/6/3
+     * @param [id]
+     * @Return:java.lang.Boolean
+     */
+    public Boolean deleteMappingProjectById(Long id){
+        //判断前段是否传值成功
+        if (null !=id){
+            try {
+                //调用删除方法
+                int i = manProjectMapper.deleteByPrimaryKey(id);
+                if (i>0){
+                    return true;
+                }
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
