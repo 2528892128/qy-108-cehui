@@ -113,42 +113,15 @@ public class PrincipalController extends CommonController<Principal> {
      * @Author: ygy
      * @Date: 2020/6/1 16:34
      */
-//    @PostMapping("/inertPrincipal")
-//    public Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
-//        Integer integer = principalService.insertPrincipal(principal,multipartFile);
-//        //判断添加受影响的行数
-//        if (integer > 0){
-//            //大于0 说明成功返回受影响的行数
-//            return integer;
-//        }
-//        return 0;
-//    }
-
-
-
-    /**
-     * @Description: 添加负责人信息
-     * @Param: [files, type, name, idType, idNumber, age, sex, workYear, duty, title, major, mappingYear, userId]
-     * @return: com.aaa.xj.base.ResultData
-     * @Author: ygy
-     * @Date: 2020/6/3 19:58
-     */
-    @PostMapping(value = "/addPrincipal",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResultData addPrincipal(@RequestParam("files") MultipartFile[] files, @RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("idType") String idType,
-                            @RequestParam("idNumber") String idNumber, @RequestParam("age") Integer age, @RequestParam("sex") Integer sex,
-                            @RequestParam("workYear") Integer workYear, @RequestParam("duty") String duty, @RequestParam("title") String title,
-                            @RequestParam("major") String major, @RequestParam("mappingYear") Integer mappingYear, @RequestParam("userId") Long userId){
-        Principal principal = new Principal();
-        principal.setType(type).setName(name).setIdType(idType).setIdNumber(idNumber).setAge(age).
-                setSex(sex).setWorkYear(workYear).setDuty(duty).setTitle(title).setMajor(major).setMappingYear(mappingYear).setUserId(userId);
-        Map<String,Object> resultMap = principalService.addPrincipal(principal,files,uploadService);
-        System.out.println(resultMap);
-        System.out.println(UPLOAD_SUCCESS.getCode());
-        if (UPLOAD_SUCCESS.getCode().equals(resultMap.get("code"))){
-            return super.addSuccess();
-        }else {
-            return super.addFalse();
+    @PostMapping("/insertPrincipal")
+    public Integer insertPrincipal(@RequestBody Principal principal){
+        Integer integer = principalService.insertPrincipal(principal);
+        //判断添加受影响的行数
+        if (integer > 0){
+            //大于0 说明成功返回受影响的行数
+            return integer;
         }
+        return 0;
     }
 
 
@@ -183,8 +156,8 @@ public class PrincipalController extends CommonController<Principal> {
      * @Date: 2020/5/21 19:26
      */
     @PostMapping("/updatePrincipal")
-    public Integer updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
-        Integer integer = principalService.updateList(principal,multipartFile);
+    public Integer updatePrincipal(@RequestBody Principal principal){
+        Integer integer = principalService.updateList(principal);
         //判断修改所受影响的行数
         if (integer > 0 ){
             //大于0 说明成功返回受影响行数
