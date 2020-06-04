@@ -128,96 +128,31 @@ public class PrincipalService extends BaseService<Principal> {
      * @Author: ygy
      * @Date: 2020/6/1 10:17
      */
-//    public Integer insertPrincipal(Principal principal, MultipartFile multipartFile){
-//        //获取时间
-//        Date date = new Date();
-//        //设置时间格式作为创建时间
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-//        String format = simpleDateFormat.format(date);
-//        // 获取系统当前时间的毫秒数
-//        Long timeMillis = System.currentTimeMillis();
-//        // 创建Random对象
-//        Random random = new Random();
-//        // 做一个随机数，随机区间是0-9999之间随机
-//        Integer randomNum = random.nextInt(9999);
-//        //把系统当前时间和randomNum相加作为id
-//        Long id = randomNum + timeMillis;
-//        //把生成的时间和id传进去
-//        Principal principal1 = principal.setCreateTime(format)
-//                .setId(id);
-//        //new 一个UploadService
-//        UploadService uploadService = new UploadService();
-//        //把文件传进去进行上传返回一个boolean类型
-//        Boolean upload = uploadService.upload(multipartFile);
-//        System.out.println(upload);
-//        //接受前台要增加的负责人信息进行添加
-//        int insert = principalMapper.insert(principal1);
-//        //判断增加受影响的行数
-//        if (insert > 0) {
-//            //大于0 说明成功返回受影响的行数
-//            return insert;
-//        }
-//        return 0;
-//    }
-
-
-
-    /** 
-     * @Description: 添加负责人信息
-     * @Param: [principal, files, uploadService]
-     * @return: java.util.Map<java.lang.String,java.lang.Object> 
-     * @Author: ygy
-     * @Date: 2020/6/3 19:53 
-     */
-    public Map<String, Object> addPrincipal(Principal principal, MultipartFile[] files, UploadService uploadService) {
-        Map<String, Object> resultMap = new HashMap<>();
+    public Integer insertPrincipal(Principal principal){
         //获取时间
         Date date = new Date();
         //设置时间格式作为创建时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
         String format = simpleDateFormat.format(date);
-        principal.setCreateTime(format);
-        //生成一个id，用于负责人id
-        String id = FileNameUtils.getFileName();
-        principal.setId(Long.valueOf(id));
-        //添加负责人
-        int i = principalMapper.insertSelective(principal);
-        if (i > 0){
-            Boolean result = false;
-            for (MultipartFile file : files) {
-                //添加资源表
-                Resource resource = new Resource();
-                //设置资源ID
-                String resourceId = FileNameUtils.getFileName();
-                //获取今天日期格式化后的数据，用来当做路径
-                String filePath = com.aaa.xj.utils.DateUtils.formatDate(new Date(), "yyyy/MM/dd");
-                //获取原始文件的名称
-                String oldFilename = file.getOriginalFilename();
-                System.out.println(oldFilename);
-                //截取文件后缀
-                String extName = oldFilename.substring(oldFilename.lastIndexOf("."));
-                //生成新的文件名称
-                String newFileName = resourceId + "" + extName;
-                //设置resource对象的值
-                resource.setName(file.getOriginalFilename()).setSize(Long.valueOf(file.getSize())).setPath(ftpProperties.getHttpPath()+"/"+filePath+"/"+newFileName)
-                        .setType(file.getContentType()).setExtName(extName).setRefBizType("身份证").setRefBizId(Long.valueOf(id))
-                        .setCreateTime(format).setId(Long.valueOf(resourceId));
-                //数据库添加resource的数据
-                int r = resourceMapper.insert(resource);
-                if (r > 0){
-                    //添加成功后上传文件
-                    result = uploadService.uploadFile(file, filePath, newFileName);
-                }
-            }
-            if (result){
-                resultMap.put("code",UPLOAD_SUCCESS.getCode());
-                resultMap.put("msg",UPLOAD_SUCCESS.getMsg());
-                return resultMap;
-            }
+        // 获取系统当前时间的毫秒数
+        Long timeMillis = System.currentTimeMillis();
+        // 创建Random对象
+        Random random = new Random();
+        // 做一个随机数，随机区间是0-9999之间随机
+        Integer randomNum = random.nextInt(9999);
+        //把系统当前时间和randomNum相加作为id
+        Long id = randomNum + timeMillis;
+        //把生成的时间和id传进去
+        principal.setCreateTime(format)
+                .setId(id);
+        //接受前台要增加的负责人信息进行添加
+        int insert = principalMapper.insert(principal);
+        //判断增加受影响的行数
+        if (insert > 0) {
+            //大于0 说明成功返回受影响的行数
+            return insert;
         }
-        resultMap.put("code",UPLOAD_FAILED.getCode());
-        resultMap.put("msg",UPLOAD_FAILED.getMsg());
-        return resultMap;
+        return 0;
     }
 
 
@@ -251,22 +186,17 @@ public class PrincipalService extends BaseService<Principal> {
      * @Author: ygy
      * @Date: 2020/5/21 19:21
      */
-    public Integer updateList(Principal principal,MultipartFile multipartFile){
+    public Integer updateList(Principal principal){
         //获取时间
         Date date = new Date();
         //设置时间格式作为修改时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
         String format = simpleDateFormat.format(date);
-        //new 一个UploadService
-        UploadService uploadService = new UploadService();
-        //把文件传进去进行上传返回一个boolean类型
-        Boolean upload = uploadService.upload(multipartFile);
-        System.out.println(upload);
-        Principal principal1 = principal.setCreateTime(format);
+        principal.setCreateTime(format);
         //判断负责人信息是否为空
-        if (null != principal1){
+        if (null != principal){
             //不为空就修改
-            Integer integer = principalMapper.updatePrincipal(principal1);
+            Integer integer = principalMapper.updatePrincipal(principal);
             //判断是否修改成功
             if (integer>0){
                 return integer;
