@@ -434,6 +434,17 @@ public interface IQYService {
     List<Mapping_unit> selectUpdateMappingUnit(@RequestParam("id") Long id);
 
     /**
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/4 11:50
+     */
+    @PostMapping("/addManprodect")
+    Integer addManProject(@RequestBody ManProject manProject);
+
+
+    /**
      * @Description: 修改测绘单位信息
      * @Param: [mappingUnit]
      * @return: java.lang.Integer
