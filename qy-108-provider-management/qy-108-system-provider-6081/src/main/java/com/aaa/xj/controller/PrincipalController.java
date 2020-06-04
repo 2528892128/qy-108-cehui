@@ -1,9 +1,14 @@
 package com.aaa.xj.controller;
 
+import com.aaa.xj.base.BaseService;
+import com.aaa.xj.base.CommonController;
+import com.aaa.xj.base.ResultData;
 import com.aaa.xj.model.Principal;
 import com.aaa.xj.service.PrincipalService;
+import com.aaa.xj.service.UploadService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
+
+import static com.aaa.xj.status.CrudStatus.UPLOAD_SUCCESS;
 
 /**
  * @program: qy-108-cehui
@@ -19,10 +27,13 @@ import java.util.List;
  * @create: 2020-05-20-2020/5/20 15:42
  */
 @RestController
-public class PrincipalController {
+public class PrincipalController extends CommonController<Principal> {
 
     @Autowired
     private PrincipalService principalService;
+
+    @Autowired
+    private UploadService uploadService;
 
     /**
      * @Description: 获取负责人信息
@@ -105,16 +116,47 @@ public class PrincipalController {
      * @Author: ygy
      * @Date: 2020/6/1 16:34
      */
-    @PostMapping("/inertPrincipal")
-    public Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
-        Integer integer = principalService.insertPrincipal(principal,multipartFile);
-        //判断添加受影响的行数
-        if (integer > 0){
-            //大于0 说明成功返回受影响的行数
-            return integer;
+//    @PostMapping("/inertPrincipal")
+//    public Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
+//        Integer integer = principalService.insertPrincipal(principal,multipartFile);
+//        //判断添加受影响的行数
+//        if (integer > 0){
+//            //大于0 说明成功返回受影响的行数
+//            return integer;
+//        }
+//        return 0;
+//    }
+
+
+
+    /**
+     * @Description: 添加负责人信息
+     * @Param: [files, type, name, idType, idNumber, age, sex, workYear, duty, title, major, mappingYear, userId]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/6/3 19:58
+     */
+    @PostMapping(value = "/addPrincipal",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResultData addPrincipal(@RequestBody MultipartFile[] files, @RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("idType") String idType,
+                            @RequestParam("idNumber") String idNumber, @RequestParam("age") Integer age, @RequestParam("sex") Integer sex,
+                            @RequestParam("workYear") Integer workYear, @RequestParam("duty") String duty, @RequestParam("title") String title,
+                            @RequestParam("major") String major, @RequestParam("mappingYear") Integer mappingYear, @RequestParam("userId") Long userId){
+        Principal principal = new Principal();
+        principal.setType(type).setName(name).setIdType(idType).setIdNumber(idNumber).setAge(age).
+                setSex(sex).setWorkYear(workYear).setDuty(duty).setTitle(title).setMajor(major).setMappingYear(mappingYear).setUserId(userId);
+        Map<String,Object> resultMap = principalService.addPrincipal(principal,files,uploadService);
+        System.out.println(resultMap);
+        System.out.println(UPLOAD_SUCCESS.getCode());
+        if (UPLOAD_SUCCESS.getCode().equals(resultMap.get("code"))){
+            return super.addSuccess();
+        }else {
+            return super.addFalse();
         }
-        return 0;
     }
+
+
+
+
 
     /**
      * @Description: 查询要修改的负责人信息
@@ -143,16 +185,20 @@ public class PrincipalController {
      * @Author: ygy
      * @Date: 2020/5/21 19:26
      */
-//    @PostMapping("/updatePrincipal")
-//    public Integer updatePrincipal(@RequestBody Principal principal,MultipartFile multipartFile){
-//        Integer integer = principalService.updateList(principal,multipartFile);
-//        //判断修改所受影响的行数
-//        if (integer > 0 ){
-//            //大于0 说明成功返回受影响行数
-//            return integer;
-//        }
-//        return 0;
-//    }
+    @PostMapping("/updatePrincipal")
+    public Integer updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
+        Integer integer = principalService.updateList(principal,multipartFile);
+        //判断修改所受影响的行数
+        if (integer > 0 ){
+            //大于0 说明成功返回受影响行数
+            return integer;
+        }
+        return 0;
+    }
 
 
+    @Override
+    public BaseService<Principal> getBaseService() {
+        return null;
+    }
 }
