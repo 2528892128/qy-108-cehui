@@ -7,10 +7,7 @@ import com.aaa.xj.model.User;
 import com.aaa.xj.service.IQYService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -73,6 +70,24 @@ public class ManProjectController extends BaseController {
         }
         return super.updateFalse();
     }
+
+    /**
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/3 23:38
+     */
+    @PostMapping("/addManProject")
+    public ResultData addManProject(@RequestBody ManProject manProject){
+        Integer integer = iqyService.addManProject(manProject);
+        if (integer > 0 ){
+            return addSuccess();
+        }
+        return addFalse();
+    }
+
+
 
 //    /**
 //     * @Summary:
