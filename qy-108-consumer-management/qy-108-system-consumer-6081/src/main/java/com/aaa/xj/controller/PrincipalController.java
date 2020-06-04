@@ -108,33 +108,19 @@ public class PrincipalController extends BaseController {
      * @Author: ygy
      * @Date: 2020/6/1 16:43
      */
-//    @PostMapping("/insertPrincipal")
-//    public ResultData insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
-//        //根据前端信息新增负责人信息
-//        Integer integer = qyService.insertPrincipal(principal,multipartFile);
-//        //判断新增负责人信息受影响的行数
-//        if (integer > 0){
-//            //大于0说明成功返回自定义成功信息
-//            return addSuccess();
-//        }
-//        return addFalse();
-//    }
-
-
-    /**
-     * @Description: 添加负责人信息
-     * @Param: [files, type, name, idType, idNumber, age, sex, workYear, duty, title, major, mappingYear, userId]
-     * @return: com.aaa.xj.base.ResultData
-     * @Author: ygy
-     * @Date: 2020/6/3 20:01
-     */
-    @PostMapping("/addPrincipal")
-    public ResultData addPrincipal(@RequestParam("files") MultipartFile[] files,@RequestParam("type") String type,@RequestParam("name") String name,@RequestParam("idType") String idType,
-                                   @RequestParam("idNumber") String idNumber,@RequestParam("age") Integer age,@RequestParam("sex") Integer sex,
-                                   @RequestParam("workYear") Integer workYear,@RequestParam("duty") String duty,@RequestParam("title") String title,
-                                   @RequestParam("major") String major,@RequestParam("mappingYear") Integer mappingYear,@RequestParam("userId") Long userId){
-        return qyService.addPrincipal(files,type,name,idType,idNumber,age,sex,workYear,duty,title,major,mappingYear,userId);
+    @PostMapping("/insertPrincipal")
+    public ResultData insertPrincipal(@RequestBody Principal principal){
+        //根据前端信息新增负责人信息
+        Integer integer = qyService.insertPrincipal(principal);
+        //判断新增负责人信息受影响的行数
+        if (integer > 0){
+            //大于0说明成功返回自定义成功信息
+            return addSuccess();
+        }
+        return addFalse();
     }
+
+
 
 
 
@@ -166,8 +152,8 @@ public class PrincipalController extends BaseController {
      * @Date: 2020/5/21 19:42
      */
     @PostMapping("/updatePrincipal")
-    public ResultData updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile){
-        Integer integer = qyService.updatePrincipal(principal,multipartFile);
+    public ResultData updatePrincipal(@RequestBody Principal principal){
+        Integer integer = qyService.updatePrincipal(principal);
         //判断修改受影响的行数
         if (integer > 0){
             //如果为 大于0返回成功信息
