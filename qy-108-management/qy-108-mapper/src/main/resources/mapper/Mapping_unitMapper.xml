@@ -158,5 +158,13 @@
       unit_intro = #{unitIntro,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectMappingUnitPartList" parameterType="Mapping_unit" resultType="Mapping_unit">
+    select id,name,oa,qualification_level,certificate_code,belong_industry,linkman,phone,score
+    from t_mapping_unit map inner join t_score sco
+    where map.id = sco.unit_id
+  </select>
+
+
 
 </mapper>
