@@ -101,10 +101,5 @@ public class Principal implements Serializable {
     private String modifyTime;
 
 
-    /**
-     * 一对多，对应多个资源
-     */
-    private List<Resource> resources;
-
 
 }
