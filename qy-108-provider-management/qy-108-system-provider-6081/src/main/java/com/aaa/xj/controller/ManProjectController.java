@@ -80,4 +80,22 @@ public class ManProjectController {
         return null;
     }
 
+
+    /**
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/3 23:34
+     */
+    @PostMapping("/addManProject")
+    public Integer addManProject(@RequestBody ManProject manProject){
+        Integer integer = manProjectService.addManProject(manProject);
+        if (integer > 0){
+            return integer;
+        }
+        return 0;
+    }
+
+
 }
