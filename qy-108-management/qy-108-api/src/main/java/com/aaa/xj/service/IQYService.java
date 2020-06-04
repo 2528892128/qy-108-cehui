@@ -163,6 +163,17 @@ public interface IQYService {
     Integer updateById(@RequestBody ManProject manProject);
 
     /**
+     * @Description: 新增测绘项目信息
+     * @Param: [manProject]
+     * @return: java.lang.Integer
+     * @Author: ygy
+     * @Date: 2020/6/3 23:37
+     */
+    @PostMapping("/addManProject")
+    public Integer addManProject(@RequestBody ManProject manProject);
+
+
+    /**
      * @Description: 获取负责人信息
      * @Param: [principal]
      * @return: com.aaa.xj.base.ResultData
@@ -209,8 +220,23 @@ public interface IQYService {
      * @Author: ygy
      * @Date: 2020/6/1 19:41
      */
-    @PostMapping("/inertPrincipal")
-    Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile);
+//    @PostMapping("/inertPrincipal")
+//    Integer insertPrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile);
+
+    /**
+     * @Description: 添加负责人信息
+     * @Param: [files, type, name, idType, idNumber, age, sex, workYear, duty, title, major, mappingYear, userId]
+     * @return: com.aaa.xj.base.ResultData
+     * @Author: ygy
+     * @Date: 2020/6/3 19:59
+     */
+    @PostMapping(value = "/addPrincipal",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResultData addPrincipal(@RequestPart(value = "files") MultipartFile[] files,@RequestParam("type") String type,@RequestParam("name") String name,@RequestParam("idType") String idType,
+                            @RequestParam("idNumber") String idNumber,@RequestParam("age") Integer age,@RequestParam("sex") Integer sex,
+                            @RequestParam("workYear") Integer workYear,@RequestParam("duty") String duty,@RequestParam("title") String title,
+                            @RequestParam("major") String major,@RequestParam("mappingYear") Integer mappingYear,@RequestParam("userId") Long userId);
+
+
 
 
     /**
@@ -272,8 +298,8 @@ public interface IQYService {
      * @Author: ygy
      * @Date: 2020/5/21 19:38
      */
-//    @PostMapping("/updatePrincipal")
-//    Integer updatePrincipal(@RequestBody Principal principal,MultipartFile multipartFile);
+    @PostMapping("/updatePrincipal")
+    Integer updatePrincipal(@RequestBody Principal principal,@RequestParam("multipartFile") MultipartFile multipartFile);
 
     /**
      * @Description: 获取技术人员信息
